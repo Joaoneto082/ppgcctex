@@ -1,0 +1,280 @@
+\chapter{Materiais e Métodos}
+\label{cap:materiais-metodos}
+
+Nesta seção, detalhamos o enquadramento metodológico construído para responder à
+questão central desta pesquisa: Como melhor identificar a percepção das pessoas sobre os
+lugares e sua identidade de lugar? A fundamentação teórica desenvolvida, aliada aos resultados
+obtidos a partir da revisão de estudos que aplicam Processamento de Linguagem Natural (\gls{NLP})
+e análise de sentimento em diversos contextos, contribuiu para uma abordagem crítica, reflexiva e
+aplicada ao fenômeno sócio territorial e tecnológico investigado. Estudos como os de
+\citeauthor{schimanski2024} \citeyear{schimanski2024}, que utilizaram modelos de NLP para
+quantificar comunicação, e \citeauthor{liu2023esg} \citeyear{liu2023esg}, que exploraram
+percepções públicas via análise de sentimento em mídias sociais, exemplificam a robustez dessas
+técnicas para extrair compreensões profundas a partir de dados textuais.
+
+A modalidade metodológica adotada neste trabalho é a Design Science, conforme definido
+por \citeauthor{wieringa2014} \citeyear{wieringa2014} e detalhado no Capítulo \ref{cap:introducao}.
+Esta escolha visa alinhar-se aos objetivos de desenvolver e avaliar um artefato tecnológico -- o
+Gnomon -- e, simultaneamente, gerar conhecimento sobre como ela pode auxiliar na identificação
+da percepção e identidade de lugar. As etapas da Design Science, envolvendo a construção do
+artefato, sua aplicação e avaliação, guiarão a pesquisa. A análise de sentimento dos dados textuais
+gerados pelos usuários da plataforma será o principal mecanismo investigativo, permitindo um
+acompanhamento detalhado das suas interações e a identificação de padrões relevantes sobre suas
+percepções e sentimentos.
+
+A análise de sentimento, especialmente com o uso de Modelos de Linguagem de Grande
+Porte (\gls{LLM}s), permitirá articular a dimensão expressiva do uso da ferramenta com a percepção
+subjetiva do usuário sobre o lugar. A capacidade desses modelos em entender contexto e nuances é
+crucial para este estudo, ecoando a necessidade de abordagens avançadas de NLP para extrair
+informações significativas, conforme observado nos estudos de \citeauthor{lee2022}
+\citeyear{lee2022} e \citeauthor{schimanski2024} \citeyear{schimanski2024}.
+
+\section{Transformers na NLP}
+\label{sec:transformers}
+
+A arquitetura Transformer, introduzida por \citeauthor{vaswani2017} \citeyear{vaswani2017}
+com o trabalho ``Attention is All You Need'', representou um marco fundamental para o
+Processamento de Linguagem Natural moderno. Diferentemente das arquiteturas sequenciais como
+as Redes Neurais Recorrentes (RNNs), os Transformers removeram a recorrência e fizeram uso
+intensivo de mecanismos de auto-atenção (\textit{self-attention}), permitindo o processamento paralelo de
+\textit{tokens} e uma melhor captura de dependências de longo alcance no texto. Essa inovação serviu de
+base para o desenvolvimento de modelos de linguagem de grande impacto, como \gls{BERT} e
+\gls{GPT}, que, por sua vez, impulsionaram avanços significativos em diversas tarefas de NLP,
+incluindo a análise de sentimentos.
+
+A Revisão Sistemática da Literatura (\gls{RSL}) conduzida como parte deste trabalho identificou
+que estudos recentes na área de análise de sentimentos têm se beneficiado dessas arquiteturas
+avançadas. Por exemplo, o estudo de \citeauthor{schimanski2024} \citeyear{schimanski2024}
+utilizou modelos baseados em Transformers, como RoBERTa e DistilRoBERTa (versões otimizadas
+do BERT), para analisar mais de 13,8 milhões de textos relacionados a comunicações ESG,
+demonstrando a capacidade dessas técnicas de quantificar informações com confiabilidade.
+Concluiu-se que a maioria dos estudos revisados empregou técnicas avançadas, refletindo a
+influência dos Transformers no campo de estudo.
+
+\section{Modelo BERT e Suas Aplicações}
+\label{sec:bert}
+
+O \gls{BERT} (\textit{Bidirectional Encoder Representations from Transformers}), introduzido pelo
+Google em 2018, é um dos modelos mais emblemáticos baseados na arquitetura Transformer. Sua
+principal característica é a capacidade de considerar o contexto completo de uma palavra (tanto à
+esquerda quanto à direita) durante o pré-treinamento, resultando em representações vetoriais de
+palavras mais ricas e contextuais. A arquitetura do BERT é otimizada como um \textit{encoder},
+tornando-o particularmente eficaz para tarefas de classificação de texto, como a análise de
+sentimentos.
+
+O estudo de \citeauthor{gupta2024} \citeyear{gupta2024} destacou-se ao utilizar o modelo
+BERT em conjunto com a técnica YAKE para extração de palavras-chave de relatórios de
+sustentabilidade, alcançando 98\% de precisão. Isso confirma a eficácia do BERT na análise de
+grandes volumes de dados textuais para obtenção de resultados detalhados.
+
+Modelos BERT, quando submetidos a um processo de \textit{fine-tuning} (ajuste fino) em
+\textit{datasets} rotulados para análise de sentimentos, tendem a apresentar alta acurácia. Existem também
+variações e otimizações, como o RoBERTa e o DistilBERT (menor e mais rápido), além de versões
+pré-treinadas para idiomas específicos, como o BERTimbau para o português. Embora eficientes, o
+treinamento e o \textit{fine-tuning} de modelos BERT podem exigir recursos computacionais significativos
+e \textit{datasets} específicos.
+
+\section{Análise de Ferramentas}
+\label{sec:analise-ferramentas}
+
+Por esse motivo, a seleção de uma ferramenta ou abordagem para análise de sentimento
+envolve considerar um espectro de opções, cada uma com suas características, vantagens e
+desvantagens.
+
+Abordagens mais simples, como as baseadas em léxicos de polaridade e regras heurísticas --
+a exemplo da biblioteca TextBlob, que oferece uma interface simplificada para tarefas de NLP,
+incluindo análise de sentimento em Python \cite{loria2018}, e do modelo VADER (\textit{Valence Aware
+Dictionary and sEntiment Reasoner}), especificamente desenvolvido e validado para a análise de
+sentimento em textos de mídias sociais \cite{hutto2014} -- são fáceis de implementar e oferecem
+resultados rápidos. O VADER, em particular, é otimizado para dados de mídias sociais. No entanto,
+essas abordagens podem apresentar baixa precisão em textos com contextos complexos, ironia ou
+gírias. Bibliotecas como NLTK também oferecem funcionalidades para análise de sentimentos,
+muitas vezes combinando léxicos com aprendizado de máquina, mas podem requerer maior
+configuração \cite{bird2009}.
+
+O aprendizado de máquina tradicional, como o utilizado pelo FastText \cite{joulin2017},
+que emprega \textit{word embeddings} e modelos lineares como a regressão logística para classificação de
+texto, oferece maior eficiência e escalabilidade para grandes volumes de dados, mas geralmente
+necessita de treinamento em volumes consideráveis de dados para alcançar bons resultados.
+
+Modelos baseados em Transformers, como o BERT e suas variantes (RoBERTa, BERTimbau),
+representam o estado da arte em termos de precisão para análise de sentimento contextual.
+Plataformas como Hugging Face, através da biblioteca \textit{transformers} \cite{wolf2020}, facilitam o
+acesso a esses modelos pré-treinados, que podem ser adaptados (\textit{fine-tuned}) para tarefas
+específicas. Contudo, como mencionado, o \textit{fine-tuning} e a inferência com esses modelos podem ser
+computacionalmente intensivos.
+
+Paralelamente, existem serviços de NLP em nuvem, como o Google Cloud Natural Language
+\gls{API} \cite{googlecloud2025} e o Azure Text Analytics, atualmente integrado ao Azure AI Language
+\cite{microsoftazure2025}. Estes serviços oferecem APIs de fácil integração para análise de
+sentimento e outras tarefas de NLP, sem a necessidade de gerenciamento de infraestrutura ou
+treinamento de modelos por parte do usuário, embora geralmente impliquem custos e menor
+controle sobre o modelo subjacente. Essas comparações podem ser vistas na Tabela
+\ref{tab:comparativa-ferramentas}.
+
+\begin{figure}[h]
+    \centering
+    \caption{Tabela Comparativa das Ferramentas}
+    \label{tab:comparativa-ferramentas}
+    \includegraphics[width=\textwidth]{figuras/tabela-comparativa-ferramentas}
+    \legend{Fonte: Autoria Própria (2025).}
+\end{figure}
+
+\section{Modelos BERT versus LLMs Genéricos para Análise de Sentimento}
+\label{sec:bert-vs-llm}
+
+A escolha entre um modelo BERT (e suas variantes) ajustado (\textit{fine-tuned}) e um Modelo de
+Linguagem de Grande Porte (\gls{LLM}) genérico para análise de sentimento depende de diversos
+fatores, incluindo a natureza dos dados, a disponibilidade de dados rotulados para treinamento e os
+requisitos específicos da tarefa.
+
+Um modelo BERT que passou por um processo de \textit{fine-tuning} para análise de sentimentos
+tende a ser altamente eficaz para essa tarefa específica.
+
+\begin{alineas}
+    \item \textbf{\textit{Performance} e Acurácia}: Frequentemente alcançam alta acurácia (superior a 90\% em \textit{datasets} de referência) quando ajustados para análise de sentimento. Isso se deve ao treinamento específico em \textit{datasets} rotulados com sentimentos, como dados do Twitter, o que permite ao modelo aprender padrões específicos, como a associação de palavras negativas a sentimentos negativos.
+
+    \item \textbf{Arquitetura e Eficiência}: A arquitetura \textit{encoder} do BERT é ideal para tarefas de classificação, como a análise de sentimentos. Modelos baseados em BERT (com cerca de 110 milhões de parâmetros) são consideravelmente mais leves e rápidos para inferência em comparação com LLMs que podem ter bilhões de parâmetros.
+
+    \item \textbf{Consistência}: As respostas de um BERT \textit{fine-tuned} são geralmente estruturadas e padronizadas (ex: uma pontuação de 0 a 1 para o sentimento).
+
+    \item \textbf{Alternativas e Otimizações}: Existem alternativas modernas ao BERT original, como o RoBERTa, que apresenta melhor \textit{performance}, e o DistilBERT, que é cerca de 40\% menor e 60\% mais rápido, mantendo uma precisão próxima à do BERT. Para o português, o BERTimbau é uma versão pré-treinada relevante.
+\end{alineas}
+
+Já os Modelos de Linguagem de Grande Porte (LLMs) genéricos, como as famílias Claude
+\cite{anthropic2024}, \gls{GPT}, incluindo o GPT-4 \cite{openai2023gpt4}, ou DeepSeek
+\cite{deepseek2024}, representam uma evolução significativa no Processamento de Linguagem
+Natural, operando de maneira distinta dos modelos como o BERT que são frequentemente ajustados
+(\textit{fine-tuned}) para tarefas específicas. Embora um BERT \textit{fine-tuned} possa ser mais eficaz para uma
+tarefa de análise de sentimentos para a qual foi especificamente treinado, os LLMs genéricos
+oferecem um conjunto diferente de vantagens, especialmente quando não se dispõe de grandes
+volumes de dados rotulados para um treinamento específico ou quando a natureza da tarefa exige
+maior flexibilidade e compreensão de nuances. LLMs genéricos (como Claude, GPT, DeepSeek, e,
+por extensão, a API Gemini utilizada neste trabalho), que não foram especificamente treinados ou
+ajustados para uma tarefa de classificação de sentimento em um \textit{dataset} particular, operam de
+maneira diferente, geralmente através de instruções (\textit{prompts}).
+
+A utilização de um LLM genérico é particularmente vantajosa em cenários que envolvem
+textos complexos. Se o texto a ser analisado contém ironia, sarcasmo, forte contexto cultural (como
+gírias), os LLMs tendem a performar melhor devido ao seu treinamento em volumes massivos e
+extremamente diversificados de dados textuais. Outra situação propícia é a necessidade de
+aprendizado \textit{zero-shot} ou \textit{few-shot} \cite{brown2020}. Quando não existem dados rotulados para
+realizar o \textit{fine-tuning} de um modelo específico, LLMs como Claude ou GPT-4 podem ser
+empregados diretamente através de instruções ou \textit{prompts} bem elaborados para realizar a análise de
+sentimento. Além disso, LLMs são capazes de realizar análise de aspectos (\textit{aspect-based sentiment
+analysis}) sem treinamento adicional, conseguindo, por exemplo, extrair sentimentos sobre
+elementos ou características específicas mencionadas no texto, como identificar que ``A bateria é
+ruim, mas a tela é ótima'' em uma avaliação de produto.
+
+As vantagens de LLMs generativos (como Claude e GPT) estendem-se à sua flexibilidade.
+Eles permitem a realização de uma análise de sentimento multidimensional por meio de
+\textit{prompts}, possibilitando não apenas classificar o sentimento, mas também, por exemplo, listar as
+razões subjacentes a essa classificação. Adicionalmente, oferecem suporte a múltiplas tarefas
+integradas, podendo combinar a análise de sentimento com tradução ou sumarização em uma única
+interação. Outro benefício importante é a capacidade de processar contextos longos, com alguns
+modelos conseguindo analisar textos com até 200 mil \textit{tokens}, como é o caso do Claude 3.5 Sonnet
+\cite{anthropic2024}.
+
+No entanto, é importante considerar alguns aspectos ao optar por LLMs genéricos. A
+acurácia, embora potencialmente alta, pode ser variável e é altamente dependente da qualidade e
+clareza do \textit{prompt} fornecido ao modelo. Existe também um risco maior de ocorrência de
+``alucinações'' ou de geração de respostas não padronizadas que não se encaixam em esquemas de
+classificação rígidos. Por fim, o custo computacional para inferência com LLMs é geralmente mais
+alto, devido ao tamanho consideravelmente maior desses modelos em comparação com arquiteturas
+como o BERT. A decisão entre um BERT \textit{fine-tuned} e um LLM genérico dependerá, portanto, da
+disponibilidade de dados rotulados, da complexidade do texto a ser analisado e dos objetivos
+específicos da análise de sentimento.
+
+\section{Resultados Parciais}
+\label{sec:resultados-parciais}
+
+A análise das implementações desenvolvidas demonstrou que o modelo utilizando Google
+Gemini 1.5 Pro \cite{google2024} apresenta a melhor \textit{performance} e implementação mais robusta
+quando comparado às demais abordagens testadas, incluindo OpenAI GPT-3.5 \cite{openai2023},
+Cohere Command \cite{cohere2024} e BERT multilingual \cite{devlin2019}. Esta superioridade
+manifesta-se através de diversas características técnicas que evidenciam tanto a eficiência quanto a
+qualidade dos resultados obtidos.
+
+A implementação com Gemini destaca-se inicialmente por sua simplicidade, como pode ser
+visto na Figura \ref{fig:eficiencia-codigo}. Enquanto as implementações utilizando OpenAI e Cohere
+requereram 146 linhas de código cada uma, a solução com Gemini é significativamente mais
+concisa, utilizando apenas 89 linhas. Esta diferença não representa apenas uma economia de código,
+mas reflete uma arquitetura mais elegante e menos propensa a falhas. Diferentemente das outras
+APIs que necessitam de sistemas complexos de \textit{retry} -- ou seja, mecanismos que automaticamente
+tentam enviar uma nova requisição em caso de falha -- para lidar com erros temporários, o Gemini
+demonstrou maior estabilidade durante os testes, não apresentando falhas de processamento.
+
+\begin{figure}[h]
+    \centering
+    \caption{Eficiência do Código}
+    \label{fig:eficiencia-codigo}
+    \includegraphics[width=0.85\textwidth]{figuras/eficiencia-codigo}
+    \legend{Fonte: Autoria Própria (2025).}
+\end{figure}
+
+A capacidade de resposta estruturada do Gemini constitui outra vantagem significativa. O
+modelo fornece não apenas a classificação do sentimento, mas também um valor de confiança
+numérico e justificativas detalhadas para cada análise. Esta funcionalidade permite uma avaliação
+mais precisa da qualidade dos resultados e facilita a interpretação dos dados por parte dos
+pesquisadores. As justificativas geradas pelo Gemini demonstraram ser consistentemente mais
+elaboradas e contextualmente relevantes conforme pode ser visto na Figura \ref{fig:nivel-confianca},
+considerando tanto o conteúdo textual quanto as avaliações numéricas associadas aos \textit{reviews} do
+banco de dados teste utilizado nas análises.
+
+\begin{figure}[h]
+    \centering
+    \caption{Nível de Confiança}
+    \label{fig:nivel-confianca}
+    \includegraphics[width=0.85\textwidth]{figuras/nivel-confianca}
+    \legend{Fonte: Autoria Própria (2025).}
+\end{figure}
+
+Em contraste, as limitações das outras implementações tornaram-se evidentes na comparação
+conforme pode ser analisado na Figura \ref{fig:taxa-erro}. A solução OpenAI, embora robusta,
+requer configurações mais verbosas com \textit{roles} de sistema, ou seja, instruções que definem como a
+IA deve se comportar e responder, e demonstrou maior propensão a falhas temporárias durante os
+testes. O sistema de \textit{retry} que foi preciso ser implementado, apesar de necessário para garantir
+estabilidade, adiciona complexidade desnecessária ao código e pode impactar a velocidade de
+processamento. Já a implementação com BERT multilingual, embora processe dados localmente, o
+modelo que foi utilizado para teste apresentou limitações significativas como a restrição de 512
+\textit{tokens} por texto e a dependência de classificações baseadas em estrelas, que se mostraram menos
+interpretáveis para análises qualitativas.
+
+\begin{figure}[h]
+    \centering
+    \caption{Taxa de Erro dos Modelos}
+    \label{fig:taxa-erro}
+    \includegraphics[width=0.85\textwidth]{figuras/taxa-erro}
+    \legend{Fonte: Autoria Própria (2025).}
+\end{figure}
+
+Os resultados obtidos corroboram a superioridade do Gemini. A análise dos dados
+processados revela que o modelo mantém uma confiança média consistente entre 0,8 e 0,95,
+indicando alta precisão nas classificações. Mais importante ainda, durante todos os testes
+executados, o Gemini não apresentou erros de processamento, demonstrando uma confiabilidade
+operacional superior às demais soluções como pode ser visto na Figura \ref{fig:performance}. As
+justificativas geradas pelo modelo mostram-se particularmente sofisticadas, considerando nuances
+contextuais que outros modelos frequentemente ignoram.
+
+\begin{figure}[h]
+    \centering
+    \caption{\textit{Performance}}
+    \label{fig:performance}
+    \includegraphics[width=0.85\textwidth]{figuras/performance}
+    \legend{Fonte: Autoria Própria (2025).}
+\end{figure}
+
+Um exemplo representativo desta qualidade pode ser observado em uma análise onde o
+Gemini identificou corretamente um sentimento positivo com confiança de 0,95, justificando que o
+usuário descrevia o lugar como ótimo e sugeria atividades agradáveis para família e amigos,
+reforçando esta interpretação com a avaliação numérica de 5 pontos. Esta capacidade de síntese
+entre elementos textuais e numéricos demonstra uma compreensão contextual superior que se
+traduz em resultados mais precisos e úteis para pesquisas acadêmicas.
+
+Dessa forma, os resultados parciais estabelecem claramente que a implementação com
+Google Gemini Pro constitui a solução mais promissora para análise de sentimentos em
+\textit{reviews} com foco em sustentabilidade. A combinação de robustez técnica, capacidade analítica
+superior, flexibilidade contextual e qualidade excepcional das respostas posiciona esta
+implementação como ferramenta essencial para pesquisas em turismo sustentável e práticas ESG,
+oferecendo não apenas maior precisão técnica, mas também funcionalidades avançadas que abrem
+novas possibilidades de análise em estudos sobre percepções de sustentabilidade no setor turístico.

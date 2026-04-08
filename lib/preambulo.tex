@@ -100,6 +100,41 @@
 % importar meu pacotes
 \usepackage{setspace}
 
+% Configuração do pacote listings para exibição de código-fonte
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.95}
+
+\lstset{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{black},
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+        {á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1
+        {Á}{{\'{A}}}1 {É}{{\'{E}}}1 {Í}{{\'{I}}}1 {Ó}{{\'{O}}}1 {Ú}{{\'{U}}}1
+        {à}{{\`{a}}}1 {ã}{{\~{a}}}1 {õ}{{\~{o}}}1 {Ã}{{\~{A}}}1 {Õ}{{\~{O}}}1
+        {â}{{\^{a}}}1 {ê}{{\^{e}}}1 {ô}{{\^{o}}}1
+        {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+}
+
 \makeglossaries % Organiza e gera a lista de abreviaturas, simbolos e glossario
 \makeindex      % Gera o Indice do documento         
 

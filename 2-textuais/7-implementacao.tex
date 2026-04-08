@@ -1,0 +1,197 @@
+\chapter{Implementação}
+\label{cap:implementacao}
+
+Este capítulo descreve em detalhe a implementação do sistema desenvolvido para análise automatizada de \glspl{ODS} em Mossoró-RN. O sistema foi construído em Python 3, adotando uma arquitetura modular que permite sua extensão para qualquer ODS e qualquer município brasileiro mediante configuração. A implementação passou por três gerações: a primeira focada nos ODS 9 e 16, a segunda incorporando a generalização via arquivos JSON de configuração, e a terceira adicionando suporte a múltiplos ODS (incluindo ODS 3, 4, 9 e 16) e múltiplos modelos de \gls{LLM}.
+
+\section{Arquitetura Geral do Sistema}
+\label{sec:arq-geral}
+
+O sistema é composto por quatro módulos principais:
+
+\begin{enumerate}
+    \item \textbf{Módulo de Configuração}: lê arquivos JSON que especificam o ODS alvo, município, termos de busca, aspectos a analisar, modelos de IA e parâmetros de execução;
+    \item \textbf{Módulo de Coleta}: realiza buscas na Google Places API utilizando termos e coordenadas estratégicas do município, coletando avaliações (\textit{reviews}) dos estabelecimentos encontrados;
+    \item \textbf{Módulo de Filtragem e Pré-processamento}: aplica filtros hierárquicos de validação geográfica, relevância por tipo de local e qualidade de conteúdo;
+    \item \textbf{Módulo de Análise com IA}: envia cada comentário filtrado a um LLM para classificação de sentimento por aspecto do ODS, geração de justificativas e extração de palavras-chave.
+\end{enumerate}
+
+\section{Evolução da Implementação}
+\label{sec:evolucao}
+
+\subsection{Primeira Versão: Scripts Dedicados por ODS}
+\label{subsec:v1}
+
+A primeira versão do sistema consistiu em scripts Python independentes para cada ODS analisado. No script de protótipo inicial, foi implementado a coleta e análise de estabelecimentos relacionados a critérios ambientais, sociais e de governança em Mossoró-RN utilizando o modelo Gemini da Google. Esta versão, embora funcional, apresentava limitações de flexibilidade: adicionar um novo ODS exigia duplicar e adaptar o código completo.
+
+\subsection{Segunda Versão: Generalização via Configuração JSON}
+\label{subsec:v2}
+
+A segunda versão consolidou toda a lógica de análise em um único script genérico parametrizado por arquivos JSON de configuração. Esta arquitetura tornou o sistema extensível sem alterações de código.
+
+Cada arquivo de configuração especifica:
+
+\begin{itemize}
+    \item \textbf{Identificação do ODS}: número, nome e descrição;
+    \item \textbf{Município alvo}: nome, estado, coordenadas estratégicas de busca e raio em metros;
+    \item \textbf{Termos de busca}: lista de palavras-chave para cada categoria relevante ao ODS;
+    \item \textbf{Aspectos a analisar}: os 7 aspectos do ODS com seus tópicos associados;
+    \item \textbf{Modelos de IA}: lista de modelos LLM configurados (Gemini ou Perplexity), com chaves de API resolvidas via arquivo \texttt{env.properties};
+    \item \textbf{Parâmetros de execução}: metas de análises, limites de rate, pausas entre requisições.
+\end{itemize}
+
+O Código~\ref{lst:config-ods9} apresenta um trecho representativo do arquivo de configuração para o ODS 9:
+
+\begin{lstlisting}[language=,caption={Trecho do arquivo de configuração ODS 9 (ods9\_config.json)},label={lst:config-ods9}]
+{
+  "ods": {
+    "numero": 9,
+    "nome": "Indústria, Inovação e Infraestrutura",
+    "sigla": "ODS 9"
+  },
+  "municipio": {
+    "nome": "Mossoró",
+    "estado": "RN",
+    "coordenadas_estrategicas": [
+      {"lat": -5.1875, "lng": -37.3444, "descricao": "Centro"},
+      {"lat": -5.1650, "lng": -37.3600, "descricao": "Zona Norte"},
+      {"lat": -5.2100, "lng": -37.3200, "descricao": "Zona Sul"}
+    ],
+    "raio_busca_metros": 15000
+  },
+  "termos_busca": {
+    "infraestrutura_transporte": [
+      "rodoviária Mossoró", "aeroporto Mossoró", "terminal rodoviário"
+    ],
+    "infraestrutura_urbana": [
+      "rua pavimentação Mossoró", "ponte viaduto Mossoró"
+    ],
+    "tecnologia_telecomunicacoes": [
+      "provedor internet Mossoró", "operadora telefonia Mossoró"
+    ]
+  }
+}
+\end{lstlisting}
+
+\subsection{Terceira Versão: Suporte a Múltiplos Modelos de IA}
+\label{subsec:v3}
+
+A terceira versão adicionou suporte nativo a múltiplos provedores de \gls{LLM}: Google Gemini (modelos Flash e Pro) e Perplexity (modelos Sonar e Sonar Pro). A seleção do modelo é realizada interativamente no início da execução ou pode ser pré-configurada no arquivo JSON. O mecanismo de \textit{fallback} automático garante que, caso o modelo principal retorne erro, o sistema tente automaticamente o próximo modelo disponível na configuração.
+
+A resolução de credenciais de API é feita por um mecanismo centralizado que lê variáveis de ambiente ou o arquivo \texttt{env.properties} na raiz do projeto, sem expor chaves sensíveis no código-fonte. O sistema também implementa um formulário HTML para geração interativa de novos arquivos de configuração, facilitando a extensão para novos municípios e ODS.
+
+\section{Módulo de Coleta de Dados}
+\label{sec:coleta}
+
+\subsection{Google Places API como Fonte de Dados}
+\label{subsec:google-places}
+
+O módulo de coleta utiliza a Google Places API como fonte primária de dados. Para cada termo de busca definido na configuração, o sistema realiza buscas em múltiplas coordenadas estratégicas do município, com raio configurável (padrão: 15 km). Para cada lugar encontrado, o sistema obtém os detalhes completos, incluindo nome, endereço, coordenadas geográficas, avaliação média e todas as avaliações textuais disponíveis.
+
+O Código~\ref{lst:busca-lugares} apresenta a função responsável pela busca de estabelecimentos:
+
+\begin{lstlisting}[language=Python,caption={Função de busca de lugares na Google Places API},label={lst:busca-lugares}]
+def buscar_lugares_mossoro(termo: str, coordenadas: Dict[str, float]) -> List[Dict]:
+    url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+    params = {
+        'query': f"{termo} Mossoró RN",
+        'location': f"{coordenadas['lat']},{coordenadas['lng']}",
+        'radius': RADIUS,
+        'key': GOOGLE_PLACES_API_KEY,
+        'language': 'pt-BR'
+    }
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+        if data.get('status') == 'OK':
+            return data.get('results', [])
+        return []
+    except Exception as e:
+        print(f"Erro na busca por '{termo}': {e}")
+        return []
+\end{lstlisting}
+
+\subsection{Gerenciamento de Rate Limiting}
+\label{subsec:rate-limit}
+
+Para respeitar os limites de requisição das APIs utilizadas, o sistema implementa pausas estratégicas configuráveis: 1 segundo entre análises de \textit{reviews} individuais, 2 segundos entre lugares processados e 3 segundos entre buscas de termos distintos. O controle de deduplicação evita reprocessar o mesmo estabelecimento em buscas de termos diferentes.
+
+\section{Módulo de Filtragem e Pré-processamento}
+\label{sec:filtragem}
+
+\subsection{Filtragem Hierárquica}
+\label{subsec:filtros}
+
+O módulo de filtragem aplica cinco camadas de validação para garantir que apenas comentários relevantes e de qualidade sejam enviados para análise. A ordem dos filtros é importante: filtros mais baratos computacionalmente são aplicados primeiro.
+
+\textbf{Filtro 1 -- Validação Geográfica}: verifica se o estabelecimento está localizado no município alvo, verificando a presença do nome do município no endereço ou nome do estabelecimento retornado pela API. Esta validação é necessária pois buscas com raio amplo podem capturar estabelecimentos de municípios vizinhos.
+
+\textbf{Filtro 2 -- Comprimento Mínimo}: descarta comentários com menos de 20 caracteres, que geralmente não contêm informação analiticamente útil.
+
+\textbf{Filtro 3 -- Relevância Geográfica do Conteúdo}: elimina comentários que mencionam explicitamente outras cidades sem referenciar o município alvo, evitando que avaliações sobre filiais em outras localidades contaminem a análise.
+
+\textbf{Filtro 4 -- Relevância Semântica por ODS}: verifica se o comentário contém pelo menos um termo relacionado aos aspectos do ODS analisado. Esta verificação é dispensada para locais de infraestrutura crítica (rodoviárias, aeroportos, delegacias), onde qualquer experiência do usuário é considerada relevante.
+
+\textbf{Filtro 5 -- Filtros Específicos por ODS}: para o ODS 16, comentários de caráter histórico, turístico ou puramente comercial são descartados, pois não refletem a situação atual dos serviços públicos.
+
+\section{Módulo de Análise com Inteligência Artificial}
+\label{sec:analise-ia}
+
+\subsection{Prompt Engineering para Análise por Aspecto}
+\label{subsec:prompt}
+
+Para cada comentário aprovado pelos filtros, o sistema constrói um prompt estruturado que instrui o LLM a realizar análise por aspecto (\textit{aspect-based sentiment analysis}). O prompt inclui o texto do comentário, o nome do estabelecimento, o ODS analisado, o contexto de que Mossoró possui pontuação muito baixa naquele ODS, e a lista completa dos aspectos a analisar com seus tópicos associados.
+
+O formato de saída solicitado é JSON estruturado, contendo para cada aspecto: classificação de sentimento (Positivo, Negativo, Neutro ou Não mencionado), \textit{score} de confiança (0,0 a 1,0), justificativa curta em até 15 palavras, até três palavras-chave e um indicador booleano de problema. O Código~\ref{lst:analise-ods9} mostra a estrutura principal da função de análise para o ODS 9:
+
+\begin{lstlisting}[language=Python,caption={Estrutura da função de análise de aspectos ODS 9},label={lst:analise-ods9}]
+def analisar_aspectos_ods9(texto: str, nome_lugar: str, modelo: Dict = None) -> Dict:
+    prompt = f"""
+    Aja como analista especializado em ODS 9 (Indústria, Inovação e Infraestrutura).
+    
+    COMENTÁRIO: "{texto}"
+    LOCAL: "{nome_lugar}"
+    CIDADE: Mossoró-RN (pontuação MUITO BAIXA no ODS 9)
+    
+    Analise os seguintes aspectos e retorne JSON estruturado:
+    1. Infraestrutura Resiliente e Moderna
+    2. Transporte Público e Mobilidade
+    3. Acesso à Tecnologia e Informação
+    4. Inovação e Pesquisa
+    5. Industrialização Inclusiva e Sustentável
+    6. Eficiência Energética e Energia Sustentável
+    7. Valorização da Micro e Pequena Empresa
+    ...
+    """
+    try:
+        if modelo['tipo'] == 'gemini':
+            gemini_model = genai.GenerativeModel(modelo['model_id'])
+            response = gemini_model.generate_content(prompt)
+            response_text = response.text
+        response_text = re.sub(r'```json\s*', '', response_text)
+        response_text = re.sub(r'```\s*', '', response_text)
+        json_match = re.search(r'(\{.*\})', response_text, re.DOTALL)
+        if json_match:
+            return json.loads(json_match.group(1))
+    except Exception as e:
+        return {"erro": str(e)}
+\end{lstlisting}
+
+\subsection{Geração de Diagnósticos Agregados}
+\label{subsec:diagnosticos}
+
+Após a análise individual de todos os comentários, o sistema executa uma segunda etapa de síntese: para cada ODS analisado, um novo prompt é enviado ao LLM contendo as estatísticas agregadas (distribuição de sentimentos, contagem de problemas por dimensão, aspectos mais frequentes e palavras-chave predominantes). O modelo retorna um diagnóstico estruturado em seis seções: identificação das causas do baixo desempenho, análise por dimensão, pontos críticos prioritários, impacto social e econômico, recomendações estratégicas e conclusão.
+
+Para o ODS 9, diagnósticos adicionais são gerados para cada dimensão individualmente, detalhando a situação atual, o impacto no ODS geral e recomendações específicas para aquela dimensão.
+
+\section{Estrutura de Saída e Integração com Dashboard}
+\label{sec:saida}
+
+Os resultados são salvos em arquivos JSON com nome padronizado contendo três seções principais:
+
+\begin{itemize}
+    \item \textbf{meta\_informacoes}: total de análises, problemas detectados, percentuais, data da coleta e contexto do ODS;
+    \item \textbf{conclusao\_geral\_diagnostico}: texto do diagnóstico geral gerado pela IA;
+    \item \textbf{analises\_ods}: \textit{array} com todos os registros individuais, incluindo dados do estabelecimento, análise por aspecto e texto original do \textit{review}.
+\end{itemize}
+
+Os arquivos JSON resultantes foram utilizados como fonte de dados para dashboards interativos, permitindo visualização geográfica dos problemas, filtros por tipo de estabelecimento e análise temporal das avaliações.

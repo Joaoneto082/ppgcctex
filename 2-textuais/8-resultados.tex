@@ -1,0 +1,172 @@
+\chapter{Resultados}
+\label{cap:resultados}
+
+Este capítulo apresenta os resultados obtidos pela aplicação da metodologia proposta ao estudo de caso de Mossoró-RN, com foco nos ODS 9 (Indústria, Inovação e Infraestrutura) e ODS 16 (Paz, Justiça e Instituições Eficazes). Os dados foram coletados e analisados utilizando o sistema implementado, conforme descrito no capítulo anterior.
+
+\section{Visão Geral da Coleta}
+\label{sec:coleta-geral}
+
+O sistema foi executado com o modelo Gemini 2.5 Flash como provedor principal de análise. A Tabela~\ref{tab:resumo-coleta} apresenta o resumo quantitativo da coleta realizada para os dois ODS.
+
+\begin{table}[h!]
+    \centering
+    \caption{Resumo quantitativo da coleta de dados por ODS em Mossoró-RN}
+    \label{tab:resumo-coleta}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Métrica} & \textbf{ODS 9} & \textbf{ODS 16} \\
+        \hline
+        Total de análises coletadas & 253 & 116 \\
+        Estabelecimentos únicos analisados & 117 & 12 \\
+        Problemas detectados & 144 & 54 \\
+        Percentual de análises com problema & 56,9\% & 46,6\% \\
+        Score médio de confiança & 0,87 & 0,84 \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{table}
+
+\section{ODS 9 -- Indústria, Inovação e Infraestrutura}
+\label{sec:resultados-ods9}
+
+\subsection{Distribuição de Sentimentos}
+\label{subsec:sentimentos-ods9}
+
+Das 253 análises coletadas para o ODS 9, a distribuição de sentimentos revelou um cenário predominantemente negativo, conforme apresentado na Tabela~\ref{tab:sentimentos-ods9}.
+
+\begin{table}[h!]
+    \centering
+    \caption{Distribuição de sentimentos -- ODS 9 (Mossoró-RN)}
+    \label{tab:sentimentos-ods9}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Sentimento} & \textbf{Quantidade} & \textbf{Percentual} \\
+        \hline
+        Positivo & 37 & 14,6\% \\
+        Negativo & 103 & 40,7\% \\
+        Neutro & 113 & 44,7\% \\
+        \hline
+        \textbf{Total} & \textbf{253} & \textbf{100\%} \\
+        Contribuem para baixo ODS 9 & 144 & 56,9\% \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{table}
+
+A baixa proporção de avaliações positivas (14,6\%) e o fato de que 56,9\% das análises contribuem diretamente para o baixo desempenho validam a pontuação muito baixa (0--39,99) atribuída a Mossoró no ODS 9 pelo IDSC \cite{idsc2024}. Os scores de confiança elevados (média de 0,87) indicam que o modelo identificou com segurança os aspectos problemáticos nos textos analisados.
+
+\subsection{Problemas Críticos por Dimensão}
+\label{subsec:problemas-ods9}
+
+A análise por dimensão revelou padrões de problemas estruturais em três áreas críticas:
+
+\textbf{Infraestrutura Resiliente e Moderna (100\% das análises de infraestrutura crítica)}: O Terminal Rodoviário de Mossoró emergiu como o principal foco de problemas. As avaliações descrevem um equipamento em estado crítico de deterioração, com estruturas abandonadas, risco de queda, condições insalubres (banheiros imundos, ausência de limpeza), iluminação inadequada e falta de manutenção preventiva. A totalidade dos comentários sobre o terminal classificou a infraestrutura como negativa, com scores de confiança acima de 0,85.
+
+\textbf{Transporte Público e Mobilidade (100\% das análises sobre transporte)}: As avaliações do terminal rodoviário e paradas de ônibus apontam para um sistema de transporte público em colapso: ausência de serviços básicos essenciais, falta de controle sanitário, experiência do usuário altamente comprometida e conectividade regional prejudicada.
+
+\textbf{Valorização da Micro e Pequena Empresa}: As análises revelam ausência de comércios básicos em locais estratégicos, limitadas oportunidades para pequenos negócios e insuficiência de suporte ao empreendedorismo local.
+
+\subsection{Dashboard ODS 9}
+\label{subsec:dashboard-ods9}
+
+A Figura~\ref{fig:dashboard-ods9} apresenta o dashboard interativo desenvolvido no Microsoft Power BI para visualização dos resultados do ODS 9.
+
+\begin{figure}[h!]
+    \centering
+    \caption{Dashboard Power BI -- ODS 9: Indústria, Inovação e Infraestrutura em Mossoró-RN}
+    \label{fig:dashboard-ods9}
+    \includegraphics[width=0.90\textwidth]{figuras/dashboard-ods9}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{figure}
+
+O dashboard possibilita visualização geográfica dos problemas por bairro, filtro dinâmico por tipo de estabelecimento e dimensão do ODS, drill-down para avaliações individuais e exportação de relatórios para gestores públicos.
+
+\section{ODS 16 -- Paz, Justiça e Instituições Eficazes}
+\label{sec:resultados-ods16}
+
+\subsection{Distribuição de Sentimentos}
+\label{subsec:sentimentos-ods16}
+
+Para o ODS 16, foram coletadas 116 análises válidas distribuídas entre órgãos de segurança pública, poder judiciário, instituições municipais e espaços públicos. A distribuição de sentimentos revela um padrão polarizado, conforme a Tabela~\ref{tab:sentimentos-ods16}.
+
+\begin{table}[h!]
+    \centering
+    \caption{Distribuição de sentimentos -- ODS 16 (Mossoró-RN)}
+    \label{tab:sentimentos-ods16}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Sentimento} & \textbf{Quantidade} & \textbf{Percentual} \\
+        \hline
+        Positivo & 38 & 32,8\% \\
+        Negativo & 45 & 38,8\% \\
+        Neutro & 33 & 28,4\% \\
+        \hline
+        \textbf{Total} & \textbf{116} & \textbf{100\%} \\
+        Contribuem para baixo ODS 16 & 54 & 46,6\% \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{table}
+
+Embora a proporção de avaliações positivas (32,8\%) seja maior do que no ODS 9, a concentração de problemas em dimensões críticas -- especialmente instituições eficazes (37,1\% das menções negativas) e segurança pública (11,2\%) -- é suficiente para manter a pontuação na faixa muito baixa.
+
+\subsection{Distribuição de Problemas por Dimensão}
+\label{subsec:dimensoes-ods16}
+
+A Tabela~\ref{tab:problemas-ods16} apresenta a distribuição quantitativa de menções de problemas por dimensão do ODS 16.
+
+\begin{table}[h!]
+    \centering
+    \caption{Distribuição de problemas por dimensão -- ODS 16 (Mossoró-RN)}
+    \label{tab:problemas-ods16}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Dimensão} & \textbf{Menções} & \textbf{Percentual} \\
+        \hline
+        Instituições Eficazes e Responsáveis & 43 & 37,1\% \\
+        Direitos Humanos e Estado de Direito & 14 & 12,1\% \\
+        Segurança Pública e Redução da Violência & 13 & 11,2\% \\
+        Acesso à Justiça & 12 & 10,3\% \\
+        Transparência e Combate à Corrupção & 8 & 6,9\% \\
+        Participação Cidadã e Accountability & 6 & 5,2\% \\
+        Proteção de Crianças e Grupos Vulneráveis & 6 & 5,2\% \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{table}
+
+A dimensão \textit{Instituições Eficazes e Responsáveis} domina o conjunto de problemas (37,1\% das menções), evidenciando que a ineficiência administrativa é a raiz da maioria dos problemas identificados para o ODS 16 em Mossoró. Os principais problemas relatados nesta dimensão incluem: atendimento demorado e burocrático em secretarias municipais, insuficiência de pessoal, piora do atendimento com a migração para canais digitais e deficiências de gestão.
+
+\subsection{Dashboard ODS 16}
+\label{subsec:dashboard-ods16}
+
+A Figura~\ref{fig:dashboard-ods16} apresenta o dashboard para o ODS 16, que permite exploração interativa dos 116 registros coletados.
+
+\begin{figure}[h!]
+    \centering
+    \caption{Dashboard Power BI -- ODS 16: Paz, Justiça e Instituições Eficazes em Mossoró-RN}
+    \label{fig:dashboard-ods16}
+    \includegraphics[width=0.90\textwidth]{figuras/dashboard-ods16}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{figure}
+
+\section{Diagnósticos Gerados Automaticamente}
+\label{sec:diagnosticos-automaticos}
+
+O sistema gerou diagnósticos estruturados em linguagem natural para cada ODS, sintetizando os padrões identificados nas análises individuais. Para o ODS 9, o diagnóstico identificou a degradação da infraestrutura física -- especialmente o Terminal Rodoviário -- como gargalo central, com impacto em cascata sobre o transporte público, a mobilidade urbana e a economia local. Para o ODS 16, o diagnóstico apontou a fragilidade institucional sistêmica como causa-raiz, amplificando problemas em segurança pública, acesso à justiça e direitos humanos.
+
+Os diagnósticos gerados foram validados por comparação com os problemas identificados manualmente na literatura e em relatórios de organismos oficiais. A consistência entre os achados automatizados e as evidências conhecidas confirma a capacidade do sistema de produzir diagnósticos confiáveis a partir de dados não estruturados.
+
+\section{Correlações entre Dimensões e Padrões Transversais}
+\label{sec:correlacoes}
+
+A análise comparativa entre os dois ODS revelou padrões estruturais comuns que transcendem as especificidades de cada objetivo:
+
+\begin{itemize}
+    \item \textbf{Falta de manutenção preventiva}: tanto a infraestrutura física (ODS 9) quanto os serviços institucionais (ODS 16) degradam-se por ausência de manutenção e monitoramento contínuos;
+    \item \textbf{Insuficiência de recursos humanos e financeiros}: ambos os ODS sofrem com quadros de pessoal reduzidos e orçamento insuficiente para atender a demanda;
+    \item \textbf{Desconexão com necessidades cidadãs}: os serviços públicos analisados mostram baixa capacidade de resposta às demandas da população, evidenciada nas avaliações;
+    \item \textbf{Concentração geográfica de problemas}: os estabelecimentos com maior número de avaliações negativas concentram-se no centro e em terminais de transporte, sugerindo prioridades claras de intervenção.
+\end{itemize}
+
+Para o ODS 16, a análise identificou uma cadeia causal entre as dimensões: instituições ineficazes amplificam barreiras ao acesso à justiça, que por sua vez contribuem para violações de direitos humanos e redução da participação cidadã, retroalimentando a fragilidade institucional.

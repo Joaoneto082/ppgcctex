@@ -1,0 +1,72 @@
+\chapter{Discussão}
+\label{cap:discussao}
+
+Este capítulo analisa os resultados à luz da literatura revisada, discutindo a validade da metodologia proposta, os principais insights sobre os ODS em Mossoró-RN, as limitações identificadas e as contribuições desta pesquisa para o campo de análise de políticas públicas baseada em dados.
+
+\section{Validação da Metodologia}
+\label{sec:validacao}
+
+\subsection{Eficácia da Filtragem Hierárquica}
+\label{subsec:eficacia-filtros}
+
+A estratégia de filtragem em múltiplas camadas demonstrou ser fundamental para a qualidade do corpus analisado. Os filtros geográficos eliminaram avaliações sobre estabelecimentos de municípios vizinhos capturadas pelo raio de busca, enquanto os filtros de relevância semântica garantiram que apenas comentários com conteúdo substantivo sobre os aspectos dos ODS fossem processados. A exceção estratégica para locais de infraestrutura crítica -- que aceita todos os comentários independentemente de filtros de termos -- foi especialmente relevante: os comentários mais informativos para o ODS 9 (aqueles sobre o Terminal Rodoviário) teriam sido descartados por filtros mais restritivos.
+
+Esta abordagem é consistente com os achados de \citeauthor{wankhade2022} \citeyear{wankhade2022}, que identificaram o pré-processamento e a seleção de corpus como fatores críticos para a qualidade de análises de sentimentos. A filtragem hierárquica implementada nesta pesquisa equilibra precisão (relevância dos dados) com cobertura (quantidade de análises).
+
+\subsection{Precisão da Análise com Modelos de Linguagem}
+\label{subsec:precisao-llm}
+
+Os modelos de linguagem utilizados (Gemini 2.5 Flash/Pro e Perplexity Sonar) demonstraram capacidade consistente de identificar aspectos específicos dos ODS em textos livres, com scores de confiança médios superiores a 0,84. Esta precisão é notável considerando que não houve \textit{fine-tuning} dos modelos para o domínio específico dos ODS -- os prompts estruturados foram suficientes para guiar o modelo à análise por aspecto desejada.
+
+Este resultado alinha-se com as conclusões de \citeauthor{larosa2025} \citeyear{larosa2025}, que demonstraram que LLMs genéricos com prompts bem elaborados podem superar modelos especializados em tarefas de análise de políticas de sustentabilidade, especialmente quando a quantidade de dados rotulados é insuficiente para treinamento supervisionado.
+
+A abordagem de \textit{aspect-based sentiment analysis} via LLMs, validada por \citeauthor{agua2025} \citeyear{agua2025} no contexto de avaliações de hotéis, se confirma aplicável ao domínio de avaliações de serviços públicos e infraestrutura urbana. A capacidade do modelo de identificar aspectos implícitos nos textos -- como inferir problemas de segurança pública a partir de comentários sobre iluminação deficiente em espaços públicos -- demonstra o potencial desta abordagem.
+
+\subsection{Consistência com Indicadores Oficiais}
+\label{subsec:consistencia}
+
+Os resultados obtidos são consistentes com os indicadores do IDSC \cite{idsc2024} que atribuem a Mossoró pontuações muito baixas nos ODS 9 e 16. A metodologia proposta vai além, porém, ao identificar as \textit{causas específicas} do baixo desempenho. Enquanto o IDSC informa \textit{que} Mossoró tem problemas no ODS 9, o sistema proposto identifica \textit{por que}: a degradação do Terminal Rodoviário é o principal vetor de avaliações negativas, contribuindo para 100\% dos problemas em infraestrutura resiliente e transporte público identificados nas análises.
+
+\section{Insights sobre ODS em Mossoró-RN}
+\label{sec:insights}
+
+\subsection{ODS 9: Infraestrutura como Gargalo Sistêmico}
+\label{subsec:ods9-insights}
+
+Os resultados confirmam que o baixo desempenho de Mossoró no ODS 9 está fundamentalmente vinculado à degradação da infraestrutura física básica, com efeitos em cascata sobre mobilidade, economia local e qualidade de vida. A concentração de problemas no Terminal Rodoviário sugere que uma intervenção pontual neste equipamento poderia gerar impacto desproporcional na pontuação do ODS 9.
+
+A correlação identificada entre infraestrutura deficiente, transporte público precário e limitações ao empreendedorismo local configura um ciclo vicioso clássico de subdesenvolvimento urbano: infraestrutura deteriorada reduz a mobilidade, que por sua vez limita o acesso a oportunidades econômicas, que diminui a arrecadação municipal, que restringe os recursos disponíveis para manutenção, realimentando a deterioração. Esta dinâmica é consistente com a análise de \citeauthor{abidoye2022} \citeyear{abidoye2022} sobre armadilhas de subdesenvolvimento em cidades de médio porte.
+
+\subsection{ODS 16: Fragilidade Institucional como Causa-Raiz}
+\label{subsec:ods16-insights}
+
+Para o ODS 16, a análise revela uma fragilidade institucional sistêmica que amplifica problemas em todas as dimensões. A dominância da dimensão \textit{Instituições Eficazes e Responsáveis} (37,1\% das menções) indica que a qualidade do serviço público -- e não a violência ou a impunidade diretamente -- é o principal fator explicativo do baixo ODS 16 em Mossoró.
+
+Este achado é relevante para o desenho de políticas públicas: intervenções focadas em melhorar a eficiência administrativa (redução de filas, digitalização com suporte adequado, capacitação de servidores) podem gerar impacto mais imediato do que programas de segurança pública de alto custo. A cadeia causal identificada -- instituições ineficazes amplificam barreiras ao acesso à justiça, que por sua vez contribuem para percepções de violações de direitos humanos -- sugere que a melhoria institucional tem efeitos multiplicadores sobre outras dimensões do ODS 16.
+
+\section{Limitações e Desafios}
+\label{sec:limitacoes}
+
+\subsection{Limitações Metodológicas}
+\label{subsec:lim-metodologicas}
+
+A principal limitação da metodologia proposta é o viés de seleção inerente à fonte de dados. Usuários que avaliam estabelecimentos no Google Places tendem a ser pessoas com acesso a tecnologia e familiaridade com plataformas digitais, o que pode sub-representar populações mais vulneráveis -- exatamente aquelas mais afetadas pelos problemas identificados. Avaliações também tendem a ser polarizadas: usuários insatisfeitos e muito satisfeitos são mais propensos a escrever do que aqueles com experiências medianas.
+
+A cobertura temporal é outra limitação: os dados refletem percepções acumuladas ao longo do tempo (o Google Places não permite filtrar por período na maioria dos estabelecimentos), o que pode incluir avaliações de situações já resolvidas. A metodologia captura um \textit{snapshot} da percepção pública, não uma tendência temporal.
+
+A interpretação contextual pelos LLMs pode ser imprecisa em casos envolvendo gírias regionais, ironia ou contexto cultural específico do sertão nordestino. Embora os scores de confiança indiquem que o modelo teve alta certeza nas classificações, não é possível garantir que interpretações culturalmente específicas foram adequadamente capturadas.
+
+\subsection{Limitações Técnicas e de Custo}
+\label{subsec:lim-tecnicas}
+
+O uso extensivo da Google Places API implica custos crescentes com o aumento da escala de análise. O \textit{rate limiting} imposto pela API limita a velocidade de coleta, tornando análises de alta cobertura demoradas. O custo de tokens dos LLMs utilizados (especialmente modelos Pro) pode ser significativo em execuções com muitos comentários.
+
+\section{Comparação com Métodos Tradicionais}
+\label{sec:comparacao}
+
+A metodologia proposta oferece vantagens claras sobre métodos tradicionais de avaliação de ODS em termos de velocidade (dias versus meses), custo (significativamente menor que pesquisas domiciliares), granularidade (nível do estabelecimento versus indicadores agregados) e especificidade (causas concretas versus pontuações abstratas). No entanto, métodos tradicionais mantêm superioridade em representatividade estatística e validação científica rigorosa. A abordagem proposta deve ser entendida como complementar, não substitutiva, dos indicadores oficiais como o IDSC.
+
+\section{Contribuições para o Campo}
+\label{sec:contribuicoes}
+
+Esta pesquisa contribui para o estado da arte em três dimensões. \textbf{Metodologicamente}, propõe um framework reproduzível e documentado para análise automatizada de ODS utilizando dados não estruturados, LLMs e filtragem semântica hierárquica -- uma combinação não encontrada na literatura revisada com o mesmo nível de detalhamento e validação empírica. \textbf{Empiricamente}, gera evidências inéditas sobre os fatores locais que explicam o baixo desempenho de Mossoró-RN nos ODS 9 e 16, com granularidade de estabelecimento e dimensão. \textbf{Praticamente}, disponibiliza ferramentas (código-fonte, configurações JSON, dashboards Power BI) que podem ser imediatamente aplicadas por gestores públicos e pesquisadores para análise de outros municípios e ODS, democratizando o acesso a diagnósticos baseados em evidências.

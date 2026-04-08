@@ -83,7 +83,7 @@
 % Define se o trabalho e uma qualificacao
 % Coloque 'nao' para versao final do trabalho
 
-\ehqualificacao{sim}
+\ehqualificacao{nao}
 
 % Remove as bordas vermelhas e verdes do PDF gerado
 % Coloque 'sim' pare remover
@@ -102,8 +102,8 @@
 \iesdois{Universidade Estadual do Rio Grande do Norte}
 \iessigla{UFERSA}
 \iessigladois{UERN}
-\centro{Centro de Xxxxxxxx}
-\departamento{Departamento de Xxxxxxxxx}
+\centro{Centro de Ciências e Tecnologia}
+\departamento{Departamento de Computação}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        Informacao para TCC de Graduacao         %%
@@ -131,10 +131,10 @@
 %%         Informacao para Dissertacao             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\programamestrado{Programa de Pós-Graduação em Ciências da Computação}
-\nomedomestrado{Mestrado Acadêmico em Xxxxxxx} % opicional
+\programamestrado{Programa de Pós-Graduação em Ciência da Computação}
+\nomedomestrado{Mestrado Acadêmico em Ciência da Computação} % opicional
 \mestreem{Ciência da Computação} 
-\areadeconcentracaomestrado{Engenharia Xxxxxx} % opicional
+\areadeconcentracaomestrado{Engenharia de Software e Sistemas Operacionais} % opicional
 
 % AVISO: Caso necessario alterar o texto de apresenta-
 % cao da dissertacao, ir a pasta "lib", arquivo 
@@ -157,9 +157,9 @@
 %%      Informacoes relacionadas ao trabalho       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\autor{Nome Sobrenome} 
-\titulo{Título do Trabalho}
-\data{2019}
+\autor{João Marinho Neto} 
+\titulo{Análise Automatizada de Objetivos de Desenvolvimento Sustentável: Uma Abordagem Baseada em Processamento de Linguagem Natural e Modelos de Linguagem de Grande Porte Aplicada a Mossoró-RN}
+\data{2025}
 \local{Mossoró}
 
 % Exemplo: \dataaprovacao{01 de Janeiro de 2012}
@@ -169,7 +169,7 @@
 %%           Informação sobre o Orientador         %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\orientador{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+\orientador{Prof. Dr. Francisco Milton Mendes Neto}
 \orientadories{UFERSA}
 \orientadorcentro{Centro de Ciências e Tecnologia (CCT)} % opicional
 \orientadorfeminino{nao} % Coloque 'sim' se for do sexo feminino
@@ -195,21 +195,21 @@
 % \membrodabancadois{Prof. Dr. Fulano de Tal}
 % \membrodabancadoisies{Universidade Federal do Ceará - UFC}
 
-\membrodabancadois{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+\membrodabancadois{Prof. Dr. Alex Sandro Gomes}
 \membrodabancadoiscentro{}
-\membrodabancadoisies{SIGLA}
-\membrodabancatres{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+\membrodabancadoisies{UFPE}
+\membrodabancatres{Prof. Dr. Bruno de Sousa Monteiro}
 \membrodabancatrescentro{}
-\membrodabancatresies{SIGLA}
-\membrodabancaquatro{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+\membrodabancatresies{UFERSA}
+\membrodabancaquatro{}
 \membrodabancaquatrocentro{}
-\membrodabancaquatroies{SIGLA}
-\membrodabancacinco{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
-\membrodabancacincocentro{Teste}
-\membrodabancacincoies{Universidade do Membro da Banca Cinco (SIGLA)}
-\membrodabancaseis{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+\membrodabancaquatroies{}
+\membrodabancacinco{}
+\membrodabancacincocentro{}
+\membrodabancacincoies{}
+\membrodabancaseis{}
 \membrodabancaseiscentro{}
-\membrodabancaseisies{Universidade do Membro da Banca Seis (SIGLA)}
+\membrodabancaseisies{}
 
 \begin{document}	
 
@@ -219,9 +219,6 @@
 % 	\imprimirfichacatalografica{1-pre-textuais/ficha-catalografica} %  gerada pela biblioteca 
 	%\imprimirerrata{elementos-pre-textuais/errata}
 	\imprimirfolhadeaprovacao 
-	\imprimirdedicatoria{1-pre-textuais/dedicatoria}
-	\imprimiragradecimentos{1-pre-textuais/agradecimentos}
-	\imprimirepigrafe{1-pre-textuais/epigrafe}
 	\imprimirresumo{1-pre-textuais/resumo}
 	\imprimirabstract{1-pre-textuais/abstract}
 	\renewcommand*\listfigurename{Lista de Figuras} %Se você comentar esta linha o título da lista fica: LISTA DE ILUSTRAÇÕES
@@ -231,32 +228,23 @@
 	%\imprimirlistadealgoritmos
 	%\imprimirlistadecodigosfonte
 	\imprimirlistadeabreviaturasesiglas
-	\imprimirlistadesimbolos{1-pre-textuais/lista-de-simbolos}   
+	%\imprimirlistadesimbolos{1-pre-textuais/lista-de-simbolos} % Comentado: requer makeglossaries extra
 	\imprimirsumario
 	
 	\setcounter{table}{0}% Deixe este comando antes da primeira tabela.
 	
 	%Elementos textuais
 	\textual
-	\input{2-textuais/1-introducao}
-	\input{2-textuais/2-fundamentacao-teorica}
-	\input{2-textuais/3-metodologia}
-	\input{2-textuais/4-resultados}
-	\input{2-textuais/5-conclusao}
+	\input{2-textuais/1-justificativa}
+	\input{2-textuais/2-introducao}
+	\input{2-textuais/3-hipotese-objetivos}
+	\input{2-textuais/4-revisao-sistematica}
+	\input{2-textuais/5-materiais-metodos}
+	\input{2-textuais/7-implementacao}
 	
 	%Elementos pós-textuais	
 	\bibliography{3-pos-textuais/referencias}
 %	\imprimirglossario	
-	\imprimirapendices
-		% Adicione aqui os apendices do seu trabalho
-		\input{3-pos-textuais/apendices/apendice-a}
-		\input{3-pos-textuais/apendices/apendice-b}
-		\input{3-pos-textuais/apendices/apendice-c}
-		\input{3-pos-textuais/apendices/apendice-d}
-	\imprimiranexos
-		% Adicione aqui os anexos do seu trabalho
-		\input{3-pos-textuais/anexos/anexo-a}
-		\input{3-pos-textuais/anexos/anexo-b}		
-	\imprimirindice
+%	\imprimirindice
 
 \end{document}
