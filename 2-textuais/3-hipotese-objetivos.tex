@@ -1,85 +1,111 @@
 \chapter{Hipótese}
 \label{cap:hipotese}
 
-A aplicação de análise de sentimento automatizada, utilizando Modelos de Linguagem de
-Grande Porte (\gls{LLM}s), como a \gls{API} Gemini, sobre dados textuais gerados por usuários na
-plataforma digital Gnomon -- concebida e avaliada sob a metodologia da Design Science --
-viabiliza uma identificação mais precisa e profunda da percepção dos usuários sobre os lugares e da
-sua construção de identidade territorial. Adicionalmente, postula-se que esta mesma abordagem
-analítica possui o potencial de revelar como dimensões de valor socioambiental, que podem se
-alinhar a aspectos de Ambientais, Sociais e Governança (\gls{ESG}), são articuladas pelos usuários
-em suas experiências e narrativas sobre esses territórios, conforme interagem com a plataforma
-Gnomon. A investigação dessas capacidades permitirá o desenvolvimento e a validação de um
-método robusto para compreender a experiência do usuário de forma integral, com implicações
-diretas para o avanço do conhecimento sobre as intersecções entre tecnologia, identidade de lugar e
-a expressão de valores contemporâneos.
+A aplicação de análise de sentimento por aspecto, apoiada por Modelos de
+Linguagem de Grande Porte (\gls{LLM}s) e por dados perceptivos
+georreferenciados oriundos da Google Places API, viabiliza a identificação
+de gargalos específicos no desempenho municipal dos Objetivos de
+Desenvolvimento Sustentável (\gls{ODS}) que não são capturados,
+isoladamente, por indicadores oficiais agregados. Postula-se, ainda, que
+essa abordagem permite gerar diagnósticos estruturados em linguagem
+natural, ancorados em estabelecimentos físicos concretos, e que tais
+diagnósticos --- quando consolidados em \textit{dashboards} interativos
+públicos --- são percebidos como úteis e fáceis de usar por especialistas
+multidisciplinares, conforme aferido pelo modelo de aceitação tecnológica
+TAM \cite{davis1989}. A investigação dessas capacidades permite o
+desenvolvimento e a validação de um método robusto para o monitoramento
+contínuo dos ODS municipais, com implicações diretas para o avanço do
+conhecimento sobre as intersecções entre inteligência artificial, dados
+abertos e gestão pública urbana.
 
-Desta forma, a questão central que esta pesquisa busca responder por meio da validação
-desta hipótese é:
+Desta forma, a questão central que esta pesquisa busca responder por meio
+da validação desta hipótese é:
 
 \begin{citacao}
-Como a análise de sentimento aplicada a dados da plataforma Gnomon pode melhor identificar a
-percepção das pessoas sobre os lugares e sua identidade de lugar, e, secundariamente, capturar
-suas considerações sobre aspectos socioambientais relacionados?
+Como a análise de sentimento por aspecto, aplicada a avaliações públicas
+georreferenciadas e processada por Modelos de Linguagem de Grande Porte,
+pode identificar gargalos no desempenho de ODS municipais, gerar
+diagnósticos acionáveis para gestores públicos e ser efetivamente aceita
+por especialistas como ferramenta de apoio à decisão?
 \end{citacao}
 
 \chapter{Objetivo Geral}
 \label{cap:objetivo-geral}
 
-O objetivo geral desta pesquisa é investigar, propor e validar uma abordagem metodológica,
-fundamentada na Design Science e na análise de sentimento com Modelos de Linguagem de
-Grande Porte (LLMs), para identificar e compreender de forma aprimorada a percepção das pessoas
-sobre os lugares e a formação de sua identidade de lugar, por meio da interação com a plataforma
-digital Gnomon.
+O objetivo geral desta pesquisa é \textbf{investigar, propor, implementar e
+validar uma metodologia automatizada e escalável} --- fundamentada na
+Design Science e na análise de sentimento por aspecto com \gls{LLM}s ---
+para identificar e diagnosticar gargalos no desempenho municipal dos
+Objetivos de Desenvolvimento Sustentável (\gls{ODS}), tendo Mossoró-RN
+como estudo de caso central e estendendo a abordagem para múltiplos ODS
+(3, 4, 9 e 16) e para outros municípios brasileiros.
 
 \section{Objetivos Específicos}
 \label{sec:objetivos-especificos}
 
-Para alcançar o objetivo geral, foram estabelecidos os seguintes objetivos específicos,
-adaptados a partir dos focos de investigação de sentimento de pertencimento e percepção de temas
-relevantes.
+Para alcançar o objetivo geral, foram estabelecidos os seguintes objetivos
+específicos, organizados em três eixos complementares: \emph{(i)}
+fundamentação e arquitetura, \emph{(ii)} análise por aspecto e diagnósticos
+e \emph{(iii)} generalização e validação.
 
-\subsection{Objetivos Específicos Relacionados ao Sentimento de Pertencimento}
-\label{subsec:obj-pertencimento}
+\subsection{Objetivos Específicos Relacionados à Fundamentação e à Arquitetura}
+\label{subsec:obj-arquitetura}
 
 \begin{enumerate}
-    \item \textbf{Identificar Expressões de Sentimento de Pertencimento nos Textos dos Usuários.}
+    \item \textbf{Mapear o estado da arte em análise de sentimento aplicada a ESG e ODS.}
     \begin{alineas}
-        \item \textit{Descrição}: Mapear e catalogar palavras-chave, frases e construções linguísticas que indicam um sentimento de pertencimento nos relatos dos usuários.
+        \item \textit{Descrição}: conduzir Revisão Sistemática da Literatura (\gls{RSL}) para identificar técnicas, modelos, fontes de dados e lacunas em estudos que aplicam \gls{NLP} e análise de sentimento a temas de sustentabilidade, governança e ODS.
     \end{alineas}
 
-    \item \textbf{Analisar a Intensidade do Sentimento de Pertencimento.}
+    \item \textbf{Comparar abordagens de análise de sentimento adequadas ao contexto de ODS municipais.}
     \begin{alineas}
-        \item \textit{Descrição}: Utilizar técnicas de análise de sentimentos para medir a intensidade (positiva, neutra, negativa) do sentimento de pertencimento expresso nos textos.
+        \item \textit{Descrição}: avaliar abordagens léxicas (TextBlob, VADER), modelos baseados em \textit{Transformers} (\gls{BERT}, \gls{RoBERTa}) e \gls{LLM}s generativos (Gemini, Perplexity, GPT, Cohere) sob critérios de eficiência de código, taxa de erro, qualidade das justificativas e consistência das respostas estruturadas.
     \end{alineas}
 
-    \item \textbf{Correlacionar o Sentimento de Pertencimento com Fatores Demográficos e Contextuais.}
+    \item \textbf{Projetar uma arquitetura modular e configurável por ODS e por município.}
     \begin{alineas}
-        \item \textit{Descrição}: Investigar como variáveis como idade, gênero, origem geográfica influenciam o sentimento de pertencimento.
-    \end{alineas}
-
-    \item \textbf{Explorar a Evolução do Sentimento de Pertencimento ao Longo do Tempo.}
-    \begin{alineas}
-        \item \textit{Descrição}: Estudar como o sentimento de pertencimento dos usuários varia em períodos diferentes, identificando possíveis influências sazonais ou decorrentes de eventos específicos.
+        \item \textit{Descrição}: especificar uma arquitetura composta por módulos de coleta, filtragem, análise por aspecto e geração de diagnósticos, parametrizada por arquivos JSON de configuração, capaz de suportar múltiplos provedores de \gls{LLM} com mecanismo de \textit{fallback}.
     \end{alineas}
 \end{enumerate}
 
-\subsection{Objetivos Específicos Relacionados à Percepção dos ODS da ONU}
-\label{subsec:obj-ods}
+\subsection{Objetivos Específicos Relacionados à Análise por Aspecto e aos Diagnósticos}
+\label{subsec:obj-analise}
 
 \begin{enumerate}
-    \item \textbf{Detectar Menções Diretas e Indiretas aos ODS nos Textos dos Usuários.}
+    \setcounter{enumi}{3}
+    \item \textbf{Coletar e filtrar dados perceptivos georreferenciados sobre estabelecimentos relacionados aos ODS.}
     \begin{alineas}
-        \item \textit{Descrição}: Aplicar técnicas de processamento de linguagem natural para identificar referências aos 17 \gls{ODS} nos relatos dos turistas, mesmo quando não mencionados explicitamente.
+        \item \textit{Descrição}: utilizar a Google Places API para coletar avaliações públicas de estabelecimentos vinculados a aspectos dos ODS analisados (rodoviárias, órgãos públicos, escolas, unidades de saúde, espaços urbanos, entre outros), aplicando filtragem hierárquica de validação geográfica, comprimento mínimo, relevância semântica e adequação ao ODS.
     \end{alineas}
 
-    \item \textbf{Analisar o Sentimento Associado a Cada ODS Mencionado.}
+    \item \textbf{Detectar problemas por aspecto em cada ODS analisado.}
     \begin{alineas}
-        \item \textit{Descrição}: Avaliar a polaridade (positiva, neutra, negativa) das menções aos ODS, identificando quais objetivos são vistos de forma mais favorável ou enfrentam críticas.
+        \item \textit{Descrição}: aplicar análise por aspecto (\textit{aspect-based sentiment analysis}) com prompts estruturados para classificar sentimento, escore de confiança, justificativa, palavras-chave e indicador de problema em cada uma das dimensões dos ODS investigados.
     \end{alineas}
 
-    \item \textbf{Avaliar o Nível de Conscientização e Conhecimento dos Indivíduos sobre os ODS.}
+    \item \textbf{Gerar diagnósticos automáticos estruturados em linguagem natural.}
     \begin{alineas}
-        \item \textit{Descrição}: Investigar o grau de familiaridade dos usuários com os ODS, considerando a profundidade das discussões e a precisão das informações apresentadas nos textos.
+        \item \textit{Descrição}: produzir, por meio de \gls{LLM}s, diagnósticos textuais consolidados a partir de estatísticas agregadas, contemplando análise por dimensão, pontos críticos prioritários, impacto social/econômico e recomendações estratégicas para cada ODS estudado.
+    \end{alineas}
+\end{enumerate}
+
+\subsection{Objetivos Específicos Relacionados à Generalização e à Validação}
+\label{subsec:obj-validacao}
+
+\begin{enumerate}
+    \setcounter{enumi}{6}
+    \item \textbf{Generalizar a metodologia para múltiplos ODS e múltiplos municípios.}
+    \begin{alineas}
+        \item \textit{Descrição}: aplicar a abordagem aos ODS 3 (Saúde e Bem-Estar), 4 (Educação de Qualidade), 9 (Indústria, Inovação e Infraestrutura) e 16 (Paz, Justiça e Instituições Eficazes) e replicar a coleta e análise em capitais brasileiras (Natal-RN, Fortaleza-CE, João Pessoa-PB e Salvador-BA), avaliando a estabilidade dos padrões identificados.
+    \end{alineas}
+
+    \item \textbf{Disponibilizar um formulário interativo de configuração e \textit{dashboards} públicos.}
+    \begin{alineas}
+        \item \textit{Descrição}: implementar uma interface \textit{web} (\textit{form} HTML) para geração assistida de novos arquivos de configuração e disponibilizar os resultados em \textit{dashboards} interativos públicos, viabilizando a exploração dos diagnósticos por gestores e pela sociedade civil.
+    \end{alineas}
+
+    \item \textbf{Validar a aceitação tecnológica dos \textit{dashboards} junto a especialistas multidisciplinares.}
+    \begin{alineas}
+        \item \textit{Descrição}: avaliar a Percepção de Utilidade (PU), a Percepção de Facilidade de Uso (PFU) e a Intenção Comportamental de Uso (ICU) dos \textit{dashboards} de ODS Mossoró por meio do modelo TAM \cite{davis1989}, complementado por questões qualitativas abertas, com vistas a apoiar a tomada de decisão pública.
     \end{alineas}
 \end{enumerate}

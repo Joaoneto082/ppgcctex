@@ -1,198 +1,219 @@
 \chapter{Introdução}
 \label{cap:introducao}
 
-Nesta seção, são apresentados o contexto da pesquisa, a motivação, a metodologia da
-pesquisa e as discussões e soluções que fundamentam este trabalho.
+Nesta seção, são apresentados o contexto da pesquisa, a motivação, a
+metodologia adotada, bem como as discussões e as soluções propostas que
+fundamentam este trabalho.
 
 \section{Contexto da Pesquisa}
 \label{sec:contexto}
 
-Nos últimos anos, a relevância dos fatores ambientais, sociais e de governança (\gls{ESG}) têm
-crescido significativamente no contexto empresarial e financeiro. A sigla ESG, utilizada
-oficialmente pela primeira vez em um relatório da ONU, intitulado ``Who Cares Wins'' em 2004
-\cite{onu2004}, refere-se a critérios que medem a sustentabilidade e o impacto ético de um
-investimento em uma empresa. Desde então, os Princípios para Investimentos Responsáveis
-(\gls{PRI}) da ONU, estabelecidos em 2006 \cite{onu2006}, reforçaram a importância dos critérios
-ESG como princípios financeiros, formando a base da estrutura ESG que conhecemos hoje.
+Os Objetivos de Desenvolvimento Sustentável (\gls{ODS}), estabelecidos pela
+Organização das Nações Unidas em 2015 no escopo da Agenda 2030
+\cite{onu2015}, orientam políticas públicas, investimentos e ações sociais
+em direção ao desenvolvimento sustentável até 2030 \cite{massey2022}. A
+efetividade desse esforço depende, em grande medida, da capacidade de
+monitorar o progresso dos ODS em diferentes escalas, especialmente no nível
+municipal, no qual serviços públicos, infraestruturas e instituições afetam
+de forma direta a vida da população. No Brasil, o Índice de Desenvolvimento
+Sustentável das Cidades (\gls{IDSC}-BR) consolida indicadores oficiais para
+mais de cinco mil municípios e evidencia, por exemplo, que Mossoró-RN ---
+segunda maior cidade do Rio Grande do Norte --- apresenta pontuação muito
+baixa (faixa 0--39,99) nos \gls{ODS} 9 (Indústria, Inovação e
+Infraestrutura) e 16 (Paz, Justiça e Instituições Eficazes)
+\cite{idsc2024}, sem que se disponha de diagnósticos detalhados sobre os
+fatores que explicam esse desempenho.
 
-A pandemia de COVID-19 intensificou a atenção global aos temas ESG, especialmente em
-relação às mudanças climáticas, proteção ambiental e saúde pública. A importância dos
-investimentos a longo prazo, que consideram os riscos e oportunidades associados aos critérios
-ESG, tornou-se mais evidente durante este período. As avaliações de processos econômicos
-corporativos com base em ESG passaram a fornecer uma visão mais ampla, abrangendo tanto
-posições regionais quanto globais.
+A relevância dos fatores ambientais, sociais e de governança (\gls{ESG}),
+articulados desde 2004 no relatório \textit{Who Cares Wins} da ONU
+\cite{onu2004} e consolidados pelos Princípios para Investimentos
+Responsáveis (\gls{PRI}) em 2006 \cite{onu2006}, complementa o arcabouço dos
+ODS ao oferecer uma linguagem comum entre setor público, sociedade civil e
+investidores. Diversos estudos vêm explorando como dados textuais
+relacionados a ESG impactam decisões de mercado e percepções públicas
+\cite{schimanski2024,gupta2024,jaiswal2024,liu2023esg,bhattacherjee2023,yu2023,nyakurukwa2023};
+no entanto, esses trabalhos concentram-se majoritariamente na esfera
+corporativa ou em opiniões difusas em redes sociais globais, deixando uma
+lacuna importante quanto ao uso de dados perceptivos georreferenciados para
+o monitoramento municipal dos ODS.
 
-Diversos estudos têm explorado a relação entre os conceitos de ESG e os investidores,
-utilizando dados específicos de países ou focando em mercados financeiros específicos. Por
-exemplo, alguns trabalhos analisaram como os dados de linguagem natural relacionados a ESG
-impactam os mercados financeiros, enquanto outros examinaram os relatórios de responsabilidade
-social corporativa (\gls{CSR}) para entender as concepções ESG. No entanto, esses estudos
-frequentemente utilizam dados limitados ou não abrangem uma análise ampla, deixando lacunas no
-entendimento sobre a utilização dos critérios ESG.
-
-Neste contexto, a análise de sentimentos aplicada a dados relacionados a ESG emerge como
-uma ferramenta para capturar as percepções públicas e acadêmicas. A análise de sentimentos, uma
-subárea do processamento de linguagem natural (\gls{NLP}), permite a identificação de opiniões e
-emoções expressas em textos, como notícias e publicações acadêmicas. Esta pesquisa busca auxiliar
-na solução de um problema prático do mundo real utilizando a metodologia denominada Design
-Science \cite{wieringa2014} para sua condução. Para isto seguiu-se uma estrutura lógica para
-resolução do problema.
+Nos últimos anos, dados digitais produzidos por cidadãos em plataformas
+\textit{online} passaram a ser explorados como fontes complementares para a
+avaliação de políticas públicas \cite{fu2023,larosa2025}. Avaliações e
+comentários públicos --- particularmente aqueles vinculados a locais físicos
+específicos, como os disponibilizados pela Google Places API
+\cite{googleplaces2024} --- permitem capturar percepções sobre a qualidade
+de serviços, infraestruturas e instituições, oferecendo uma perspectiva
+distinta dos indicadores oficiais tradicionais \cite{wankhade2022}. Avanços
+em \gls{NLP} e em \gls{LLM}s ampliaram a capacidade de extrair informações
+relevantes desses dados não estruturados, viabilizando análises por aspecto
+(\textit{aspect-based sentiment analysis}) e a geração automática de
+diagnósticos estruturados em linguagem natural \cite{agua2025,larosa2025}.
 
 \section{Motivação}
 \label{sec:motivacao}
 
-Plataformas de exploração urbana e turística estão redefinindo a maneira como as pessoas se
-conectam com os lugares, seu patrimônio e as narrativas locais. Ao permitir que os usuários
-expressem suas impressões e vivências, abre-se uma nova janela para compreender a percepção e a
-construção da identidade territorial. Neste contexto, a análise de sentimento emerge como uma
-abordagem central para decifrar as nuances dessas interações e entender profundamente o que os
-usuários sentem.
+Apesar do potencial dessas abordagens, sua aplicação à gestão pública
+municipal ainda apresenta limitações relevantes. Indicadores oficiais
+tendem a apresentar baixa granularidade espacial e elevada defasagem
+temporal \cite{abidoye2022}, enquanto análises baseadas em redes sociais
+frequentemente capturam opiniões difusas, pouco conectadas a experiências
+físicas verificáveis \cite{jaiswal2024,liu2023esg}. Em municípios de médio
+porte, como Mossoró-RN, essa lacuna é particularmente sensível: gestores
+públicos sabem que o desempenho nos ODS é crítico, mas dispõem de pouca
+informação acionável sobre \emph{onde} e \emph{por que} os problemas se
+manifestam.
 
-A ferramenta foco deste estudo, ao ser utilizada para explorar roteiros culturais ou interagir
-com narrativas urbanas, não apenas guia o usuário, mas também se torna um canal para capturar
-suas ricas experiências subjetivas. A aplicação da análise de sentimento sobre esses registros
-permite identificar padrões emocionais e avaliar como as características de um lugar e as narrativas
-associadas a ele ressoam com o público. O desenvolvimento e aprimoramento de uma solução
-tecnológica com este propósito seguem uma abordagem metodológica estruturada, como a Design
-Science, que orienta a criação de artefatos para solucionar problemas práticos e investigar
-fenômenos reais. Entender, por exemplo, como o fato de ter nascido e/ou crescido em determinada
-comunidade influenciou características culturais, sociais e aptidões políticas de um indivíduo é
-crucial para definição de políticas públicas voltadas para educação e cultura daquele lugar, visando
-preservar heranças passadas ou mesmo melhorar aspectos negativos identificados.
+A motivação deste trabalho reside, portanto, na hipótese de que dados
+perceptivos georreferenciados podem complementar os mecanismos
+tradicionais de avaliação dos ODS ao revelar padrões e fragilidades pouco
+visíveis em indicadores agregados. Ao explorar avaliações públicas
+associadas a locais físicos específicos --- terminais rodoviários, órgãos
+públicos, escolas, unidades de saúde, espaços urbanos ---, é possível
+analisar sistematicamente os relatos textuais para identificar dimensões
+problemáticas recorrentes, ancorar diagnósticos em ativos físicos concretos
+e fornecer subsídios às políticas públicas. Aliada à capacidade dos
+\gls{LLM}s de gerar diagnósticos qualitativos estruturados a partir de
+estatísticas agregadas, essa abordagem alinha-se ao conceito de Cidades
+Inteligentes (\textit{Smart Cities}), promovendo a participação cidadã
+indireta na governança urbana e reduzindo o custo do monitoramento
+contínuo \cite{fu2023}.
 
-A análise sistemática das percepções e dos sentimentos dos usuários, capturados e
-interpretados através desta plataforma, pode oferecer contribuições valiosas. Essas contribuições
-podem direcionar também o aprimoramento de experiências turísticas e culturais, tornando-as mais
-envolventes e significativas. Podem também informar como as pessoas estão percebendo e
-construindo sua identidade com os espaços mediados pela ferramenta, fornecendo subsídios para
-que esta se torne ainda mais eficaz em promover uma relação positiva com o entorno. A
-compreensão profunda das reações emocionais, obtida via análise de sentimento, possibilita o
-desenvolvimento de intervenções e recomendações mais personalizadas e eficazes através de
-ferramentas de software, fortalecendo a conexão emocional e o senso de identidade dos usuários
-com os lugares que exploram. Portanto, esta pesquisa se dedica a investigar como a análise de
-sentimento aplicada aos dados gerados no Gnomon, uma plataforma digital interativa de exploração
-urbana e turística, pode revelar e medir a percepção e a identidade de lugar formadas pelos seus
-usuários.
+A pesquisa adota Mossoró-RN como estudo de caso central, com foco em ODS de
+desempenho muito baixo (ODS 9 e 16), ampliando-se posteriormente para o ODS
+3 (Saúde e Bem-Estar) e o ODS 4 (Educação de Qualidade), e replicando-se a
+metodologia em outras capitais brasileiras (Natal-RN, Fortaleza-CE,
+João Pessoa-PB e Salvador-BA), de modo a avaliar a generalização da
+abordagem em diferentes domínios temáticos e geográficos.
 
 \section{Metodologia da Pesquisa}
 \label{sec:metodologia-pesquisa}
 
-Para este trabalho seguiu-se uma estrutura lógica para resolução do problema. A seguir, as
-questões de pesquisas que orientam este trabalho.
+Para este trabalho seguiu-se uma estrutura lógica para resolução do problema
+fundamentada na Design Science \cite{wieringa2014,dresch2015}. A seguir,
+apresentam-se as questões de pesquisa que orientam o estudo.
 
 \subsection{Questões de Pesquisa}
 \label{subsec:questoes-pesquisa}
 
-As questões de pesquisa deste estudo empregam a abordagem Design Science para ajudar na
-identificação dos problemas. Uma investigação guiada pelo Design Science adota uma metodologia
-baseada na resolução de problemas \cite{wieringa2009}.
+As questões de pesquisa deste estudo empregam a abordagem Design Science
+para apoiar a identificação dos problemas. Uma investigação guiada pela
+Design Science adota uma metodologia baseada na resolução de problemas
+\cite{wieringa2009}.
 
-Em um cenário onde a responsabilidade social e a sustentabilidade se tornam cada vez mais
-cruciais para a reputação e o sucesso das organizações, utilizar a análise de sentimento para melhorar
-o desempenho ESG de organizações públicas é uma abordagem válida. Primeiramente, a análise de
-sentimento permite que tenhamos a percepção do público sobre suas práticas ESG. Isso possibilita
-uma resposta rápida a críticas e preocupações, demonstrando transparência. Além disso, com a
-análise de grandes volumes de dados provenientes de redes sociais, notícias e outras fontes, é
-possível identificar tendências e potenciais problemas antes que se tornem crises de reputação,
-essencial para a gestão proativa das práticas ESG. Entender o sentimento do público também ajuda as
-organizações a adaptar suas estratégias de comunicação, tornando-as mais eficazes. Mensagens que
-ressoam com os valores e preocupações da sociedade podem aumentar o engajamento e o apoio às
-iniciativas ESG. Ademais, a análise de sentimento pode fornecer informações sobre áreas onde as
-práticas ESG podem ser melhoradas, permitindo que as organizações implementem mudanças
-direcionadas e monitorem o impacto dessas melhorias ao longo do tempo. Então a questão geral de
+Em um cenário no qual a sustentabilidade urbana e a eficácia das instituições
+públicas tornam-se cada vez mais críticas para a qualidade de vida nos
+municípios, utilizar análise de sentimento por aspecto sobre dados
+perceptivos georreferenciados constitui uma abordagem válida para apoiar a
+gestão pública. Em primeiro lugar, a análise por aspecto permite
+caracterizar a percepção do público sobre serviços e infraestruturas
+específicos, viabilizando respostas direcionadas e demonstrando
+transparência. Em segundo lugar, a análise sistemática de grandes volumes
+de texto não estruturado permite identificar tendências e gargalos antes
+que se tornem crises de longo prazo, contribuindo para uma gestão proativa.
+Em terceiro lugar, a geração automática de diagnósticos pelos \gls{LLM}s
+torna os resultados acessíveis a gestores sem expertise técnica avançada,
+ampliando o impacto prático do estudo. Diante disso, a questão geral de
 pesquisa a ser tratada neste trabalho compreende:
 
 \begin{citacao}
-Como melhor identificar a percepção das pessoas sobre as práticas ESG e sua identidade de lugar?
+Como a análise de sentimento por aspecto, apoiada por Modelos de Linguagem
+de Grande Porte e dados perceptivos georreferenciados, pode auxiliar a
+identificar gargalos no desempenho de ODS municipais e gerar diagnósticos
+acionáveis para políticas públicas?
 \end{citacao}
 
-Do ponto de vista organizacional, essa questão de pesquisa pode ser decomposta em outras
-questões elementares. Segundo a Design Science, esta questão geral de pesquisa pode ser
-categorizada em Questões Conceituais (QC), Questões Técnicas (QT) e Questões Práticas (QP).
-Dessa forma, a Questão de Pesquisa enunciada acima pode ser decomposta nas seguintes questões de
-pesquisa apresentadas a seguir:
+Segundo a Design Science, esta questão geral de pesquisa pode ser
+decomposta em Questões Conceituais (QC), Questões Técnicas (QT) e Questões
+Práticas (QP), apresentadas a seguir:
 
 \begin{alineas}
-    \item \textbf{QC 1}: O que são Indicadores ESG?
+    \item \textbf{QC 1}: O que são os Objetivos de Desenvolvimento Sustentável (ODS) e como seu desempenho é mensurado em nível municipal?
     \begin{alineas}
-        \item \textit{Explicação}: Essa questão busca identificar quais aspectos do ESG são mais relevantes e como eles podem ser representados em dados textuais para a análise de sentimento.
-        \item \textit{Motivação}: Compreender os indicadores ESG e como eles funcionam.
+        \item \textit{Explicação}: Identificar quais ODS são mais relevantes para diagnósticos municipais e como podem ser representados em dados textuais para análise de sentimento.
+        \item \textit{Motivação}: Compreender o arcabouço conceitual dos ODS, seus indicadores oficiais (IDSC-BR) e as limitações dessas métricas em escala local.
     \end{alineas}
-    \item \textbf{QT 2}: Como por meio de algoritmos de análise de sentimento podemos avaliar aspectos de ESG?
+    \item \textbf{QT 2}: Como Modelos de Linguagem de Grande Porte (LLMs) e técnicas de análise por aspecto podem ser combinados a dados perceptivos georreferenciados para avaliar o desempenho de ODS municipais?
     \begin{alineas}
-        \item \textit{Explicação}: Esta questão examina quais algoritmos de processamento de linguagem natural são mais eficazes para a análise de ESG.
-        \item \textit{Motivação}: Identificar os algoritmos mais adequados pode melhorar a precisão e a relevância dos resultados obtidos.
+        \item \textit{Explicação}: Examinar quais arquiteturas, modelos e estratégias de \textit{prompt engineering} são mais eficazes para extrair sentimentos por aspecto e gerar diagnósticos estruturados.
+        \item \textit{Motivação}: Identificar a combinação de modelos e fontes de dados que maximize a precisão e a relevância dos resultados.
     \end{alineas}
-    \item \textbf{QP 3}: Como esses resultados podem ser utilizados para melhorar as práticas de ESG?
+    \item \textbf{QP 3}: Como esses resultados podem ser disponibilizados a gestores públicos e validados por especialistas para apoiar a tomada de decisão?
     \begin{alineas}
-        \item \textit{Explicação}: Investigar formas práticas de aplicação dos valores obtidos pela análise de sentimento para promover melhorias nas práticas de ESG.
-        \item \textit{Derivadas}: Quais são os principais desafios na implementação de melhorias baseadas em análise de sentimento?
+        \item \textit{Explicação}: Investigar formas práticas de operacionalizar os diagnósticos por meio de \textit{dashboards} interativos e validar sua utilidade percebida com instrumentos formais de aceitação tecnológica.
+        \item \textit{Derivadas}: Quais são os principais desafios na implementação e na adoção, pelo poder público, de soluções baseadas em análise de sentimento aplicada a ODS?
     \end{alineas}
 \end{alineas}
 
-Em Design Science, a estruturação do conjunto de problemas de pesquisa é realizada através
-da decomposição de uma questão geral de pesquisa em questões conceituais, técnicas e práticas. A
-construção do conjunto de soluções ocorre pela composição das soluções apresentadas para essas
-questões.
+Em Design Science, a estruturação do conjunto de problemas de pesquisa é
+realizada por meio da decomposição de uma questão geral em questões
+conceituais, técnicas e práticas. A construção do conjunto de soluções
+ocorre pela composição das soluções apresentadas para essas questões.
 
 \subsection{Métodos de Pesquisa}
 \label{subsec:metodos-pesquisa}
 
-Para alcançar os objetivos pretendidos a pesquisa seguiu um conjunto de fases de acordo com
-o Design Science \cite{wieringa2014}. O espaço-problema define a questão geral de pesquisa (QGP)
-que foi decomposta em questões conceituais (QC), técnicas (QT) e práticas (QP). O espaço-solução
-define as contribuições, composta pelos artefatos que respondem o conjunto de questões, conforme
-ilustrado na Figura \ref{fig:metodologia-pesquisa}.
+Para alcançar os objetivos pretendidos, a pesquisa seguiu um conjunto de
+fases de acordo com o Design Science \cite{wieringa2014}. O
+espaço-problema define a questão geral de pesquisa (QGP), decomposta em
+questões conceituais (QC), técnicas (QT) e práticas (QP). O espaço-solução
+define as contribuições, compostas pelos artefatos que respondem ao
+conjunto de questões, conforme ilustrado na
+Figura~\ref{fig:metodologia-pesquisa}.
 
 \begin{figure}[h]
     \centering
     \caption{Metodologia de Pesquisa}
     \label{fig:metodologia-pesquisa}
     \includegraphics[width=0.85\textwidth]{figuras/metodologia-pesquisa}
-    \legend{Fonte: Autoria Própria (2024).}
+    \legend{Fonte: Autoria Própria (2025).}
 \end{figure}
 
-Para responder às questões de pesquisa relacionadas ao uso de algoritmos de análise de
-sentimento, com o intuito de melhorar o desempenho ESG (\textit{Environmental, Social, and Governance}),
-serão adotados os seguintes métodos de pesquisa:
+Para responder às questões de pesquisa relativas ao uso de \gls{LLM}s e à
+análise por aspecto aplicada a dados perceptivos sobre ODS municipais,
+foram adotados os seguintes métodos:
 
 \begin{alineas}
-    \item \textbf{Revisão Sistemática da Literatura (\gls{RSL})}: A RSL será utilizada para identificar e analisar estudos existentes sobre a aplicação de algoritmos de análise de sentimento em ESG. Este método permitirá uma compreensão abrangente dos principais indicadores ESG que podem ser extraídos de textos.
+    \item \textbf{Revisão Sistemática da Literatura (\gls{RSL})}: a RSL foi utilizada para identificar e analisar estudos existentes sobre análise de sentimento em ESG/ODS, mapeando técnicas, indicadores e lacunas que orientam o trabalho.
     \begin{alineas}
-        \item \textit{Definição do Protocolo de RSL}: Estabelecer critérios de inclusão e exclusão, bases de dados a serem utilizadas e estratégias de busca.
-        \item \textit{Coleta de Dados}: Realizar buscas em bases de dados acadêmicas como IEEE Xplore, ACM e Google Scholar.
-        \item \textit{Análise e Sumarização}: Revisar e sintetizar os resultados dos estudos relevantes encontrados.
+        \item \textit{Definição do Protocolo de RSL}: estabelecer critérios de inclusão e exclusão, bases de dados e estratégias de busca.
+        \item \textit{Coleta de Dados}: realizar buscas em bases acadêmicas (IEEE Xplore, Capes, Science Direct).
+        \item \textit{Análise e Sumarização}: revisar e sintetizar os resultados dos estudos relevantes.
     \end{alineas}
-    \item \textbf{Prototipação e Desenvolvimento}: A prototipação será utilizada para testar algoritmos de análise de sentimento adaptados ao contexto ESG. Este processo envolverá várias etapas de desenvolvimento, teste e refinamento.
+    \item \textbf{Prototipação e Desenvolvimento}: prototipação iterativa para selecionar e adaptar técnicas de NLP e \gls{LLM}s ao contexto de ODS municipais.
     \begin{alineas}
-        \item \textit{Seleção de Algoritmos}: Identificar algoritmos de NLP adequados, como modelos de Transformer (Modelo de rede Neural).
-        \item \textit{Treinamento e Validação}: Treinar os algoritmos utilizando conjuntos de dados textuais relevantes (mídias sociais, relatórios financeiros, notícias) e validar sua eficácia com métricas como precisão, \textit{Recall} e F1-\textit{score}.
-        \item \textit{Ajustes e Melhorias}: Refinar os algoritmos com base nos resultados.
+        \item \textit{Seleção de Modelos}: avaliar abordagens léxicas (TextBlob, VADER), modelos baseados em \textit{Transformers} (BERT, RoBERTa) e \gls{LLM}s generativos (Gemini, Perplexity, GPT, Cohere).
+        \item \textit{Engenharia de \textit{Prompts} e Validação}: definir prompts estruturados para análise por aspecto e validar a consistência dos resultados.
+        \item \textit{Generalização}: parametrizar o pipeline via arquivos JSON de configuração para permitir extensão a novos ODS e municípios.
     \end{alineas}
-    \item \textbf{Estudo de Caso}: Aplicar os algoritmos desenvolvidos em um estudo de caso real para validar sua eficácia prática. Este estudo envolverá a utilização dos dados do Gnomon em situações reais.
+    \item \textbf{Estudo de Caso}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e replicação em outras cidades.
     \begin{alineas}
-        \item \textit{Seleção do Caso}: Definir um ou mais cenários de uso da ferramenta de exploração urbana e turística que permitam a coleta de dados relevantes para a análise de percepção e identidade de lugar.
-        \item \textit{Coleta de Dados}: Obter dados gerados a partir da interação dos usuários com a ferramenta, como comentários, avaliações, e outros registros textuais que expressem suas percepções e sentimentos sobre os lugares explorados.
-        \item \textit{Aplicação dos Algoritmos}: Aplicar os algoritmos de análise de sentimento para identificar e analisar as percepções dos usuários sobre os lugares e a formação de identidade de lugar, a partir dos dados coletados pela ferramenta.
-        \item \textit{Avaliação dos Resultados}: Analisar os resultados gerados sobre a percepção e identidade de lugar, e avaliar a eficácia dos algoritmos e da ferramenta em capturar e interpretar esses aspectos, utilizando os resultados para refinar os algoritmos e métodos.
+        \item \textit{Seleção do Caso}: priorizar ODS com desempenho muito baixo no IDSC-BR (ODS 9 e ODS 16) e estender para ODS 3 e ODS 4.
+        \item \textit{Coleta de Dados}: obter avaliações públicas de estabelecimentos por meio da Google Places API, em coordenadas estratégicas e termos de busca relacionados a cada ODS.
+        \item \textit{Aplicação dos Algoritmos}: executar pipeline de filtragem hierárquica e análise por aspecto com \gls{LLM}s, gerando diagnósticos estruturados.
+        \item \textit{Avaliação dos Resultados}: analisar a coerência interna dos diagnósticos e validar a aceitação tecnológica dos \textit{dashboards} junto a especialistas, por meio do modelo TAM (\textit{Technology Acceptance Model}) \cite{davis1989}.
     \end{alineas}
 \end{alineas}
 
 \section{Discussões e Soluções}
 \label{sec:discussoes-solucoes}
 
-A revisão da literatura e a aplicação da ferramenta digital Gnomon em um estudo de caso
-permitirão identificar aspectos da percepção de lugar e identidade territorial a partir de textos de
-usuários, utilizando análise de sentimento. A eficácia de Modelos de Linguagem de Grande Porte
-(\gls{LLM}s), como a \gls{API} Gemini, será avaliada para esta tarefa, com o suporte de estudos da
-\gls{RSL} que demonstram o potencial de modelos NLP avançados como \gls{BERT} e \gls{RoBERTa}
-para análises textuais detalhadas \cite{schimanski2024, gupta2024}.
+A revisão da literatura, conjugada à aplicação do sistema proposto em
+estudo de caso real, permite identificar gargalos específicos no desempenho
+de ODS municipais a partir de relatos textuais georreferenciados. A
+eficácia de \gls{LLM}s --- sobretudo Google Gemini e Perplexity --- é
+avaliada nesta tarefa, com o suporte de estudos da \gls{RSL} que demonstram
+o potencial de modelos NLP avançados, como \gls{BERT} e \gls{RoBERTa}, para
+análises textuais detalhadas \cite{schimanski2024,gupta2024}.
 
-A análise de sentimento buscará compreender profundamente como os usuários percebem os
-lugares e expressam sua identidade ao usar o Gnomon. Esses resultados informarão o aprimoramento
-da plataforma para enriquecer a experiência do usuário e sua conexão com o patrimônio e ambientes
-explorados. No âmbito da Design Science, os resultados da análise de sentimento não apenas
-responderão à questão de pesquisa sobre a identificação da percepção e identidade de lugar, mas
-também oferecerão orientações práticas para o aprimoramento contínuo. O objetivo é fomentar o
-desenvolvimento de experiências digitais mais significativas, personalizadas e que efetivamente
-valorizem a relação humano-lugar.
+A análise por aspecto busca compreender, em profundidade, como os cidadãos
+percebem serviços, infraestruturas e instituições associados a cada ODS,
+identificando dimensões problemáticas recorrentes. Os resultados subsidiam o
+desenvolvimento de \textit{dashboards} interativos públicos, voltados a
+gestores e à sociedade civil, e são submetidos à validação técnica por
+especialistas multidisciplinares com base no modelo TAM
+\cite{davis1989}. No âmbito da Design Science, as evidências geradas não
+apenas respondem à questão de pesquisa sobre o monitoramento dos ODS
+municipais, mas também oferecem orientações práticas para o aprimoramento
+contínuo de políticas públicas, fomentando uma gestão urbana mais
+informada, transparente e alinhada às metas da Agenda 2030.
