@@ -70,8 +70,7 @@ visíveis em indicadores agregados. Ao explorar avaliações públicas
 associadas a locais físicos específicos --- terminais rodoviários, órgãos
 públicos, escolas, unidades de saúde, espaços urbanos ---, é possível
 analisar sistematicamente os relatos textuais para identificar dimensões
-problemáticas recorrentes, ancorar diagnósticos em ativos físicos concretos
-e fornecer subsídios às políticas públicas. Aliada à capacidade dos
+problemáticas recorrentes, ancorar diagnósticos e fornecer subsídios às políticas públicas. Aliada à capacidade dos
 \gls{LLM}s de gerar diagnósticos qualitativos estruturados a partir de
 estatísticas agregadas, essa abordagem alinha-se ao conceito de Cidades
 Inteligentes (\textit{Smart Cities}), promovendo a participação cidadã
@@ -80,9 +79,8 @@ contínuo \cite{fu2023}.
 
 A pesquisa adota Mossoró-RN como estudo de caso central, com foco em ODS de
 desempenho muito baixo (ODS 9 e 16), ampliando-se posteriormente para o ODS
-3 (Saúde e Bem-Estar) e o ODS 4 (Educação de Qualidade), e replicando-se a
-metodologia em outras capitais brasileiras (Natal-RN, Fortaleza-CE,
-João Pessoa-PB e Salvador-BA), de modo a avaliar a generalização da
+3 (Saúde e Bem-Estar) e o ODS 4 (Educação de Qualidade), sendo possível replicar a
+metodologia em outras cidades, de modo a avaliar a generalização da
 abordagem em diferentes domínios temáticos e geográficos.
 
 \section{Metodologia da Pesquisa}
@@ -109,9 +107,9 @@ caracterizar a percepção do público sobre serviços e infraestruturas
 específicos, viabilizando respostas direcionadas e demonstrando
 transparência. Em segundo lugar, a análise sistemática de grandes volumes
 de texto não estruturado permite identificar tendências e gargalos antes
-que se tornem crises de longo prazo, contribuindo para uma gestão proativa.
+que se tornem crises, contribuindo para uma gestão proativa.
 Em terceiro lugar, a geração automática de diagnósticos pelos \gls{LLM}s
-torna os resultados acessíveis a gestores sem expertise técnica avançada,
+torna os resultados acessíveis a gestores,
 ampliando o impacto prático do estudo. Diante disso, a questão geral de
 pesquisa a ser tratada neste trabalho compreende:
 
@@ -185,7 +183,7 @@ foram adotados os seguintes métodos:
         \item \textit{Engenharia de \textit{Prompts} e Validação}: definir prompts estruturados para análise por aspecto e validar a consistência dos resultados.
         \item \textit{Generalização}: parametrizar o pipeline via arquivos JSON de configuração para permitir extensão a novos ODS e municípios.
     \end{alineas}
-    \item \textbf{Estudo de Caso}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e replicação em outras cidades.
+    \item \textbf{Estudo de Caso}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e possível replicação em outras cidades.
     \begin{alineas}
         \item \textit{Seleção do Caso}: priorizar ODS com desempenho muito baixo no IDSC-BR (ODS 9 e ODS 16) e estender para ODS 3 e ODS 4.
         \item \textit{Coleta de Dados}: obter avaliações públicas de estabelecimentos por meio da Google Places API, em coordenadas estratégicas e termos de busca relacionados a cada ODS.
@@ -200,7 +198,7 @@ foram adotados os seguintes métodos:
 A revisão da literatura, conjugada à aplicação do sistema proposto em
 estudo de caso real, permite identificar gargalos específicos no desempenho
 de ODS municipais a partir de relatos textuais georreferenciados. A
-eficácia de \gls{LLM}s --- sobretudo Google Gemini e Perplexity --- é
+eficácia de \gls{LLM}s é
 avaliada nesta tarefa, com o suporte de estudos da \gls{RSL} que demonstram
 o potencial de modelos NLP avançados, como \gls{BERT} e \gls{RoBERTa}, para
 análises textuais detalhadas \cite{schimanski2024,gupta2024}.

@@ -121,7 +121,7 @@ Paralelamente, existem serviços de NLP em nuvem, como o Google Cloud Natural La
 \cite{microsoftazure2025}. Estes serviços oferecem APIs de fácil integração para análise de
 sentimento e outras tarefas de NLP, sem a necessidade de gerenciamento de infraestrutura ou
 treinamento de modelos por parte do usuário, embora geralmente impliquem custos e menor
-controle sobre o modelo subjacente. Essas comparações podem ser vistas na Tabela
+controle sobre o modelo subjacente. Essas comparações podem ser vistas na Figura
 \ref{tab:comparativa-ferramentas}.
 
 \begin{figure}[h]
@@ -162,7 +162,7 @@ tarefa de análise de sentimentos para a qual foi especificamente treinado, os L
 oferecem um conjunto diferente de vantagens, especialmente quando não se dispõe de grandes
 volumes de dados rotulados para um treinamento específico ou quando a natureza da tarefa exige
 maior flexibilidade e compreensão de nuances. LLMs genéricos (como Claude, GPT, DeepSeek, e,
-por extensão, a API Gemini utilizada neste trabalho), que não foram especificamente treinados ou
+por extensão, a API Gemini), que não foram especificamente treinados ou
 ajustados para uma tarefa de classificação de sentimento em um \textit{dataset} particular, operam de
 maneira diferente, geralmente através de instruções (\textit{prompts}).
 
@@ -200,10 +200,7 @@ específicos da análise de sentimento.
 \section{Resultados Parciais}
 \label{sec:resultados-parciais}
 
-A análise das implementações desenvolvidas demonstrou que o modelo utilizando Google
-Gemini 1.5 Pro \cite{google2024} apresenta a melhor \textit{performance} e implementação mais robusta
-quando comparado às demais abordagens testadas, incluindo OpenAI GPT-3.5 \cite{openai2023},
-Cohere Command \cite{cohere2024} e BERT multilingual \cite{devlin2019}. Esta superioridade
+A análise das implementações desenvolvidas demonstrou que alguns modelos podem se sobressair a outros conforme veremos a seguir. Esta superioridade
 manifesta-se através de diversas características técnicas que evidenciam tanto a eficiência quanto a
 qualidade dos resultados obtidos.
 
@@ -230,8 +227,7 @@ numérico e justificativas detalhadas para cada análise. Esta funcionalidade pe
 mais precisa da qualidade dos resultados e facilita a interpretação dos dados por parte dos
 pesquisadores. As justificativas geradas pelo Gemini demonstraram ser consistentemente mais
 elaboradas e contextualmente relevantes conforme pode ser visto na Figura \ref{fig:nivel-confianca},
-considerando tanto o conteúdo textual quanto as avaliações numéricas associadas aos \textit{reviews} do
-banco de dados teste utilizado nas análises.
+considerando tanto o conteúdo textual quanto as avaliações numéricas associadas aos \textit{reviews} de testes utilizados nas análises.
 
 \begin{figure}[h]
     \centering
@@ -260,7 +256,7 @@ interpretáveis para análises qualitativas.
     \legend{Fonte: Autoria Própria (2025).}
 \end{figure}
 
-Os resultados obtidos corroboram a superioridade do Gemini. A análise dos dados
+Os resultados obtidos demostram uma possível superioridade do Gemini. A análise dos dados
 processados revela que o modelo mantém uma confiança média consistente entre 0,8 e 0,95,
 indicando alta precisão nas classificações. Mais importante ainda, durante todos os testes
 executados, o Gemini não apresentou erros de processamento, demonstrando uma confiabilidade
