@@ -1,7 +1,7 @@
 \chapter{Implementação}
 \label{cap:implementacao}
 
-Este capítulo descreve em detalhe a implementação do sistema desenvolvido para análise automatizada de \glspl{ODS} em Mossoró-RN. O sistema foi construído em Python 3, adotando uma arquitetura modular que permite sua extensão para qualquer ODS e qualquer município brasileiro mediante configuração. A implementação passou por três gerações: a primeira focada nos ODS 9 e 16, a segunda incorporando a generalização via arquivos JSON de configuração, e a terceira adicionando suporte a múltiplos ODS (incluindo ODS 3, 4, 9 e 16) e múltiplos modelos de \gls{LLM}.
+Este capítulo descreve em detalhe a implementação do sistema desenvolvido para análise automatizada de \glspl{ODS} a partir de avaliações públicas associadas a locais físicos. O sistema foi construído em Python 3 e evoluiu de um protótipo específico para uma arquitetura generalizável, capaz de ser parametrizada para diferentes ODS, municípios e modelos de linguagem de grande porte. A implementação passou por três versões principais: a primeira voltada à análise ESG, a segunda composta por modelos específicos para o ODS 9 e o ODS 16, e a terceira consolidada como um motor genérico orientado por arquivos JSON de configuração.
 
 \section{Arquitetura Geral do Sistema}
 \label{sec:arq-geral}
@@ -15,18 +15,62 @@ O sistema é composto por quatro módulos principais:
     \item \textbf{Módulo de Análise com IA}: envia cada comentário filtrado a um LLM para classificação de sentimento por aspecto do ODS, geração de justificativas e extração de palavras-chave.
 \end{enumerate}
 
+\clearpage
+
+A Figura~\ref{fig:fluxo-pipeline} sintetiza o fluxo operacional da solução, desde a configuração inicial do experimento até a disponibilização dos resultados em \textit{dashboard}.
+
+\begin{figure}[!t]
+    \centering
+    \caption{Fluxograma da pipeline de análise automatizada de ODS}
+    \label{fig:fluxo-pipeline}
+    \normalsize
+    \setlength{\fboxsep}{6pt}
+    \renewcommand{\arraystretch}{1.0}
+    \begin{tabular}{c}
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{1. Configuração JSON}\\Definição do ODS, município, dimensões, termos de busca, bases de dados e modelos de IA}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{2. Busca na Google Places API}\\Consulta de locais físicos associados aos termos configurados e às coordenadas do município}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{3. Detalhes do Local}\\Coleta de nome, endereço, coordenadas, avaliação média e comentários públicos disponíveis}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{4. Filtros}\\Validação geográfica, deduplicação, comprimento mínimo, relevância semântica e adequação ao ODS}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{5. Análise com LLM}\\Classificação de sentimento por aspecto, justificativa, confiança, palavras-chave e indicação de problema}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{6. Saída JSON}\\Geração de registros estruturados com metadados, análises individuais e estatísticas agregadas}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{7. Diagnóstico}\\Síntese textual automática por ODS e por dimensão, com pontos críticos e recomendações}}\\[0.18cm]
+        $\downarrow$\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{8. Dashboard}\\Visualização interativa dos indicadores, mapas, sentimentos, dimensões problemáticas e diagnósticos}}
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{figure}
+
 \section{Evolução da Implementação}
 \label{sec:evolucao}
 
-\subsection{Primeira Versão: Scripts Dedicados por ODS}
+\subsection{Primeira Versão: Modelo de Análise ESG}
 \label{subsec:v1}
 
-A primeira versão do sistema consistiu em scripts Python independentes para cada ODS analisado. No script de protótipo inicial, foi implementado a coleta e análise de estabelecimentos relacionados a critérios ambientais, sociais e de governança em Mossoró-RN utilizando o modelo Gemini da Google. Esta versão, embora funcional, apresentava limitações de flexibilidade: adicionar um novo ODS exigia duplicar e adaptar o código completo.
+A primeira versão do sistema consistiu em um modelo de análise ESG, estruturado para avaliar comentários públicos segundo três dimensões: Ambiental, Social e Governança. Essa etapa teve caráter exploratório e permitiu validar a integração entre a Google Places API, responsável pela coleta de avaliações associadas a estabelecimentos e locais físicos, e os modelos de linguagem utilizados para classificar sentimentos, extrair palavras-chave e gerar justificativas textuais.
 
-\subsection{Segunda Versão: Generalização via Configuração JSON}
+Nessa versão, cada dimensão possuía um conjunto próprio de aspectos. A dimensão ambiental considerava temas como infraestrutura urbana, saneamento, qualidade ambiental, conservação, mobilidade sustentável e conforto urbano. A dimensão social analisava inclusão, acessibilidade, segurança, saúde, cultura, trabalho e coesão comunitária. A dimensão de governança contemplava transparência, organização, gestão de recursos, participação, conformidade, ética e prestação de contas.
+
+Apesar de funcional, essa primeira versão ainda possuía limitações importantes. Os termos de busca, os aspectos de análise e a estrutura de saída estavam fortemente vinculados ao domínio ESG, exigindo adaptação manual para aplicação direta em um ODS específico. Ainda assim, ela demonstrou que avaliações públicas não estruturadas poderiam ser convertidas em dados analíticos estruturados por meio de \glspl{LLM}.
+
+\subsection{Segunda Versão: Modelos Específicos para ODS 9 e ODS 16}
 \label{subsec:v2}
 
-A segunda versão consolidou toda a lógica de análise em um único script genérico parametrizado por arquivos JSON de configuração. Esta arquitetura tornou o sistema extensível sem alterações de código.
+A segunda versão deslocou o foco da análise ESG para objetivos específicos da Agenda 2030, com implementações dedicadas ao ODS 9 (Indústria, Inovação e Infraestrutura) e ao ODS 16 (Paz, Justiça e Instituições Eficazes). Nessa etapa, cada ODS passou a ter seus próprios termos de busca, dimensões analíticas, filtros semânticos e prompts especializados.
+
+Para o ODS 9, o modelo foi estruturado em sete dimensões: Infraestrutura Resiliente e Moderna; Transporte Público e Mobilidade; Acesso à Tecnologia e Informação; Inovação e Pesquisa; Industrialização Inclusiva e Sustentável; Eficiência Energética; e Valorização da Micro e Pequena Empresa. Para o ODS 16, foram definidas dimensões relacionadas a Instituições Eficazes, Direitos Humanos, Segurança Pública, Acesso à Justiça, Transparência, Participação Cidadã e Proteção de Grupos Vulneráveis.
+
+Essa versão também introduziu campos booleanos para indicar se cada comentário contribuía para o baixo desempenho do município no respectivo ODS. Assim, além da classificação de sentimento, o sistema passou a produzir métricas quantitativas diretamente relacionadas ao problema de pesquisa, como o percentual de análises que indicavam fragilidades em infraestrutura, transporte, serviços institucionais ou segurança pública.
+
+\subsection{Terceira Versão: Motor Genérico via Configuração JSON}
+\label{subsec:v3}
+
+A terceira versão consolidou a arquitetura em um motor genérico parametrizado por arquivos JSON de configuração. Em vez de manter um script distinto para cada ODS, o sistema passou a receber como entrada um arquivo que define o ODS analisado, o município, as dimensões avaliadas, os termos de busca, as chaves das bases de dados e os modelos de IA disponíveis. Esta arquitetura tornou o sistema extensível sem alterações diretas no código-fonte.
 
 Cada arquivo de configuração especifica:
 
@@ -72,10 +116,7 @@ O Código~\ref{lst:config-ods9} apresenta um trecho representativo do arquivo de
 }
 \end{lstlisting}
 
-\subsection{Terceira Versão: Suporte a Múltiplos Modelos de IA}
-\label{subsec:v3}
-
-A terceira versão adicionou suporte nativo a múltiplos provedores de \gls{LLM}: Google Gemini (modelos Flash e Pro) e Perplexity (modelos Sonar e Sonar Pro). A seleção do modelo é realizada interativamente no início da execução ou pode ser pré-configurada no arquivo JSON. O mecanismo de \textit{fallback} automático garante que, caso o modelo principal retorne erro, o sistema tente automaticamente o próximo modelo disponível na configuração.
+A versão genérica também adicionou suporte nativo a múltiplos provedores de \gls{LLM}: Google Gemini (modelos Flash e Pro) e Perplexity (modelos Sonar e Sonar Pro). A seleção do modelo é realizada interativamente no início da execução ou pode ser pré-configurada no arquivo JSON. O mecanismo de \textit{fallback} automático garante que, caso o modelo principal retorne erro, o sistema tente automaticamente o próximo modelo disponível na configuração.
 
 A resolução de credenciais de API é feita por um mecanismo centralizado que lê variáveis de ambiente ou o arquivo \texttt{env.properties} na raiz do projeto, sem expor chaves sensíveis no código-fonte. O sistema também implementa um formulário HTML para geração interativa de novos arquivos de configuração, facilitando a extensão para novos municípios e ODS.
 
@@ -110,6 +151,19 @@ def buscar_lugares_mossoro(termo: str, coordenadas: Dict[str, float]) -> List[Di
         return []
 \end{lstlisting}
 
+\subsection{Análise de Fontes Alternativas de Dados}
+\label{subsec:fontes-alternativas}
+
+Além da Google Places API, foram avaliadas outras fontes potenciais de dados não estruturados, especialmente redes sociais. No entanto, essas alternativas apresentaram limitações técnicas, financeiras e operacionais que inviabilizaram sua adoção no escopo desta pesquisa.
+
+No caso do Instagram, a API oficial impõe restrições relevantes para coleta automatizada de comentários, especialmente quando se busca conteúdo público associado a locais ou estabelecimentos. Além disso, o acesso a determinados recursos exige configuração formal de aplicativo, política de privacidade, ícone, submissão para análise e aprovação individual de permissões pela Meta. Essas exigências aumentam a complexidade operacional e não garantem acesso efetivo aos comentários necessários para a análise.
+
+O Facebook também foi avaliado, mas o acesso ficou limitado a informações de páginas administradas pelo próprio pesquisador ou a dados com permissões restritas. A coleta de informações de páginas de terceiros e comentários públicos depende de permissões específicas e aprovação da Meta, o que reduz a viabilidade de uso em uma pesquisa que exige dados comparáveis entre diferentes locais públicos.
+
+A plataforma X/Twitter foi considerada como alternativa; contudo, seu uso apresenta barreiras financeiras significativas, uma vez que o acesso à API com volume e funcionalidades adequadas para mineração de dados tornou-se pago. Já o Threads foi descartado por ainda apresentar uma API em estágio de amadurecimento, com limitações para coleta estruturada e ampla de comentários públicos.
+
+Diante dessas restrições, optou-se pela Google Places API como fonte principal de dados, por disponibilizar avaliações diretamente associadas a locais físicos, incluindo estabelecimentos públicos, equipamentos urbanos, instituições e serviços municipais. Essa característica é especialmente relevante para esta pesquisa, pois permite relacionar percepções dos cidadãos a dimensões concretas dos \glspl{ODS} no território municipal.
+
 \subsection{Gerenciamento de Rate Limiting}
 \label{subsec:rate-limit}
 
@@ -132,6 +186,17 @@ O módulo de filtragem aplica cinco camadas de validação para garantir que ape
 \textbf{Filtro 4 -- Relevância Semântica por ODS}: verifica se o comentário contém pelo menos um termo relacionado aos aspectos do ODS analisado. Esta verificação é dispensada para locais de infraestrutura crítica (rodoviárias, aeroportos, delegacias), onde qualquer experiência do usuário é considerada relevante.
 
 \textbf{Filtro 5 -- Filtros Específicos por ODS}: para o ODS 16, comentários de caráter histórico, turístico ou puramente comercial são descartados, pois não refletem a situação atual dos serviços públicos.
+
+\subsection{Confiabilidade dos Reviews e Mitigação de Vieses}
+\label{subsec:confiabilidade-reviews}
+
+Embora as avaliações públicas disponibilizadas pela Google Places API constituam uma fonte rica de dados perceptivos, elas não devem ser tratadas como representação estatisticamente perfeita da opinião da população. Esse tipo de dado pode apresentar viés de seleção, uma vez que apenas uma parcela dos usuários registra avaliações públicas e essa parcela tende a ser composta por pessoas com maior motivação para relatar experiências marcantes, sejam elas positivas ou negativas. Em particular, usuários insatisfeitos podem ter maior propensão a comentar, o que pode aumentar a presença de avaliações críticas em determinados estabelecimentos.
+
+Outra limitação relevante refere-se à possibilidade de avaliações falsas, duplicadas, desatualizadas ou motivadas por interesses particulares. Embora a plataforma Google adote mecanismos próprios de moderação, o sistema desenvolvido nesta pesquisa não possui acesso aos critérios internos de detecção de autenticidade nem consegue garantir, de forma independente, que todos os comentários coletados correspondem a experiências reais. Portanto, a autenticidade total dos \textit{reviews} não pode ser assegurada apenas pelo pipeline implementado.
+
+Para reduzir esses riscos, o sistema aplica camadas sucessivas de filtragem e pré-processamento antes da análise por \gls{LLM}. A validação geográfica verifica se o estabelecimento pertence ao município investigado; a deduplicação evita reprocessar o mesmo local em buscas diferentes; o filtro de comprimento mínimo remove comentários sem conteúdo analítico suficiente; a verificação de relevância semântica seleciona apenas textos relacionados ao ODS analisado; e os filtros específicos por objetivo descartam avaliações cujo conteúdo não representa a situação atual do serviço ou equipamento público. Essas etapas reduzem ruídos e inconsistências, mas não eliminam completamente vieses de origem dos dados.
+
+Dessa forma, os resultados obtidos devem ser interpretados como um sinal perceptivo complementar aos indicadores oficiais, e não como substitutos desses indicadores. A contribuição da abordagem está em capturar percepções situadas, associadas a locais físicos específicos, que podem revelar gargalos, recorrências e pontos críticos não evidenciados por métricas agregadas. A interpretação dos diagnósticos deve, portanto, ocorrer por triangulação com fontes oficiais, conhecimento especializado e, quando possível, validação manual ou avaliação por especialistas.
 
 \section{Módulo de Análise com Inteligência Artificial}
 \label{sec:analise-ia}
