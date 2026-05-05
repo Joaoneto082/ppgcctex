@@ -69,17 +69,17 @@ A análise por dimensão revelou padrões de problemas estruturais em três áre
 \subsection{Dashboard ODS 9}
 \label{subsec:dashboard-ods9}
 
-A Figura~\ref{fig:dashboard-ods9} apresenta o dashboard interativo desenvolvido no Microsoft Power BI para visualização dos resultados do ODS 9.
+A Figura~\ref{fig:dashboard-ods9} apresenta o dashboard web desenvolvido para visualização dos resultados do ODS 9. A interface substitui a abordagem inicialmente prevista em Microsoft Power BI por uma solução HTML, CSS e JavaScript, acessível diretamente pelo navegador.
 
 \begin{figure}[h!]
     \centering
-    \caption{Dashboard Power BI -- ODS 9: Indústria, Inovação e Infraestrutura em Mossoró-RN}
+    \caption{Dashboard web -- ODS 9: Indústria, Inovação e Infraestrutura em Mossoró-RN}
     \label{fig:dashboard-ods9}
-    \includegraphics[width=0.90\textwidth]{figuras/dashboard-ods9}
+    \includegraphics[width=0.95\textwidth]{figuras/dashboard-web-ods9}
     \legend{Fonte: Elaborado pelo autor (2025).}
 \end{figure}
 
-O dashboard possibilita visualização geográfica dos problemas por bairro, filtro dinâmico por tipo de estabelecimento e dimensão do ODS, drill-down para avaliações individuais e exportação de relatórios para gestores públicos.
+O dashboard possibilita filtragem dinâmica por dimensão, sentimento, local e indicação de problema, além da visualização de métricas consolidadas, cards informativos e acesso direto ao diagnóstico gerado pela IA. Essa organização facilita a leitura dos resultados por gestores públicos e especialistas, sem exigir conhecimento prévio em ferramentas proprietárias de inteligência de negócios.
 
 \section{ODS 16 -- Paz, Justiça e Instituições Eficazes}
 \label{sec:resultados-ods16}
@@ -140,13 +140,13 @@ A dimensão \textit{Instituições Eficazes e Responsáveis} domina o conjunto d
 \subsection{Dashboard ODS 16}
 \label{subsec:dashboard-ods16}
 
-A Figura~\ref{fig:dashboard-ods16} apresenta o dashboard para o ODS 16, que permite exploração interativa dos 116 registros coletados.
+A Figura~\ref{fig:dashboard-ods16} apresenta o dashboard web para o ODS 16, que permite exploração interativa dos 116 registros coletados.
 
 \begin{figure}[h!]
     \centering
-    \caption{Dashboard Power BI -- ODS 16: Paz, Justiça e Instituições Eficazes em Mossoró-RN}
+    \caption{Dashboard web -- ODS 16: Paz, Justiça e Instituições Eficazes em Mossoró-RN}
     \label{fig:dashboard-ods16}
-    \includegraphics[width=0.90\textwidth]{figuras/dashboard-ods16}
+    \includegraphics[width=0.95\textwidth]{figuras/dashboard-web-ods16}
     \legend{Fonte: Elaborado pelo autor (2025).}
 \end{figure}
 
@@ -156,6 +156,47 @@ A Figura~\ref{fig:dashboard-ods16} apresenta o dashboard para o ODS 16, que perm
 O sistema gerou diagnósticos estruturados em linguagem natural para cada ODS, sintetizando os padrões identificados nas análises individuais. Para o ODS 9, o diagnóstico identificou a degradação da infraestrutura física -- especialmente o Terminal Rodoviário -- como gargalo central, com impacto em cascata sobre o transporte público, a mobilidade urbana e a economia local. Para o ODS 16, o diagnóstico apontou a fragilidade institucional sistêmica como causa-raiz, amplificando problemas em segurança pública, acesso à justiça e direitos humanos.
 
 Os diagnósticos gerados foram validados por comparação com os problemas identificados manualmente na literatura e em relatórios de organismos oficiais. A consistência entre os achados automatizados e as evidências conhecidas confirma a capacidade do sistema de produzir diagnósticos confiáveis a partir de dados não estruturados.
+
+A Figura~\ref{fig:diagnostico-ods9} ilustra a página de diagnóstico textual do ODS 9, na qual o usuário pode consultar o diagnóstico geral e os diagnósticos por dimensão. A página organiza o texto produzido pela IA em uma interface de leitura própria, separando a exploração quantitativa do dashboard da análise qualitativa gerada automaticamente.
+
+\begin{figure}[h!]
+    \centering
+    \caption{Página web de diagnóstico automatizado -- ODS 9}
+    \label{fig:diagnostico-ods9}
+    \includegraphics[width=0.88\textwidth]{figuras/diagnostico-web-ods9}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{figure}
+
+\section{Evidências de Generalização da Abordagem}
+\label{sec:generalizacao-abordagem}
+
+Embora o estudo de caso principal desta dissertação concentre-se em Mossoró-RN, com ênfase nos ODS 9 e 16, a implementação também foi avaliada quanto à sua capacidade de generalização para outros objetivos e municípios. Essa verificação foi realizada por meio da execução do motor de análise em diferentes combinações de ODS, cidade e conjunto de dimensões, mantendo a mesma lógica de coleta, filtragem, análise por aspecto, geração de JSON e produção de diagnóstico automatizado.
+
+A generalização foi testada em dois níveis. No primeiro, os modelos específicos de ODS foram reaplicados em outras cidades, mantendo a estrutura de análise definida para cada objetivo. No segundo, a versão genérica orientada por arquivos de configuração JSON foi executada sem alteração do código-fonte, modificando apenas os parâmetros de entrada relativos ao ODS, à localidade, às dimensões e aos termos de busca.
+
+\begin{table}[h!]
+    \centering
+    \caption{Execuções utilizadas como evidência de generalização da abordagem}
+    \label{tab:generalizacao-abordagem}
+    \begin{tabular}{lll}
+        \hline
+        \textbf{ODS} & \textbf{Município} & \textbf{Tipo de execução} \\
+        \hline
+        ODS 3 -- Saúde e Bem-Estar & Natal-RN & Motor genérico por configuração \\
+        ODS 9 -- Indústria, Inovação e Infraestrutura & Natal-RN & Motor genérico por configuração \\
+        ODS 3 -- Saúde e Bem-Estar & Fortaleza-CE & Modelo específico de ODS \\
+        ODS 4 -- Educação de Qualidade & Natal-RN & Modelo específico de ODS \\
+        ODS 9 -- Indústria, Inovação e Infraestrutura & Fortaleza-CE & Modelo específico de ODS \\
+        ODS 16 -- Paz, Justiça e Instituições Eficazes & João Pessoa-PB & Modelo específico de ODS \\
+        ODS 16 -- Paz, Justiça e Instituições Eficazes & Salvador-BA & Modelo específico de ODS \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{table}
+
+Essas execuções não substituem o estudo de caso aprofundado realizado em Mossoró-RN, mas demonstram que a arquitetura proposta não está rigidamente acoplada a um único município ou a um único ODS. A possibilidade de alterar o arquivo de configuração e reaplicar a pipeline a novos contextos constitui uma evidência técnica de escalabilidade. Assim, a abordagem pode ser replicada para outros municípios brasileiros, desde que existam avaliações públicas disponíveis na Google Places API e que as dimensões do ODS analisado sejam adequadamente parametrizadas.
+
+É importante destacar que a generalização aqui apresentada é de natureza técnica e operacional. Ou seja, demonstra que o sistema executa a coleta, a filtragem, a análise e a geração de diagnósticos em diferentes contextos. A generalização substantiva dos achados -- isto é, a afirmação de que os mesmos problemas identificados em Mossoró ocorrem em outras cidades -- requer estudos comparativos adicionais, com validação local e análise das especificidades urbanas, institucionais e socioeconômicas de cada município.
 
 \section{Correlações entre Dimensões e Padrões Transversais}
 \label{sec:correlacoes}

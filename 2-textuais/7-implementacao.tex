@@ -259,4 +259,20 @@ Os resultados são salvos em arquivos JSON com nome padronizado contendo três s
     \item \textbf{analises\_ods}: \textit{array} com todos os registros individuais, incluindo dados do estabelecimento, análise por aspecto e texto original do \textit{review}.
 \end{itemize}
 
-Os arquivos JSON resultantes foram utilizados como fonte de dados para dashboards interativos, permitindo visualização geográfica dos problemas, filtros por tipo de estabelecimento e análise temporal das avaliações.
+Os arquivos JSON resultantes foram utilizados como fonte de dados para dashboards interativos, permitindo visualização geográfica dos problemas, filtros por tipo de estabelecimento, análise das dimensões do ODS e consulta aos diagnósticos textuais gerados pela IA.
+
+Inicialmente, os resultados foram estruturados em formato compatível com o Microsoft Power BI. No entanto, essa abordagem foi substituída por dashboards web desenvolvidos com HTML, CSS e JavaScript, visando reduzir dependência de ferramentas proprietárias e facilitar o acesso público aos resultados. A versão final da interface utiliza Chart.js para geração de gráficos de distribuição de sentimentos e problemas por dimensão; Leaflet.js para recursos de visualização geográfica; WordCloud2.js para nuvens de palavras extraídas das análises; e Font Awesome para a composição visual dos ícones da interface.
+
+Foram implementadas páginas específicas para o dashboard do ODS 9, dashboard do ODS 16 e páginas de diagnóstico textual para cada objetivo. A versão pública também inclui um dashboard unificado capaz de carregar arquivos JSON de análise por localidade, permitindo reutilizar a mesma interface para diferentes municípios e ODS. Além disso, os dados de diagnóstico podem ser embutidos em arquivos JSON auxiliares, como \texttt{diag\_ods9\_embed.json} e \texttt{diag\_ods16\_embed.json}, permitindo que as páginas sejam publicadas como arquivos estáticos, sem necessidade de servidor ou banco de dados.
+
+Também foi desenvolvido um formulário web para geração assistida de arquivos de configuração do motor genérico. Essa interface permite selecionar visualmente o ODS, informar município e estado, configurar dimensões, termos de busca, chaves de saída e parâmetros necessários para a execução da análise, reduzindo a necessidade de edição manual de arquivos JSON.
+
+\begin{figure}[h!]
+    \centering
+    \caption{Formulário web para geração de arquivos de configuração ODS}
+    \label{fig:formulario-config-ods}
+    \includegraphics[width=0.90\textwidth]{figuras/formulario-config-ods}
+    \legend{Fonte: Elaborado pelo autor (2025).}
+\end{figure}
+
+Essa estratégia transformou a etapa de visualização em uma camada de apresentação leve, portátil e de fácil publicação. Como os dashboards são compostos por arquivos estáticos, podem ser disponibilizados em plataformas de hospedagem web, como Netlify, ou executados localmente em navegador, ampliando a acessibilidade da ferramenta para gestores públicos, pesquisadores e demais interessados.
