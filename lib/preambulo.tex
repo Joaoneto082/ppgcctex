@@ -62,7 +62,6 @@
 \usepackage{microtype}                              % Para melhorias de justificação?
 \usepackage[portuguese,ruled,lined]{algorithm2e}    % Escrever algoritmos
 \usepackage{algorithmic}                            % Criar Algoritmos  
-\usepackage{float}                                  % Float [H] e controle de posição
 \usepackage{placeins}                               % \FloatBarrier (evita floats após seções)
 \usepackage{amsgen}
 \usepackage{lipsum}                                 % Usar a simulação de texto Lorem Ipsum
@@ -95,6 +94,7 @@
 \usepackage{appendix}         % Gerar o apendice no final do documento
 \usepackage{paracol}          % Criar paragrafos sem identacao
 \usepackage{lib/ppgcctex}	      % Biblioteca com as normas da UFC para trabalhos academicos
+\usepackage{float}            % [H] nas figuras — deve vir depois de ppgcctex (evita conflito com \newfloat[chapter]{quadro})
 \usepackage{pdfpages}         % Incluir pdf no documento
 \usepackage{amsmath}          % Usar equacoes matematicas
 
