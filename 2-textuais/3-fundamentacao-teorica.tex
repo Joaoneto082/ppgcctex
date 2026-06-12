@@ -1,0 +1,235 @@
+\chapter{Fundamentação Teórica}
+\label{cap:fundamentacao-teorica}
+
+Este capítulo apresenta os fundamentos teóricos que embasam a pesquisa, estruturados em
+cinco eixos: os Objetivos de Desenvolvimento Sustentável e sua mensuração em escala local; o
+Processamento de Linguagem Natural; a análise de sentimentos; a arquitetura Transformer; e os
+Modelos de Linguagem de Grande Porte, incluindo o \gls{BERT} e suas variantes.
+
+\section{Objetivos de Desenvolvimento Sustentável}
+\label{sec:ods}
+
+Os Objetivos de Desenvolvimento Sustentável (\gls{ODS}) integram a Agenda 2030 da
+Organização das Nações Unidas, adotada em setembro de 2015 por 193 países membros
+\cite{onu2015}. Compostos por 17 objetivos e 169 metas, os ODS constituem um arcabouço global
+de orientação para políticas públicas, investimentos e ações coletivas voltadas ao desenvolvimento
+sustentável nas dimensões econômica, social e ambiental. Diferentemente dos Objetivos de
+Desenvolvimento do Milênio (ODM), os ODS abrangem tanto países em desenvolvimento quanto
+desenvolvidos e reconhecem explicitamente a interdependência entre prosperidade, equidade e
+preservação ambiental.
+
+No Brasil, o acompanhamento dos ODS em escala municipal é realizado, entre outros
+instrumentos, pelo Índice de Desenvolvimento Sustentável das Cidades (\gls{IDSC}-BR)
+\cite{idsc2024}, que consolida indicadores primários de fontes como o IBGE, registros
+administrativos e pesquisas oficiais para mais de cinco mil municípios. O IDSC-BR classifica o
+desempenho dos municípios em faixas de 0 a 100 por ODS, permitindo identificar prioridades de
+política pública. Embora robusto para análises comparativas nacionais, o índice apresenta
+limitações de granularidade espacial e defasagem temporal, características que esta dissertação
+busca complementar.
+
+\subsection{ODS 9 -- Indústria, Inovação e Infraestrutura}
+\label{subsec:ods9}
+
+O ODS 9 tem como propósito construir infraestruturas resilientes, promover a
+industrialização inclusiva e sustentável e fomentar a inovação \cite{onu2015}. Suas metas cobrem
+desde a ampliação de infraestruturas de transporte e logística acessíveis à população de baixa
+renda até o estímulo à pesquisa científica, ao acesso universal a tecnologias de informação e
+comunicação e ao suporte a micro e pequenas empresas nos países em desenvolvimento.
+
+Em municípios brasileiros de médio porte, o desempenho no ODS 9 é frequentemente
+comprometido pela degradação de infraestruturas de transporte público (terminais rodoviários,
+terminais urbanos), pela baixa conectividade digital em periferias e pela ausência de ecossistemas
+de inovação que apoiem o empreendedorismo local. Mossoró-RN apresenta pontuação muito baixa
+(faixa 0--39,99) nesse objetivo \cite{idsc2024}, sem que os indicadores agregados revelem os
+fatores específicos que explicam esse desempenho.
+
+\subsection{ODS 16 -- Paz, Justiça e Instituições Eficazes}
+\label{subsec:ods16}
+
+O ODS 16 busca promover sociedades pacíficas e inclusivas, proporcionar o acesso à
+justiça para todos e construir instituições eficazes, responsáveis e inclusivas em todos os níveis
+\cite{onu2015}. Suas metas abrangem a redução da violência e das mortes relacionadas a conflitos,
+o combate à corrupção e ao suborno, o acesso equitativo à justiça, a proteção das liberdades
+fundamentais e a garantia de representação nos processos decisórios.
+
+No contexto municipal, o ODS 16 se manifesta na qualidade dos serviços prestados por
+órgãos públicos (cartórios, delegacias, varas judiciais, serviços de assistência social) e na
+percepção cidadã sobre eficiência institucional e segurança. A análise de avaliações públicas de
+estabelecimentos vinculados a esses serviços permite capturar dimensões de desempenho que
+raramente aparecem em indicadores oficiais agregados.
+
+\subsection{ODS 3 -- Saúde e Bem-Estar}
+\label{subsec:ods3}
+
+O ODS 3 objetiva assegurar uma vida saudável e promover o bem-estar para todos, em
+todas as idades \cite{onu2015}. Suas metas incluem a redução da mortalidade materna e infantil,
+o combate a doenças transmissíveis e não transmissíveis, o fortalecimento da cobertura universal
+de saúde e o acesso a medicamentos e vacinas essenciais. Em escala municipal, traduz-se na
+qualidade dos serviços de atenção básica, na disponibilidade de leitos hospitalares, no tempo de
+espera em unidades de saúde e na percepção dos usuários sobre o atendimento recebido.
+
+\subsection{ODS 4 -- Educação de Qualidade}
+\label{subsec:ods4}
+
+O ODS 4 visa garantir educação inclusiva, equitativa e de qualidade, promovendo
+oportunidades de aprendizagem ao longo da vida para todos \cite{onu2015}. Em nível municipal,
+abrange a qualidade do ensino nas redes pública e privada, a infraestrutura escolar, a taxa de
+conclusão da educação básica e o acesso à educação profissional e superior. Avaliações públicas
+de estabelecimentos educacionais permitem capturar percepções sobre ambiente físico, qualidade
+do ensino, relação professor-aluno e gestão escolar, complementando os dados do Índice de
+Desenvolvimento da Educação Básica (IDEB).
+
+\section{Mensuração Local dos ODS}
+\label{sec:mensuracao-local}
+
+A mensuração do progresso nos ODS em escala subnacional apresenta desafios
+metodológicos e operacionais relevantes \cite{abidoye2022}. Indicadores nacionais ou estaduais
+tendem a obscurecer disparidades locais críticas: um município pode apresentar desempenho
+médio satisfatório enquanto bairros ou setores específicos enfrentam privações severas. A
+localização dos ODS --- entendida como a adaptação do monitoramento à escala municipal e
+intraurbana --- requer fontes de dados granulares e metodologias capazes de capturar variação
+espacial.
+
+Nesse contexto, dados digitais produzidos por cidadãos em plataformas \textit{online} emergem
+como fontes complementares promissoras \cite{fu2023,larosa2025}. Avaliações públicas
+georreferenciadas, como as disponibilizadas pela Google Places API \cite{googleplaces2024},
+vinculam relatos textuais espontâneos a estabelecimentos físicos concretos --- terminais
+rodoviários, unidades de saúde, escolas, órgãos públicos, espaços urbanos. Essa ancoragem
+geoespacial possibilita diagnósticos em nível de estabelecimento, muito mais específicos do que
+os indicadores agregados do IDSC-BR, e permite identificar \emph{onde} e \emph{por que} os
+problemas se manifestam.
+
+A abordagem perceptiva complementa --- sem substituir --- os indicadores oficiais. Enquanto
+o IDSC-BR oferece comparabilidade temporal e cobertura nacional, os dados do Google Places
+fornecem especificidade local, atualidade (avaliações são inseridas continuamente) e riqueza
+qualitativa que os indicadores quantitativos não conseguem capturar \cite{wankhade2022}.
+
+\section{Processamento de Linguagem Natural}
+\label{sec:pln}
+
+O Processamento de Linguagem Natural (\gls{NLP}) é uma subárea da Inteligência Artificial
+que desenvolve técnicas computacionais para compreender, interpretar e gerar textos em língua
+humana \cite{jurafsky2023}. Engloba um amplo espectro de tarefas, incluindo tokenização,
+análise morfossintática, reconhecimento de entidades nomeadas, tradução automática,
+sumarização e classificação de textos.
+
+Os avanços dos últimos anos em NLP foram impulsionados por três fatores convergentes:
+a disponibilidade de grandes volumes de texto digital, o aumento da capacidade computacional
+e o desenvolvimento de arquiteturas de redes neurais profundas capazes de aprender
+representações semânticas ricas a partir de dados não rotulados. O paradigma de
+pré-treinamento e ajuste fino (\textit{pre-training and fine-tuning}) -- em que um modelo é treinado em
+corpus genérico de larga escala e, posteriormente, especializado para uma tarefa específica com
+conjunto menor de dados rotulados -- tornou-se dominante na área \cite{devlin2019}.
+
+Para o contexto desta dissertação, as técnicas de NLP mais relevantes são a representação
+vetorial de textos (\textit{word embeddings} e \textit{sentence embeddings}), a classificação de textos e,
+especialmente, a análise de sentimentos por aspecto, que permite associar polaridades afetivas a
+dimensões específicas de um objeto avaliado.
+
+\section{Análise de Sentimentos}
+\label{sec:analise-sentimentos}
+
+A análise de sentimentos (\textit{sentiment analysis} ou \textit{opinion mining}) é a tarefa de NLP
+que consiste em identificar e extrair automaticamente opiniões, atitudes e emoções expressas em
+textos \cite{liu2015sentiment}. Classicamente, opera em três níveis de granularidade: nível de
+documento (classificação global do sentimento de um texto), nível de sentença e nível de aspecto
+(\textit{aspect-based sentiment analysis} -- ABSA).
+
+A análise por aspecto (\gls{ABSA}) é particularmente relevante para aplicações em políticas
+públicas, pois permite identificar \emph{sobre o quê} o sentimento é positivo ou negativo
+\cite{wankhade2022}. Por exemplo, em uma avaliação de terminal rodoviário, é possível
+discriminar sentimentos relativos à limpeza, à pontualidade dos serviços, à segurança, à
+infraestrutura física e ao atendimento dos funcionários, ao invés de atribuir uma polaridade
+única ao texto. Essa granularidade é essencial para a geração de diagnósticos acionáveis voltados
+a gestores públicos.
+
+As abordagens para análise de sentimentos evoluíram de métodos baseados em léxicos de
+polaridade --- como o \gls{VADER} \cite{hutto2014} e o TextBlob \cite{loria2018}, que classificam
+textos somando pontuações pré-definidas de palavras --- para métodos baseados em aprendizado
+de máquina e, mais recentemente, em modelos neurais profundos. Modelos baseados em
+Transformers representam o estado da arte em precisão para análise de sentimento contextual
+\cite{wankhade2022}, enquanto \gls{LLM}s generativos emergem como alternativa flexível para
+contextos onde dados rotulados são escassos, especialmente para ABSA sem necessidade de
+treinamento adicional \cite{agua2025,larosa2025}.
+
+\section{Transformers na NLP}
+\label{sec:transformers}
+
+A arquitetura Transformer, introduzida por \citeauthor{vaswani2017}
+\citeyear{vaswani2017} com o trabalho ``Attention is All You Need'', representou um marco
+fundamental para o Processamento de Linguagem Natural moderno. Diferentemente das
+arquiteturas sequenciais como as Redes Neurais Recorrentes (RNNs), os Transformers removeram
+a recorrência e fizeram uso intensivo de mecanismos de auto-atenção (\textit{self-attention}),
+permitindo o processamento paralelo de \textit{tokens} e uma melhor captura de dependências de
+longo alcance no texto. Essa inovação serviu de base para o desenvolvimento de modelos de
+linguagem de grande impacto, como \gls{BERT} e \gls{GPT}, que, por sua vez, impulsionaram
+avanços significativos em diversas tarefas de NLP, incluindo a análise de sentimentos.
+
+A Revisão Sistemática da Literatura (\gls{RSL}) conduzida como parte deste trabalho
+identificou que estudos recentes na área de análise de sentimentos têm se beneficiado dessas
+arquiteturas avançadas. Por exemplo, o estudo de \citeauthor{schimanski2024}
+\citeyear{schimanski2024} utilizou modelos baseados em Transformers, como RoBERTa e
+DistilRoBERTa (versões otimizadas do BERT), para analisar mais de 13,8 milhões de textos
+relacionados a comunicações ESG, demonstrando a capacidade dessas técnicas de quantificar
+informações com confiabilidade. Concluiu-se que a maioria dos estudos revisados empregou
+técnicas avançadas, refletindo a influência dos Transformers no campo de estudo.
+
+\section{Modelo BERT e Suas Aplicações}
+\label{sec:bert}
+
+O \gls{BERT} (\textit{Bidirectional Encoder Representations from Transformers}), introduzido
+pelo Google em 2018 \cite{devlin2019}, é um dos modelos mais emblemáticos baseados na
+arquitetura Transformer. Sua principal característica é a capacidade de considerar o contexto
+completo de uma palavra (tanto à esquerda quanto à direita) durante o pré-treinamento,
+resultando em representações vetoriais de palavras mais ricas e contextuais. A arquitetura do
+BERT é otimizada como um \textit{encoder}, tornando-o particularmente eficaz para tarefas de
+classificação de texto, como a análise de sentimentos.
+
+O estudo de \citeauthor{gupta2024} \citeyear{gupta2024} destacou-se ao utilizar o modelo
+BERT em conjunto com a técnica YAKE para extração de palavras-chave de relatórios de
+sustentabilidade, alcançando 98\% de precisão. Isso confirma a eficácia do BERT na análise de
+grandes volumes de dados textuais para obtenção de resultados detalhados.
+
+Modelos BERT, quando submetidos a um processo de \textit{fine-tuning} (ajuste fino) em
+\textit{datasets} rotulados para análise de sentimentos, tendem a apresentar alta acurácia (superior a
+90\% em \textit{datasets} de referência). Existem também variações e otimizações relevantes: o RoBERTa
+apresenta melhor desempenho que o BERT original; o DistilBERT é cerca de 40\% menor e 60\%
+mais rápido, mantendo precisão próxima; e o BERTimbau é uma versão pré-treinada para o
+português. Embora eficientes, o treinamento e o \textit{fine-tuning} de modelos BERT podem exigir
+recursos computacionais significativos e \textit{datasets} específicos rotulados.
+
+\section{Modelos de Linguagem de Grande Porte}
+\label{sec:llms}
+
+Modelos de Linguagem de Grande Porte (\gls{LLM}s) genéricos, como as famílias Claude
+\cite{anthropic2024}, \gls{GPT} incluindo o GPT-4 \cite{openai2023gpt4}, DeepSeek
+\cite{deepseek2024} e Gemini, representam uma evolução significativa no Processamento de
+Linguagem Natural, operando de maneira distinta dos modelos como o BERT que são
+frequentemente ajustados (\textit{fine-tuned}) para tarefas específicas. Embora um BERT
+\textit{fine-tuned} possa ser mais eficaz para uma tarefa de análise de sentimentos para a qual foi
+especificamente treinado, os LLMs genéricos oferecem vantagens distintas, especialmente quando
+não se dispõe de grandes volumes de dados rotulados ou quando a natureza da tarefa exige maior
+flexibilidade e compreensão de nuances.
+
+A utilização de um LLM genérico é particularmente vantajosa em cenários que envolvem
+textos complexos com ironia, sarcasmo ou forte contexto cultural (como gírias), pois os LLMs
+tendem a performar melhor devido ao seu treinamento em volumes massivos e extremamente
+diversificados de dados textuais. Outra situação propícia é a necessidade de aprendizado
+\textit{zero-shot} ou \textit{few-shot} \cite{brown2020}: quando não existem dados rotulados para realizar o
+\textit{fine-tuning} de um modelo específico, LLMs como Claude ou GPT-4 podem ser empregados
+diretamente por meio de \textit{prompts} bem elaborados.
+
+LLMs são igualmente capazes de realizar análise por aspecto (\textit{aspect-based sentiment
+analysis}) sem treinamento adicional, identificando sentimentos sobre características específicas
+mencionadas no texto. As vantagens estendem-se à flexibilidade analítica: permitem análise
+multidimensional por meio de \textit{prompts}, combinando classificação de sentimento com listagem de
+razões subjacentes; suportam múltiplas tarefas integradas (análise de sentimento, tradução,
+sumarização); e oferecem suporte a contextos longos, com alguns modelos conseguindo analisar
+textos com até 200 mil \textit{tokens}, como o Claude 3.5 Sonnet \cite{anthropic2024}.
+
+No entanto, a acurácia dos LLMs pode ser variável e é altamente dependente da qualidade e
+clareza do \textit{prompt} fornecido. Existe também risco de ``alucinações'' ou respostas não
+padronizadas que não se encaixam em esquemas de classificação rígidos, e o custo computacional
+para inferência é geralmente mais alto em comparação com arquiteturas como o BERT. A decisão
+entre um BERT \textit{fine-tuned} e um LLM genérico dependerá, portanto, da disponibilidade de dados
+rotulados, da complexidade do texto a ser analisado e dos objetivos específicos da análise.
