@@ -261,21 +261,90 @@ Os resultados são salvos em arquivos JSON com nome padronizado contendo três s
 
 Os arquivos JSON resultantes foram utilizados como fonte de dados para dashboards interativos, permitindo visualização geográfica dos problemas, filtros por tipo de estabelecimento, análise das dimensões do ODS e consulta aos diagnósticos textuais gerados pela IA.
 
-Inicialmente, os resultados foram estruturados em formato compatível com o Microsoft Power BI. No entanto, essa abordagem foi substituída por dashboards web desenvolvidos com HTML, CSS e JavaScript, visando reduzir dependência de ferramentas proprietárias e facilitar o acesso público aos resultados. A versão final da interface utiliza Chart.js para geração de gráficos de distribuição de sentimentos e problemas por dimensão; Leaflet.js para recursos de visualização geográfica; WordCloud2.js para nuvens de palavras extraídas das análises; e Font Awesome para a composição visual dos ícones da interface.
+\section{Generalização para Múltiplos ODS}
+\label{sec:generalizacao-multiplos-ods}
 
-Foram implementadas páginas específicas para o dashboard do ODS 9, dashboard do ODS 16 e páginas de diagnóstico textual para cada objetivo. A versão pública também inclui um dashboard unificado capaz de carregar arquivos JSON de análise por localidade, permitindo reutilizar a mesma interface para diferentes municípios e ODS. Além disso, os dados de diagnóstico podem ser embutidos em arquivos JSON auxiliares, permitindo que as páginas sejam publicadas como arquivos estáticos, sem necessidade de servidor ou banco de dados.
+Para verificar se a arquitetura baseada em configuração descrita na Seção~\ref{subsec:v3} de fato permite estender a análise a outros objetivos da Agenda 2030, foram elaborados arquivos de configuração para o ODS 3 (Saúde e Bem-estar) e para o ODS 4 (Educação de Qualidade), denominados \texttt{ods3\_config.json} e \texttt{ods4\_config.json}. Esses arquivos seguem exatamente a mesma estrutura dos arquivos \texttt{ods9\_config.json} e \texttt{ods16\_config.json} utilizados no estudo de caso principal, alterando apenas os parâmetros específicos de cada objetivo: identificação do ODS, termos de busca, palavras-chave de filtragem, dimensões de análise, chaves de saída do JSON e \textit{prompts} especializados.
 
-Também foi desenvolvido um formulário web para geração assistida de arquivos de configuração do motor genérico. Essa interface permite selecionar visualmente o ODS, informar município e estado, configurar dimensões, termos de busca, chaves de saída e parâmetros necessários para a execução da análise, reduzindo a necessidade de edição manual de arquivos JSON.
+Para o ODS 3, foram parametrizadas sete dimensões alinhadas às metas do objetivo: Cobertura Vacinal; Mortalidade e Saúde Mental; Saúde Materno-Infantil; Doenças Transmissíveis; Doenças Crônicas e Mortalidade; Atenção Primária e UBS; e Promoção da Saúde e Bem-estar. Os termos de busca passaram a contemplar equipamentos públicos de saúde, como unidades básicas de saúde, hospitais, maternidades, clínicas e postos de vacinação. Para o ODS 4, as sete dimensões definidas foram: Educação Inclusiva e Igualitária; Educação Básica e Acesso; Capacitação e Empoderamento; Direitos Humanos e Desenvolvimento Sustentável na Educação; Qualidade do Ensino e Infraestrutura Educacional; Oportunidades para Pessoas Vulneráveis; e Formação Técnica e Superior, com termos de busca voltados a escolas, creches, universidades, bibliotecas e cursos técnicos.
 
-Essa estratégia transformou a etapa de visualização em uma camada de apresentação leve, portátil e de fácil publicação. Como os dashboards são compostos por arquivos estáticos, podem ser disponibilizados em plataformas de hospedagem web, como Netlify, ou executados localmente em navegador, ampliando a acessibilidade da ferramenta para gestores públicos, pesquisadores e demais interessados.
+As execuções foram realizadas pelo motor genérico (\texttt{ods\_analise\_generica.py}), sem qualquer alteração no código-fonte, por meio do comando \texttt{python ods\_analise\_generica.py -{}-config <arquivo>}. A Tabela~\ref{tab:generalizacao-ods} resume os resultados quantitativos obtidos nessas execuções exploratórias.
 
-\clearpage
+\begin{table}[h!]
+    \centering
+    \caption{Execuções exploratórias do motor genérico para ODS 3 e ODS 4}
+    \label{tab:generalizacao-ods}
+    \begin{tabular}{llccc}
+        \hline
+        \textbf{ODS} & \textbf{Cidade} & \textbf{Análises} & \textbf{Problemas} & \textbf{\% problemas} \\
+        \hline
+        ODS 3 & Natal-RN & 25 & 19 & 76,0\% \\
+        ODS 3 & Fortaleza-CE & 50 & 45 & 90,0\% \\
+        ODS 4 & Natal-RN & 25 & 16 & 64,0\% \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{table}
+
+É importante delimitar o escopo dessas execuções. A validação metodológica completa da abordagem -- com coleta em larga escala, análise das dimensões, verificação manual de amostras e confronto com os indicadores do IDSC-BR -- foi realizada apenas para os ODS 9 e 16, no estudo de caso de Mossoró-RN. As execuções com os ODS 3 e 4 tiveram caráter de verificação de viabilidade técnica: seu propósito foi demonstrar que o pipeline completo (coleta, filtragem, análise por aspecto, geração de JSON e diagnóstico automatizado) executa corretamente para outros objetivos mediante simples troca do arquivo de configuração, com volumes de coleta deliberadamente reduzidos para controlar custos de API. Os percentuais apresentados, portanto, não constituem diagnósticos validados desses municípios, mas evidências de que a generalização é operacionalmente possível.
+
+\section{Generalização Geográfica}
+\label{sec:generalizacao-geografica}
+
+De forma análoga, a capacidade de replicação da análise em outros municípios foi verificada executando os modelos dos ODS 9 e 16 -- já validados em Mossoró-RN -- em quatro capitais do Nordeste: Natal-RN, Fortaleza-CE, João Pessoa-PB e Salvador-BA. Nessas execuções, alterou-se apenas o parâmetro de localidade (cidade e estado), mantendo inalterados as dimensões de análise, os filtros semânticos e os \textit{prompts} de cada objetivo.
+
+Cada execução gerou um arquivo de análise no mesmo formato padronizado descrito na Seção~\ref{sec:saida}, seguindo a convenção de nomenclatura \texttt{<cidade>\_<uf>\_<ods>\_analise\_<timestamp>.json} -- por exemplo, \texttt{fortaleza\_ce\_ods9\_analise\_20260228\_184102.json} e \texttt{salvador\_ba\_ods16\_analise\_20260228\_214647.json}. Essa padronização permite que os arquivos de diferentes municípios sejam carregados diretamente no dashboard unificado, descrito na Seção~\ref{sec:dashboards-publicos}, sem qualquer conversão. A Tabela~\ref{tab:generalizacao-geografica} resume as execuções realizadas.
+
+\begin{table}[h!]
+    \centering
+    \caption{Execuções exploratórias dos modelos ODS 9 e ODS 16 em outras cidades}
+    \label{tab:generalizacao-geografica}
+    \begin{tabular}{llccc}
+        \hline
+        \textbf{ODS} & \textbf{Cidade} & \textbf{Análises} & \textbf{Problemas} & \textbf{\% problemas} \\
+        \hline
+        ODS 9 & Natal-RN & 2 & 2 & 100,0\% \\
+        ODS 9 & Fortaleza-CE & 10 & 9 & 90,0\% \\
+        ODS 16 & João Pessoa-PB & 10 & 9 & 90,0\% \\
+        ODS 16 & Salvador-BA & 5 & 5 & 100,0\% \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{table}
+
+Assim como na generalização para múltiplos ODS, essas execuções utilizaram amostras intencionalmente pequenas, suficientes para confirmar que a coleta na Google Places API, a filtragem hierárquica e a análise com IA funcionam em diferentes contextos urbanos, mas insuficientes para sustentar conclusões substantivas sobre esses municípios. A análise aprofundada e validada permanece restrita a Mossoró-RN, e a replicação em escala para outras cidades é apontada como trabalho futuro.
+
+\section{Formulário Interativo de Configuração}
+\label{sec:formulario-config}
+
+Como a extensão do sistema a novos contextos depende exclusivamente da criação de arquivos de configuração JSON, foi desenvolvido um formulário web interativo (\texttt{formulario\_config\_ods.html}) para geração assistida desses arquivos, eliminando a necessidade de edição manual e reduzindo a barreira de entrada para usuários não técnicos, como gestores públicos e pesquisadores de outras áreas.
+
+O formulário é uma página estática em HTML, CSS e JavaScript, organizada em blocos que espelham a estrutura do arquivo de configuração: seleção visual do ODS; localidade (município e estado); configuração geral (pontuação atual no IDSC-BR, limite de análises e rótulo do tipo de local); termos de busca no Google Places; dimensões de análise, com nome e tópicos associados; chaves de saída do JSON; e bases de dados, com os nomes das variáveis de ambiente que armazenam as chaves de API. Campos obrigatórios são validados antes da geração, e as dimensões podem ser adicionadas, editadas ou removidas dinamicamente. A Figura~\ref{fig:formulario-config-ods} apresenta a interface do formulário.
+
 \begin{figure}[H]
-    \vspace*{\stretch{1}}
     \centering
     \caption{Formulário web para geração de arquivos de configuração ODS}
     \label{fig:formulario-config-ods}
     \includegraphics[width=0.70\textwidth]{figuras/formulario-config-ods}
-    \legend{Fonte: Elaborado pelo autor (2025).}
-    \vspace*{\stretch{1}}
+    \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
+
+O fluxo de uso completo compreende quatro etapas:
+
+\begin{enumerate}
+    \item \textbf{Preenchimento}: o usuário seleciona o ODS, informa o município e ajusta dimensões, termos de busca e parâmetros de execução no formulário;
+    \item \textbf{Geração}: ao confirmar, o formulário monta e disponibiliza para download o arquivo JSON de configuração, no mesmo formato dos arquivos descritos na Seção~\ref{subsec:v3};
+    \item \textbf{Execução}: o arquivo gerado é passado ao motor genérico via \texttt{python ods\_analise\_generica.py -{}-config <arquivo>}, que realiza coleta, filtragem, análise e geração de diagnósticos;
+    \item \textbf{Visualização}: o JSON de análise resultante é carregado no dashboard unificado para exploração interativa dos resultados.
+\end{enumerate}
+
+Dessa forma, o ciclo completo de análise de um novo ODS ou município pode ser realizado sem escrever ou modificar uma única linha de código.
+
+\section{Dashboards Web Públicos}
+\label{sec:dashboards-publicos}
+
+Inicialmente, os resultados foram estruturados em formato compatível com o Microsoft Power BI. No entanto, essa abordagem foi substituída por dashboards web desenvolvidos com HTML, CSS e JavaScript, visando reduzir a dependência de ferramentas proprietárias e facilitar o acesso público aos resultados. A versão final da interface utiliza Chart.js para geração de gráficos de distribuição de sentimentos e problemas por dimensão; Leaflet.js para recursos de visualização geográfica; WordCloud2.js para nuvens de palavras extraídas das análises; e Font Awesome para a composição visual dos ícones da interface.
+
+Foram implementadas páginas específicas para o dashboard do ODS 9, dashboard do ODS 16 e páginas de diagnóstico textual para cada objetivo. A versão pública também inclui um dashboard unificado capaz de carregar arquivos JSON de análise por localidade, permitindo reutilizar a mesma interface para diferentes municípios e ODS -- inclusive os arquivos gerados nas execuções de generalização descritos nas Seções~\ref{sec:generalizacao-multiplos-ods} e~\ref{sec:generalizacao-geografica}. Além disso, os dados de diagnóstico podem ser embutidos em arquivos JSON auxiliares, permitindo que as páginas sejam publicadas como arquivos estáticos, sem necessidade de servidor ou banco de dados.
+
+Como os dashboards são compostos exclusivamente por arquivos estáticos, o conjunto foi publicado gratuitamente na plataforma Netlify e está disponível publicamente em \url{https://dashboard-ods-mossoro.netlify.app}. A versão hospedada inclui o dashboard unificado com os dados de Mossoró-RN, as páginas de diagnóstico dos ODS 9 e 16 e o formulário de geração de configurações descrito na Seção~\ref{sec:formulario-config}. Essa estratégia transformou a etapa de visualização em uma camada de apresentação leve, portátil e de fácil publicação, que também pode ser executada localmente em navegador, ampliando a acessibilidade da ferramenta para gestores públicos, pesquisadores e demais interessados.
