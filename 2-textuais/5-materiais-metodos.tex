@@ -77,6 +77,46 @@ controle sobre o modelo subjacente. Essas comparações podem ser vistas na Figu
     \legend{Fonte: Autoria Própria (2025).}
 \end{figure}
 
+\section{Avaliação de Aceitação Tecnológica: o Instrumento TAM}
+\label{sec:instrumento-tam}
+
+A etapa de avaliação do artefato, prevista no ciclo da Design Science, foi operacionalizada por meio do \textit{Technology Acceptance Model} (TAM), proposto por \citeonline{davis1989}. O TAM é um dos modelos mais consolidados da literatura de Sistemas de Informação para explicar a aceitação de tecnologias por seus usuários, postulando que a adoção de um sistema é determinada principalmente por dois construtos: a \textbf{Percepção de Utilidade} (PU), definida como o grau em que uma pessoa acredita que o uso do sistema melhorará seu desempenho, e a \textbf{Percepção de Facilidade de Uso} (PFU), definida como o grau em que uma pessoa acredita que o uso do sistema será livre de esforço \cite{davis1989}. Extensões posteriores do modelo incorporaram a \textbf{Intenção Comportamental de Uso} (ICU) como construto mediador entre as percepções e o uso efetivo da tecnologia \cite{venkatesh2000}.
+
+\subsection{Estrutura do Questionário}
+\label{subsec:estrutura-questionario}
+
+O instrumento foi implementado como questionário eletrônico na plataforma Google Forms e estruturado em quatro blocos. O primeiro bloco contém oito afirmações fechadas que operacionalizam os três construtos do TAM -- três itens para PU, três para PFU e dois para ICU --, respondidas em escala Likert de cinco pontos (1 = Discordo Totalmente; 2 = Discordo; 3 = Neutro; 4 = Concordo; 5 = Concordo Totalmente). O Quadro~\ref{tab:itens-tam} apresenta o texto integral dos itens.
+
+\begin{table}[h!]
+    \centering
+    \caption{Itens do instrumento TAM aplicado na avaliação dos dashboards}
+    \label{tab:itens-tam}
+    \begin{tabular}{clp{10.5cm}}
+        \hline
+        \textbf{Item} & \textbf{Construto} & \textbf{Afirmação} \\
+        \hline
+        PU1 & Utilidade & Acredito que utilizar estes dashboards melhorará meu desempenho na tomada de decisão. \\
+        PU2 & Utilidade & As informações fornecidas pelos dashboards são relevantes para minhas responsabilidades. \\
+        PU3 & Utilidade & A utilização dos dashboards me permite acessar dados e indicadores de forma mais eficaz. \\
+        PFU1 & Facilidade & Acho o uso dos dashboards fácil de aprender. \\
+        PFU2 & Facilidade & Minha interação com os dashboards é clara e compreensível. \\
+        PFU3 & Facilidade & Acho simples navegar e encontrar as informações que preciso nos dashboards. \\
+        ICU1 & Intenção & Pretendo usar os dashboards regularmente para acompanhar os indicadores da minha área. \\
+        ICU2 & Intenção & Em geral, pretendo usar os dashboards para obter diagnósticos e análises sobre os ODS em Mossoró. \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2026), com itens adaptados de \citeonline{davis1989}.}
+\end{table}
+
+O segundo bloco reúne questões complementares de satisfação e preferência: uma questão de múltipla escolha sobre qual dashboard é mais útil às atividades do respondente (geral, específico, ambos ou nenhum); duas escalas numéricas de 1 a 5 sobre a satisfação com a clareza e precisão dos dados dos dashboards principais e com a clareza e profundidade da tela de diagnósticos; uma matriz de avaliação de quatro aspectos técnicos da interface (velocidade de carregamento, design e estética visual, organização e fluxo de navegação, e capacidade de filtrar e detalhar dados), em escala ordinal de quatro níveis (Ruim, Regular, Bom, Excelente); uma questão de múltipla seleção sobre a utilidade dos diagnósticos gerados pela IA; e uma questão de ranqueamento da importância relativa entre as informações dos dashboards principais e os diagnósticos gerados pela IA.
+
+O terceiro bloco é composto por três perguntas abertas, destinadas à coleta de percepções qualitativas: (i) informações ou indicadores que estariam faltando nos dashboards; (ii) dificuldades ou problemas encontrados durante o uso (dados incorretos, links quebrados, lentidão, confusão); e (iii) comentários finais livres. O quarto bloco registra dados de identificação do respondente (nome, departamento de atuação e data da avaliação), tratados de forma anônima e confidencial na análise.
+
+\subsection{Procedimento de Aplicação}
+\label{subsec:procedimento-tam}
+
+Os participantes foram instruídos a, antes de responder ao questionário, acessar e explorar livremente os dashboards públicos hospedados em \url{https://dashboard-ods-mossoro.netlify.app/}, que reúnem o dashboard unificado com os dados de Mossoró-RN, as telas de diagnóstico dos ODS 9 e 16 e o formulário de geração de configurações descritos no Capítulo~\ref{cap:implementacao}. O convite foi direcionado a professores, pesquisadores e profissionais da gestão pública, buscando o olhar de potenciais usuários reais da ferramenta -- perfis acadêmicos com domínio metodológico e perfis de gestão com vivência nas rotinas administrativas municipais. O tempo estimado de resposta foi de três a cinco minutos, e todas as respostas foram tratadas de forma anônima, com uso exclusivo para fins de pesquisa científica. O instrumento completo, com o texto de apresentação e as 21 questões na ordem em que foram exibidas aos respondentes, é reproduzido no Apêndice~\ref{ap:instrumento-tam}. Os resultados dessa avaliação são apresentados e discutidos no Capítulo~\ref{cap:validacao-tam}.
+
 \section{Resultados Parciais}
 \label{sec:resultados-parciais}
 
