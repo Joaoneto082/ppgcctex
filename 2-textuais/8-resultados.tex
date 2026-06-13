@@ -29,10 +29,27 @@ O sistema foi executado com o modelo Gemini 2.5 Flash como provedor principal de
 \section{ODS 9 -- Indústria, Inovação e Infraestrutura}
 \label{sec:resultados-ods9}
 
+\subsection{Distribuição por Tipo de Estabelecimento}
+\label{subsec:tipos-ods9}
+
+As 253 análises do ODS 9 foram coletadas em 117 estabelecimentos únicos, abrangendo sete categorias de locais relacionadas às dimensões do objetivo:
+
+\begin{itemize}
+    \item \textbf{Infraestrutura de transporte}: rodoviárias, aeroporto, terminais rodoviários, estações e paradas de ônibus;
+    \item \textbf{Infraestrutura urbana}: ruas, avenidas, pontes, viadutos, pavimentação e iluminação pública;
+    \item \textbf{Tecnologia e telecomunicações}: lojas de eletrônicos, operadoras de telefonia, provedores de internet e serviços de tecnologia;
+    \item \textbf{Indústria}: fábricas, parques industriais e empresas de transformação;
+    \item \textbf{Energia}: distribuidoras de energia elétrica e serviços de energia renovável;
+    \item \textbf{Micro e pequenas empresas}: comércios locais, serviços de apoio ao empreendedorismo e instituições de crédito para pequenos negócios;
+    \item \textbf{Inovação}: \textit{startups}, incubadoras e espaços de inovação.
+\end{itemize}
+
+Essa diversidade de tipos de local permitiu capturar percepções sobre todas as sete dimensões do ODS 9, desde ativos físicos de infraestrutura até o ambiente de negócios e inovação do município.
+
 \subsection{Distribuição de Sentimentos}
 \label{subsec:sentimentos-ods9}
 
-Das 253 análises coletadas para o ODS 9, a distribuição de sentimentos revelou um cenário predominantemente negativo, conforme apresentado na Tabela~\ref{tab:sentimentos-ods9}.
+Das 253 análises coletadas para o ODS 9, a distribuição de sentimentos revelou um cenário predominantemente negativo, conforme apresentado na Tabela~\ref{tab:sentimentos-ods9} e na Figura~\ref{fig:sentimentos-comparados}, que compara a distribuição de sentimentos entre os dois ODS analisados.
 
 \begin{table}[h!]
     \centering
@@ -53,18 +70,54 @@ Das 253 análises coletadas para o ODS 9, a distribuição de sentimentos revelo
     \legend{Fonte: Elaborado pelo autor (2025).}
 \end{table}
 
+\begin{figure}[h!]
+    \centering
+    \caption{Distribuição de sentimentos por ODS em Mossoró-RN}
+    \label{fig:sentimentos-comparados}
+    \includegraphics[width=0.95\textwidth]{figuras/distribuicao-sentimentos-ods}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
 A baixa proporção de avaliações positivas (14,6\%) e o fato de que 56,9\% das análises contribuem diretamente para o baixo desempenho validam a pontuação muito baixa (0--39,99) atribuída a Mossoró no ODS 9 pelo IDSC \cite{idsc2024}. Os scores de confiança elevados (média de 0,87) indicam que o modelo identificou com segurança os aspectos problemáticos nos textos analisados.
 
-\subsection{Problemas Críticos por Dimensão}
+A elevada taxa de comentários neutros (44,7\%) pode ser interpretada de duas formas complementares: por um lado, pode indicar relatos descritivos com baixo conteúdo avaliativo explícito; por outro, pode refletir uma normalização de problemas crônicos, em que deficiências recorrentes passam a ser percebidas como parte do cotidiano urbano. Essa leitura reforça a importância da análise por aspecto, uma vez que avaliações aparentemente neutras podem, ao serem analisadas semanticamente, revelar indícios de problemas persistentes.
+
+\subsection{Distribuição de Problemas por Dimensão}
 \label{subsec:problemas-ods9}
 
-A análise por dimensão revelou padrões de problemas estruturais em três áreas críticas:
+A Tabela~\ref{tab:problemas-ods9} apresenta a distribuição quantitativa de menções problemáticas por dimensão do ODS 9, extraída do campo de aspectos problemáticos identificados pela IA em cada análise.
 
-\textbf{Infraestrutura Resiliente e Moderna (100\% das análises de infraestrutura crítica)}: O Terminal Rodoviário de Mossoró emergiu como o principal foco de problemas. As avaliações descrevem um equipamento em estado crítico de deterioração, com estruturas abandonadas, risco de queda, condições insalubres (banheiros imundos, ausência de limpeza), iluminação inadequada e falta de manutenção preventiva. A totalidade dos comentários sobre o terminal classificou a infraestrutura como negativa, com scores de confiança acima de 0,85.
+\begin{table}[h!]
+    \centering
+    \caption{Distribuição de menções problemáticas por dimensão -- ODS 9 (Mossoró-RN)}
+    \label{tab:problemas-ods9}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Dimensão} & \textbf{Menções} & \textbf{Percentual} \\
+        \hline
+        Infraestrutura Resiliente e Moderna & 85 & 33,6\% \\
+        Transporte Público e Mobilidade & 54 & 21,3\% \\
+        Acesso à Tecnologia e Informação & 52 & 20,6\% \\
+        Valorização da Micro e Pequena Empresa & 48 & 19,0\% \\
+        Industrialização Inclusiva e Sustentável & 37 & 14,6\% \\
+        Inovação e Pesquisa & 30 & 11,9\% \\
+        Eficiência Energética & 29 & 11,5\% \\
+        \hline
+    \end{tabular}
+    \legend{Fonte: Elaborado pelo autor (2026). Percentuais calculados sobre as 253 análises; uma mesma análise pode mencionar problemas em mais de uma dimensão.}
+\end{table}
 
-\textbf{Transporte Público e Mobilidade (100\% das análises sobre transporte)}: As avaliações do terminal rodoviário e paradas de ônibus apontam para um sistema de transporte público em colapso: ausência de serviços básicos essenciais, falta de controle sanitário, experiência do usuário altamente comprometida e conectividade regional prejudicada.
+A distribuição evidencia que os problemas do ODS 9 em Mossoró concentram-se nas dimensões físicas e econômicas de base, detalhadas a seguir:
 
-\textbf{Valorização da Micro e Pequena Empresa}: As análises revelam ausência de comércios básicos em locais estratégicos, limitadas oportunidades para pequenos negócios e insuficiência de suporte ao empreendedorismo local.
+\textbf{Infraestrutura Resiliente e Moderna (85 menções -- 33,6\%)}: dimensão mais problemática do conjunto. O Terminal Rodoviário de Mossoró emergiu como o principal foco de problemas: as avaliações descrevem um equipamento em estado crítico de deterioração, com estruturas abandonadas, risco de queda, condições insalubres (banheiros imundos, ausência de limpeza), iluminação inadequada e falta de manutenção preventiva. A totalidade dos comentários sobre o terminal classificou a infraestrutura como negativa, com scores de confiança acima de 0,85.
+
+\textbf{Transporte Público e Mobilidade (54 menções -- 21,3\%)}: as avaliações do terminal rodoviário e de paradas de ônibus apontam para um sistema de transporte público em colapso: ausência de serviços básicos essenciais, falta de controle sanitário, experiência do usuário altamente comprometida e conectividade regional prejudicada.
+
+\textbf{Acesso à Tecnologia e Informação (52 menções -- 20,6\%)}: as queixas concentram-se em operadoras de telefonia e provedores de internet, com relatos de instabilidade do serviço, atendimento deficiente e cobertura desigual entre regiões da cidade.
+
+\textbf{Valorização da Micro e Pequena Empresa (48 menções -- 19,0\%)}: as análises revelam ausência de comércios básicos em locais estratégicos, limitadas oportunidades para pequenos negócios e insuficiência de suporte ao empreendedorismo local. É a dimensão com maior número absoluto de menções nas avaliações (171 análises a mencionam), refletindo o peso do comércio local na amostra.
+
+As dimensões de Industrialização (14,6\%), Inovação e Pesquisa (11,9\%) e Eficiência Energética (11,5\%) apresentaram menor volume de menções problemáticas, em parte pela menor presença desses tipos de estabelecimento na amostra coletada. Em termos de localização, os estabelecimentos com maior concentração de análises problemáticas foram a Rodoviária de Mossoró, o Terminal Rodoviário Diram Ramos do Amaral, o Aeroporto Dix-Sept Rosado e a Secretaria Municipal de Infraestrutura, Meio Ambiente, Urbanismo e Serviços Urbanos, reforçando o padrão de concentração de problemas em equipamentos de transporte e órgãos de gestão urbana.
 
 \subsection{Dashboard ODS 9}
 \label{subsec:dashboard-ods9}
@@ -84,10 +137,25 @@ O dashboard possibilita filtragem dinâmica por dimensão, sentimento, local e i
 \section{ODS 16 -- Paz, Justiça e Instituições Eficazes}
 \label{sec:resultados-ods16}
 
+\subsection{Composição da Amostra}
+\label{subsec:amostra-ods16}
+
+Para o ODS 16, foram coletadas 116 análises válidas distribuídas entre 12 estabelecimentos únicos. Embora aparentemente pequena, essa amostra representa os principais órgãos de justiça e segurança pública de Mossoró-RN, incluindo:
+
+\begin{itemize}
+    \item \textbf{Órgãos de segurança pública}: delegacias, polícia militar, guarda civil municipal e batalhões;
+    \item \textbf{Poder judiciário}: fóruns, tribunais, defensoria pública e Ministério Público;
+    \item \textbf{Instituições públicas}: prefeitura, secretarias municipais e câmara municipal;
+    \item \textbf{Órgãos eleitorais}: TRE e Justiça Eleitoral;
+    \item \textbf{Espaços públicos}: praças e parques, quando as avaliações mencionam segurança ou insegurança.
+\end{itemize}
+
+A amostra de 12 estabelecimentos reflete a realidade institucional do município: Mossoró possui um número limitado de órgãos públicos de justiça e segurança formalmente cadastrados na Google Places API, e o sistema capturou os principais estabelecimentos disponíveis. Essa cobertura dos órgãos institucionais relevantes garante que as análises representem adequadamente as percepções sobre o ODS 16 na cidade, ainda que o número absoluto de locais seja menor do que o do ODS 9, que inclui também estabelecimentos comerciais e de infraestrutura.
+
 \subsection{Distribuição de Sentimentos}
 \label{subsec:sentimentos-ods16}
 
-Para o ODS 16, foram coletadas 116 análises válidas distribuídas entre órgãos de segurança pública, poder judiciário, instituições municipais e espaços públicos. A distribuição de sentimentos revela um padrão polarizado, conforme a Tabela~\ref{tab:sentimentos-ods16}.
+A distribuição de sentimentos revela um padrão polarizado, conforme a Tabela~\ref{tab:sentimentos-ods16}. A comparação com o ODS 9, apresentada na Figura~\ref{fig:sentimentos-comparados}, evidencia diferenças relevantes no padrão de avaliação: enquanto o ODS 9 é dominado por avaliações neutras e negativas, o ODS 16 apresenta maior proporção de avaliações positivas, convivendo com queixas concentradas em dimensões críticas.
 
 \begin{table}[h!]
     \centering
@@ -108,12 +176,12 @@ Para o ODS 16, foram coletadas 116 análises válidas distribuídas entre órgã
     \legend{Fonte: Elaborado pelo autor (2025).}
 \end{table}
 
-Embora a proporção de avaliações positivas (32,8\%) seja maior do que no ODS 9, a concentração de problemas em dimensões críticas -- especialmente instituições eficazes (37,1\% das menções negativas) e segurança pública (11,2\%) -- é suficiente para manter a pontuação na faixa muito baixa.
+Embora a proporção de avaliações positivas (32,8\%) seja maior do que no ODS 9, a concentração de problemas em dimensões críticas -- especialmente instituições eficazes (37,1\% das análises) e segurança pública (11,2\%) -- é suficiente para manter a pontuação na faixa muito baixa. Esse resultado é coerente com a natureza do ODS 16, no qual a experiência do cidadão é influenciada pela qualidade do atendimento, pela eficiência administrativa e pela transparência dos processos, elementos que tendem a gerar avaliações mais emocionalmente carregadas do que as associadas a infraestruturas físicas.
 
 \subsection{Distribuição de Problemas por Dimensão}
 \label{subsec:dimensoes-ods16}
 
-A Tabela~\ref{tab:problemas-ods16} apresenta a distribuição quantitativa de menções de problemas por dimensão do ODS 16.
+A Tabela~\ref{tab:problemas-ods16} apresenta a distribuição quantitativa de menções de problemas por dimensão do ODS 16, e a Figura~\ref{fig:problemas-dimensao-ods16} evidencia graficamente a assimetria entre a dimensão dominante e as demais.
 
 \begin{table}[h!]
     \centering
@@ -132,10 +200,20 @@ A Tabela~\ref{tab:problemas-ods16} apresenta a distribuição quantitativa de me
         Proteção de Crianças e Grupos Vulneráveis & 6 & 5,2\% \\
         \hline
     \end{tabular}
-    \legend{Fonte: Elaborado pelo autor (2025).}
+    \legend{Fonte: Elaborado pelo autor (2025). Percentuais calculados sobre as 116 análises; uma mesma análise pode mencionar problemas em mais de uma dimensão.}
 \end{table}
 
+\begin{figure}[h!]
+    \centering
+    \caption{Distribuição de problemas por dimensão -- ODS 16 (Mossoró-RN)}
+    \label{fig:problemas-dimensao-ods16}
+    \includegraphics[width=0.90\textwidth]{figuras/problemas-dimensao-ods16}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
 A dimensão \textit{Instituições Eficazes e Responsáveis} domina o conjunto de problemas (37,1\% das menções), evidenciando que a ineficiência administrativa é a raiz da maioria dos problemas identificados para o ODS 16 em Mossoró. Os principais problemas relatados nesta dimensão incluem: atendimento demorado e burocrático em secretarias municipais, insuficiência de pessoal, piora do atendimento com a migração para canais digitais e deficiências de gestão.
+
+As demais dimensões reforçam esse quadro de fragilidade institucional. \textit{Direitos Humanos e Estado de Direito} registrou 14 menções (12,1\%), evidenciando violações em contextos de fiscalização e necessidade de capacitação. \textit{Segurança Pública e Redução da Violência} somou 13 menções (11,2\%), associadas à atuação insuficiente dos órgãos de segurança e à sensação de insegurança. \textit{Acesso à Justiça} (12 menções -- 10,3\%) relacionou-se à burocracia excessiva e a dificuldades de atendimento presencial. \textit{Transparência e Combate à Corrupção} (6,9\%), \textit{Participação Cidadã e Accountability} (5,2\%) e \textit{Proteção de Crianças e Grupos Vulneráveis} (5,2\%) completam o quadro de fragilidades identificadas.
 
 \subsection{Dashboard ODS 16}
 \label{subsec:dashboard-ods16}
