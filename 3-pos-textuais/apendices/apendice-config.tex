@@ -1,0 +1,130 @@
+\apendice{Arquivo de Configuração Exemplar do Motor Genérico}
+\label{ap:config-json}
+
+Este apêndice apresenta um arquivo de configuração JSON completo do motor genérico de análise, descrito na Seção~\ref{subsec:v3}.
+
+O Código~\ref{lst:config-completo-ods9} reproduz, na íntegra, o arquivo de configuração utilizado no estudo de caso validado do ODS 9 em Mossoró-RN. Sua estrutura -- comum a todos os objetivos -- define a identificação do ODS, a localidade, as bases de dados, os termos de busca, as palavras-chave de filtragem, as sete dimensões de análise, as chaves de saída do JSON e os \textit{prompts} especializados de análise, conclusão e diagnóstico. A extensão da abordagem a um novo objetivo ou município consiste, essencialmente, em produzir um arquivo análogo a este -- tarefa assistida pelo formulário descrito na Seção~\ref{sec:formulario-config}.
+
+\begin{lstlisting}[language=,caption={Arquivo de configuração completo do ODS 9 (\texttt{ods9\_config.json})},label={lst:config-completo-ods9},basicstyle=\ttfamily\scriptsize,breaklines=true]
+{
+  "ods": {
+    "numero": 9,
+    "nome": "Industria, Inovacao e Infraestrutura",
+    "nome_completo": "ODS 9 - Industria, Inovacao e Infraestrutura"
+  },
+  "localidade": {
+    "cidade": "Mossoro",
+    "estado": "RN"
+  },
+  "base_dados": {
+    "places": "GOOGLE_PLACES_API_KEY",
+    "ia": "GOOGLE_AI_API_KEY",
+    "perplexity": "PERPLEXITY_API_KEY"
+  },
+  "pontuacao_atual": "Muito baixo (0-39,99)",
+  "max_analises": 15,
+  "tipo_local_label": "Infraestrutura",
+  "termos_busca": [
+    "rodoviaria", "terminal rodoviario", "aeroporto", "estacao de onibus",
+    "parada de onibus", "transporte publico", "rua", "avenida", "ponte",
+    "viaduto", "asfalto", "pavimentacao", "iluminacao publica",
+    "micro empresa", "pequena empresa", "mei", "sebrae", "telecomunicacoes",
+    "internet", "wi-fi publico", "fibra otica", "inovacao", "tecnologia",
+    "startup", "incubadora", "industria", "parque industrial", "empresa",
+    "fabrica", "energia", "energia eletrica", "energia solar",
+    "energia renovavel", "prefeitura", "secretaria", "infraestrutura", "obras"
+  ],
+  "locais_keywords": [
+    "rodoviaria", "terminal", "aeroporto", "onibus", "transporte", "rua",
+    "avenida", "ponte", "empresa", "internet", "telecom", "energia",
+    "prefeitura", "infraestrutura", "shopping", "centro comercial"
+  ],
+  "locais_aceitar_todos": [
+    "terminal", "rodoviaria", "aeroporto", "transporte", "empresa",
+    "energia", "prefeitura", "infraestrutura"
+  ],
+  "termos_relevantes_review": [
+    "onibus", "transporte", "estrada", "asfalto", "pavimentacao", "internet",
+    "energia", "luz", "empresa", "atendimento", "estrutura", "obra",
+    "demora", "qualidade", "ruim", "bom", "otimo"
+  ],
+  "cidades_excluir": [],
+  "dimensoes": [
+    {
+      "key": "infraestrutura_resiliente",
+      "nome": "Infraestrutura Resiliente e Moderna",
+      "topicos": "Qualidade de estradas, pontes, viadutos, pavimentacao,
+                  asfalto, obras publicas, manutencao, iluminacao publica."
+    },
+    {
+      "key": "transporte_publico",
+      "nome": "Transporte Publico e Mobilidade",
+      "topicos": "Qualidade do transporte publico, onibus, terminais,
+                  acessibilidade, frequencia, pontualidade, mobilidade."
+    },
+    {
+      "key": "acesso_tecnologia",
+      "nome": "Acesso a Tecnologia e Informacao",
+      "topicos": "Acesso a internet, qualidade da conexao, wi-fi publico,
+                  fibra otica, telecomunicacoes, inclusao digital."
+    },
+    {
+      "key": "inovacao_pesquisa",
+      "nome": "Inovacao e Pesquisa",
+      "topicos": "Inovacao tecnologica, pesquisa e desenvolvimento,
+                  startups, incubadoras, ecossistema de inovacao."
+    },
+    {
+      "key": "industrializacao",
+      "nome": "Industrializacao Inclusiva e Sustentavel",
+      "topicos": "Desenvolvimento industrial, parques industriais, fabricas,
+                  empregos industriais, sustentabilidade industrial."
+    },
+    {
+      "key": "eficiencia_energetica",
+      "nome": "Eficiencia Energetica e Energia Sustentavel",
+      "topicos": "Qualidade do fornecimento de energia, eficiencia
+                  energetica, energia renovavel, apagoes."
+    },
+    {
+      "key": "micro_pequena_empresa",
+      "nome": "Valorizacao da Micro e Pequena Empresa",
+      "topicos": "Apoio a micro e pequenas empresas, burocracia, acesso a
+                  credito, MEI, empreendedorismo, pequenos comercios."
+    }
+  ],
+  "chaves": {
+    "analise_geral": "analise_geral_ods9",
+    "contribui": "contribui_baixo_ods9",
+    "impacto": "impacto_ods9_percebido",
+    "sentimento_geral": "sentimento_geral_ods9",
+    "confianca": "confianca_geral_ods9",
+    "pontuacao_meta": "pontuacao_ods9_atual",
+    "pontuacao_cidade": "pontuacao_ods9_cidade",
+    "analises_output": "analises_ods9"
+  },
+  "prompt_analise": {
+    "cabecalho": "Aja como um analista especializado em ODS 9 (Industria,
+                  Inovacao e Infraestrutura). Analise o comentario extraido
+                  do Google Places sobre {cidade_estado}.",
+    "contexto": "CONTEXTO: {cidade_estado} possui pontuacao {pontuacao} no
+                 ODS 9. Identifique evidencias que expliquem o desempenho.",
+    "instrucao_indica_problema": "O campo indica_problema deve ser TRUE
+                 quando o comentario menciona aspectos negativos.",
+    "system": "Voce e um analista especializado no ODS 9."
+  },
+  "prompt_system": "Voce e um analista especializado em ODS 9.",
+  "prompt_conclusao": {
+    "template": "Gere uma CONCLUSAO GERAL (3-4 paragrafos) para o relatorio
+                 ODS 9. Resumo: {resumo}. Cidade: {cidade}. Pontuacao:
+                 {pontuacao}. Total: {total}. Problemas: {problemas}.",
+    "system": "Voce e um analista especializado em infraestrutura e ODS 9."
+  },
+  "prompt_diagnostico": {
+    "template": "Gere um DIAGNOSTICO ESPECIFICO (2-3 paragrafos) para a
+                 dimensao {dimensao_nome} do ODS 9, sobre {cidade}.
+                 Resumo: {resumo}. Inclua situacao, impacto e recomendacoes.",
+    "system": "Voce e um analista de ODS 9, foco em {dimensao_nome}."
+  }
+}
+\end{lstlisting}

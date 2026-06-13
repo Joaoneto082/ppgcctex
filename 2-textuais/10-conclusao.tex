@@ -21,6 +21,19 @@ A hipótese central desta pesquisa -- de que avaliações públicas não estrutu
 
 Os scores de confiança médios acima de 0,84 e a consistência dos padrões identificados em diferentes rodadas de análise indicam que o sistema produz resultados reproduzíveis e confiáveis, sem necessidade de treinamento supervisionado específico para o domínio.
 
+\section{Respostas às Questões de Pesquisa}
+\label{sec:respostas-questoes}
+
+Estruturada segundo a Design Science, esta pesquisa partiu de uma questão geral de pesquisa (QGP), decomposta em questões conceituais (QC), técnicas (QT) e práticas (QP), apresentadas na Seção~\ref{subsec:questoes-pesquisa}. À luz dos resultados obtidos, cada questão pode agora ser respondida.
+
+\textbf{Quanto à QGP} -- \textit{como a análise de sentimento por aspecto, apoiada por \glspl{LLM} e dados perceptivos georreferenciados, pode auxiliar a identificar gargalos no desempenho de ODS municipais e gerar diagnósticos acionáveis para políticas públicas?} -- o trabalho demonstrou que a combinação de coleta georreferenciada na Google Places API, filtragem hierárquica e análise por aspecto via \glspl{LLM} é capaz de transformar avaliações públicas não estruturadas em diagnósticos quantificáveis e territorializados. No estudo de caso de Mossoró-RN, essa abordagem identificou gargalos concretos -- como a degradação do Terminal Rodoviário no ODS 9 e a ineficiência institucional no ODS 16 --, traduzindo as pontuações abstratas do IDSC-BR em causas específicas, localizadas e priorizáveis pela gestão pública.
+
+\textbf{Quanto à QC 1} -- \textit{o que são os ODS e como seu desempenho é mensurado em nível municipal?} -- a fundamentação teórica e a análise dos indicadores oficiais evidenciaram que o desempenho dos ODS é tradicionalmente mensurado por índices agregados, como o IDSC-BR, que apresentam baixa granularidade espacial, defasagem temporal e elevado custo de coleta. Identificou-se que objetivos de natureza urbana e institucional -- como os ODS 9 e 16 -- são especialmente sensíveis à experiência cidadã, o que os torna adequados à representação por meio de dados textuais perceptivos.
+
+\textbf{Quanto à QT 2} -- \textit{como \glspl{LLM} e técnicas de análise por aspecto podem ser combinados a dados georreferenciados para avaliar o desempenho de ODS municipais?} -- a pesquisa estabeleceu uma arquitetura de três módulos (coleta, filtragem e análise) parametrizada por arquivos JSON de configuração, na qual \textit{prompts} estruturados orientam os modelos generativos à análise por aspecto sem necessidade de \textit{fine-tuning}. Demonstrou-se que modelos genéricos (Gemini e Perplexity) com \textit{prompts} bem elaborados alcançam scores de confiança elevados e que o mecanismo de \textit{fallback} entre provedores confere robustez ao processo.
+
+\textbf{Quanto à QP 3} -- \textit{como esses resultados podem ser disponibilizados a gestores e validados por especialistas para apoiar a tomada de decisão?} -- os diagnósticos foram operacionalizados em \textit{dashboards} web públicos e em telas de diagnóstico textual, publicados gratuitamente e acompanhados de um formulário interativo para geração de novas configurações. A utilidade percebida dessa camada de apresentação foi avaliada por meio do \gls{TAM}, que indicou aceitação favorável nos três construtos -- \gls{PU}, \gls{PFU} e \gls{ICU} --, ao mesmo tempo em que revelou desafios concretos de adoção, como a demanda por recomendações mais acionáveis e por recursos de filtragem avançada.
+
 \section{Contribuições}
 \label{sec:contribuicoes-finais}
 
@@ -46,16 +59,15 @@ Com base nos resultados obtidos, recomenda-se às autoridades municipais, estadu
 \section{Trabalhos Futuros}
 \label{sec:trabalhos-futuros}
 
-Com base nos resultados e nas limitações identificadas, os seguintes trabalhos futuros são recomendados:
+Com base nos resultados e nas limitações identificadas, os trabalhos futuros organizam-se em seis eixos complementares:
 
 \begin{itemize}
-    \item \textbf{Expansão para todos os 17 ODS}: aplicar a metodologia aos ODS restantes em Mossoró-RN, fornecendo um diagnóstico completo para o planejamento municipal de longo prazo;
-    \item \textbf{Análise multi-cidade e multi-ODS validada}: converter as execuções exploratórias já realizadas em outras capitais (ODS 9 e 16) e em outros objetivos (ODS 3 e 4) em estudos validados, com coleta em escala e confronto com indicadores locais, comparando os padrões identificados em Mossoró com os de outros municípios e domínios temáticos para identificar problemas comuns e boas práticas replicáveis;
-    \item \textbf{Coleta temporal e monitoramento}: implementar execuções periódicas do sistema para monitorar a evolução das percepções públicas ao longo do tempo e avaliar o impacto de intervenções realizadas;
-    \item \textbf{Incorporação de fontes adicionais}: integrar dados de redes sociais (Twitter/X, Instagram), notícias locais e ouvidorias municipais para ampliar a cobertura e reduzir o viés de seleção da Google Places API;
-    \item \textbf{Validação com dados primários}: realizar pesquisas de campo para validar os diagnósticos gerados pelo sistema com a percepção direta de cidadãos e especialistas locais;
-    \item \textbf{Refinamento dos prompts}: investigar técnicas avançadas de \textit{prompt engineering} (cadeia de pensamento, \textit{few-shot learning}) para melhorar a precisão da análise em aspectos com menor cobertura de dados;
-    \item \textbf{Análise de correlação causal}: aplicar modelagem estatística para quantificar as relações causais entre as dimensões dos ODS identificadas qualitativamente nesta pesquisa.
+    \item \textbf{Eixo temático}: estender a abordagem, de forma validada e com coleta em escala, aos demais objetivos da Agenda 2030, a partir das execuções exploratórias já realizadas para os ODS 3 e 4, rumo a um diagnóstico municipal abrangente que contemple os 17 ODS;
+    \item \textbf{Eixo geográfico}: converter as execuções exploratórias conduzidas em outras capitais do Nordeste (Natal, Fortaleza, João Pessoa e Salvador) em estudos comparativos validados, confrontando os padrões de Mossoró com os de outros municípios para identificar problemas comuns e boas práticas replicáveis;
+    \item \textbf{Eixo longitudinal}: implementar execuções periódicas do sistema para monitorar a evolução das percepções públicas ao longo do tempo, superando a limitação de temporalidade discutida na Seção~\ref{subsec:disc-cobertura-temporalidade} e permitindo avaliar o impacto de intervenções realizadas;
+    \item \textbf{Eixo de melhorias metodológicas}: investigar técnicas avançadas de \textit{prompt engineering} (cadeia de pensamento, \textit{few-shot learning}), estratégias de amostragem que mitiguem o viés de confirmação dos termos de busca, e modelagem estatística para quantificar as relações causais entre as dimensões dos ODS identificadas qualitativamente nesta pesquisa;
+    \item \textbf{Eixo de integração com outras fontes}: incorporar dados de redes sociais, notícias locais, ouvidorias municipais e pesquisas de campo com dados primários, de modo a ampliar a cobertura, reduzir o viés de seleção da Google Places API e atenuar o silêncio digital das populações sub-representadas;
+    \item \textbf{Eixo de plataforma para gestores}: evoluir os \textit{dashboards} estáticos atuais para uma plataforma web completa voltada à gestão pública, com autenticação, execução de novas análises sob demanda a partir do formulário de configuração, recomendações acionáveis vinculadas a cada estabelecimento ou dimensão, e os recursos de filtragem avançada solicitados na avaliação de aceitação tecnológica (Seção~\ref{sec:analise-qualitativa}).
 \end{itemize}
 
 \section{Considerações Finais}
