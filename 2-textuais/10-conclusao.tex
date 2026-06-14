@@ -1,7 +1,7 @@
 \chapter{Conclusão}
 \label{cap:conclusao}
 
-Esta dissertação apresentou, implementou e validou uma metodologia automatizada e escalável para análise de desempenho em Objetivos de Desenvolvimento Sustentável por meio de processamento de linguagem natural, análise de sentimentos baseada em aspectos e modelos de linguagem de grande porte. A aplicação ao estudo de caso de Mossoró-RN -- com foco nos ODS 9 (Indústria, Inovação e Infraestrutura) e ODS 16 (Paz, Justiça e Instituições Eficazes) -- demonstrou não apenas a viabilidade técnica da abordagem, mas também sua capacidade de gerar diagnósticos específicos, quantificáveis e acionáveis que explicam o baixo desempenho da cidade nestes objetivos.
+Esta dissertação apresentou uma metodologia automatizada e escalável para análise de desempenho em Objetivos de Desenvolvimento Sustentável por meio de processamento de linguagem natural, análise de sentimentos baseada em aspectos e modelos de linguagem de grande porte. A aplicação ao estudo de caso de Mossoró-RN, com foco nos ODS 9 (Indústria, Inovação e Infraestrutura) e ODS 16 (Paz, Justiça e Instituições Eficazes), demonstrou não apenas a viabilidade técnica da abordagem, mas também sua capacidade de gerar diagnósticos específicos, quantificáveis e acionáveis que explicam o baixo desempenho da cidade nestes objetivos.
 
 \section{Síntese dos Resultados}
 \label{sec:sintese}
@@ -12,12 +12,12 @@ Para o \textbf{ODS 9}, identificou-se que 56,9\% das análises contribuem direta
 
 Para o \textbf{ODS 16}, 46,6\% das análises apontam problemas, com a dimensão \textit{Instituições Eficazes e Responsáveis} concentrando 37,1\% das menções negativas. A análise revelou que a ineficiência administrativa é a raiz amplificadora de problemas em segurança pública, acesso à justiça e direitos humanos, sugerindo que reformas institucionais focadas na qualidade do serviço público têm potencial de impacto multiplicador.
 
-Cumpre reafirmar que os ODS 9 e 16 em Mossoró-RN constituem os únicos objetivos efetivamente analisados e validados nesta dissertação, com coleta em escala e confronto com os indicadores oficiais. As execuções adicionais relatadas no trabalho -- a aplicação do motor genérico aos ODS 3 e 4 e a reaplicação dos modelos dos ODS 9 e 16 a outras capitais do Nordeste, estas inclusive viabilizadas pelo formulário interativo de geração de configurações -- tiveram caráter estritamente exploratório. Elas demonstraram que a abordagem é generalizável tanto no eixo temático quanto no geográfico, e que os padrões qualitativos se mantêm estáveis nos casos testados, mas não produziram diagnósticos validados desses objetivos ou municípios, cuja análise aprofundada permanece como agenda futura.
+Cumpre reafirmar que os ODS 9 e 16 em Mossoró-RN constituem os únicos objetivos efetivamente analisados e validados nesta dissertação, com coleta em escala e confronto com os indicadores oficiais. As execuções adicionais relatadas no trabalho, a aplicação do motor genérico aos ODS 3 e 4 e a reaplicação dos modelos dos ODS 9 e 16 a outras capitais do Nordeste, estas inclusive viabilizadas pelo formulário interativo de geração de configurações, tiveram caráter estritamente exploratório. Elas demonstraram que a abordagem é generalizável tanto no eixo temático quanto no geográfico, e que os padrões qualitativos se mantêm estáveis nos casos testados, mas não produziram diagnósticos validados desses objetivos ou municípios, cuja análise aprofundada permanece como agenda futura.
 
 \section{Validação da Hipótese de Pesquisa}
 \label{sec:validacao-hipotese}
 
-A hipótese central desta pesquisa -- de que avaliações públicas não estruturadas, combinadas com técnicas de \gls{NLP} e \glspl{LLM}, podem gerar diagnósticos precisos e acionáveis sobre o desempenho de municípios nos \glspl{ODS} -- foi plenamente confirmada pelos resultados obtidos. Os diagnósticos gerados automaticamente são consistentes com os indicadores do \gls{IDSC} e com o conhecimento especializado sobre a cidade, enquanto adicionam uma camada de especificidade local (por estabelecimento e dimensão) que os indicadores tradicionais não fornecem.
+A hipótese central desta pesquisa, de que avaliações não estruturadas, combinadas com técnicas de \gls{NLP} e \glspl{LLM}, podem gerar diagnósticos precisos e acionáveis sobre o desempenho de municípios nos \glspl{ODS}, foi confirmada pelos resultados obtidos. Os diagnósticos gerados automaticamente são consistentes com os indicadores do \gls{IDSC} e com o conhecimento especializado sobre a cidade, enquanto adicionam uma camada de especificidade local (por estabelecimento e dimensão) que os indicadores tradicionais não fornecem.
 
 Os scores de confiança médios acima de 0,84 e a consistência dos padrões identificados em diferentes rodadas de análise indicam que o sistema produz resultados reproduzíveis e confiáveis, sem necessidade de treinamento supervisionado específico para o domínio.
 
@@ -32,7 +32,7 @@ Estruturada segundo a Design Science, esta pesquisa partiu de uma questão geral
 
 \textbf{Quanto à QT 2} -- \textit{como \glspl{LLM} e técnicas de análise por aspecto podem ser combinados a dados georreferenciados para avaliar o desempenho de ODS municipais?} -- a pesquisa estabeleceu uma arquitetura de três módulos (coleta, filtragem e análise) parametrizada por arquivos JSON de configuração, na qual \textit{prompts} estruturados orientam os modelos generativos à análise por aspecto sem necessidade de \textit{fine-tuning}. Demonstrou-se que modelos genéricos (Gemini e Perplexity) com \textit{prompts} bem elaborados alcançam scores de confiança elevados e que o mecanismo de \textit{fallback} entre provedores confere robustez ao processo.
 
-\textbf{Quanto à QP 3} -- \textit{como esses resultados podem ser disponibilizados a gestores e validados por especialistas para apoiar a tomada de decisão?} -- os diagnósticos foram operacionalizados em \textit{dashboards} web públicos e em telas de diagnóstico textual, publicados gratuitamente e acompanhados de um formulário interativo para geração de novas configurações. A utilidade percebida dessa camada de apresentação foi avaliada por meio do \gls{TAM}, que indicou aceitação favorável nos três construtos -- \gls{PU}, \gls{PFU} e \gls{ICU} --, ao mesmo tempo em que revelou desafios concretos de adoção, como a demanda por recomendações mais acionáveis e por recursos de filtragem avançada.
+\textbf{Quanto à QP 3} -- \textit{como esses resultados podem ser disponibilizados a gestores e validados por especialistas para apoiar a tomada de decisão?} -- os diagnósticos foram operacionalizados em \textit{dashboards} web públicos e em telas de diagnóstico textual, publicados gratuitamente e acompanhados de um formulário interativo para geração de novas configurações. A utilidade percebida dessa camada de apresentação foi avaliada por meio do \gls{TAM}, que indicou aceitação favorável nos três construtos, \gls{PU}, \gls{PFU} e \gls{ICU}, ao mesmo tempo em que revelou desafios concretos de adoção, como a demanda por recomendações mais acionáveis e por recursos de filtragem avançada.
 
 \section{Contribuições}
 \label{sec:contribuicoes-finais}
@@ -41,20 +41,9 @@ Esta dissertação contribui para o conhecimento científico e para a prática d
 
 \textbf{Contribuição metodológica}: desenvolvimento e documentação de um framework completo para análise automatizada de ODS via Google Places API, filtragem semântica hierárquica e análise por LLMs, com código-fonte aberto e configurações parametrizáveis que permitem extensão imediata para outros municípios e ODS.
 
-\textbf{Contribuição empírica}: geração de evidências inéditas sobre os fatores locais que explicam o baixo desempenho de Mossoró-RN nos ODS 9 e 16, com granularidade de estabelecimento -- informação que não existe nos indicadores oficiais disponíveis -- e que pode fundamentar diretamente o planejamento de intervenções municipais.
+\textbf{Contribuição empírica}: geração de evidências sobre os fatores locais que explicam o baixo desempenho de Mossoró-RN nos ODS 9 e 16, com granularidade de estabelecimento, informação que não existe nos indicadores oficiais disponíveis, e que pode fundamentar diretamente o planejamento de intervenções municipais.
 
 \textbf{Contribuição prática}: disponibilização de dashboards web interativos e de um formulário web para configuração de novos estudos, democratizando o acesso a diagnósticos baseados em evidências para gestores públicos e pesquisadores sem necessidade de expertise técnica avançada.
-
-\section{Recomendações para Mossoró-RN}
-\label{sec:recomendacoes}
-
-Com base nos resultados obtidos, recomenda-se às autoridades municipais, estaduais e federais que atuam em Mossoró-RN:
-
-\textbf{Curto prazo}: (1) priorizar a reforma e revitalização do Terminal Rodoviário como intervenção de maior impacto no ODS 9; (2) implementar programa de digitalização dos serviços públicos municipais com suporte presencial para populações menos familiarizadas com tecnologia; (3) criar mecanismo de coleta e monitoramento contínuo de avaliações de estabelecimentos públicos.
-
-\textbf{Médio prazo}: (4) desenvolver plano integrado de manutenção preventiva de infraestrutura urbana, priorizando terminais de transporte e vias de alta circulação; (5) investir na capacitação e ampliação do quadro de servidores nas secretarias com maior volume de demandas; (6) implementar programa de apoio ao empreendedorismo local com foco em microempresas próximas a equipamentos de infraestrutura.
-
-\textbf{Longo prazo}: (7) estruturar sistema permanente de monitoramento de ODS em nível municipal utilizando a metodologia proposta, com coleta periódica de dados e publicação de relatórios semestrais para a sociedade civil.
 
 \section{Trabalhos Futuros}
 \label{sec:trabalhos-futuros}
@@ -62,10 +51,10 @@ Com base nos resultados obtidos, recomenda-se às autoridades municipais, estadu
 Com base nos resultados e nas limitações identificadas, os trabalhos futuros organizam-se em seis eixos complementares:
 
 \begin{itemize}
-    \item \textbf{Eixo temático}: estender a abordagem, de forma validada e com coleta em escala, aos demais objetivos da Agenda 2030, a partir das execuções exploratórias já realizadas para os ODS 3 e 4, rumo a um diagnóstico municipal abrangente que contemple os 17 ODS;
+    \item \textbf{Eixo temático}: estender a abordagem, de forma validada e com coleta em escala, aos demais objetivos da Agenda 2030, a partir das execuções exploratórias já realizadas para os ODS 3 e 4, rumo a um diagnóstico municipal abrangente que contemple mais ODS;
     \item \textbf{Eixo geográfico}: converter as execuções exploratórias conduzidas em outras capitais do Nordeste (Natal, Fortaleza, João Pessoa e Salvador) em estudos comparativos validados, confrontando os padrões de Mossoró com os de outros municípios para identificar problemas comuns e boas práticas replicáveis;
     \item \textbf{Eixo longitudinal}: implementar execuções periódicas do sistema para monitorar a evolução das percepções públicas ao longo do tempo, superando a limitação de temporalidade discutida na Seção~\ref{subsec:disc-cobertura-temporalidade} e permitindo avaliar o impacto de intervenções realizadas;
-    \item \textbf{Eixo de melhorias metodológicas}: investigar técnicas avançadas de \textit{prompt engineering} (cadeia de pensamento, \textit{few-shot learning}), estratégias de amostragem que mitiguem o viés de confirmação dos termos de busca, e modelagem estatística para quantificar as relações causais entre as dimensões dos ODS identificadas qualitativamente nesta pesquisa;
+    \item \textbf{Eixo de melhorias metodológicas}: investigar técnicas avançadas de \textit{prompt engineering} (cadeia de pensamento, \textit{few-shot learning}) e modelagem estatística para quantificar as relações causais entre as dimensões dos ODS identificadas qualitativamente nesta pesquisa;
     \item \textbf{Eixo de integração com outras fontes}: incorporar dados de redes sociais, notícias locais, ouvidorias municipais e pesquisas de campo com dados primários, de modo a ampliar a cobertura, reduzir o viés de seleção da Google Places API e atenuar o silêncio digital das populações sub-representadas;
     \item \textbf{Eixo de plataforma para gestores}: evoluir os \textit{dashboards} estáticos atuais para uma plataforma web completa voltada à gestão pública, com autenticação, execução de novas análises sob demanda a partir do formulário de configuração, recomendações acionáveis vinculadas a cada estabelecimento ou dimensão, e os recursos de filtragem avançada solicitados na avaliação de aceitação tecnológica (Seção~\ref{sec:analise-qualitativa}).
 \end{itemize}
@@ -73,6 +62,6 @@ Com base nos resultados e nas limitações identificadas, os trabalhos futuros o
 \section{Considerações Finais}
 \label{sec:consideracoes-finais}
 
-Esta dissertação demonstra que a inteligência artificial, combinada com a riqueza informacional das avaliações públicas digitais, pode transformar a forma como avaliamos e diagnosticamos o progresso em direção aos Objetivos de Desenvolvimento Sustentável. A metodologia proposta não substitui os indicadores oficiais nem as pesquisas tradicionais, mas os complementa com uma perspectiva granular, rápida e de baixo custo que captura a experiência vivida dos cidadãos.
+Esta dissertação demonstra que a inteligência artificial, combinada com a riqueza informacional das avaliações digitais, pode transformar a forma como diagnosticamos o progresso em direção aos Objetivos de Desenvolvimento Sustentável. A metodologia proposta não substitui os indicadores oficiais nem as pesquisas tradicionais, mas os complementa com uma perspectiva granular, rápida e de baixo custo que captura a experiência vivida dos cidadãos.
 
-Os resultados obtidos em Mossoró-RN reforçam que as pontuações baixas nos ODS não são abstrações estatísticas: elas se traduzem em terminais rodoviários deteriorados que impedem a mobilidade de trabalhadores, em filas intermináveis em secretarias que barram o acesso a direitos e em espaços públicos degradados que alimentam a sensação de insegurança. Ao conectar esses relatos cotidianos às metas globais da Agenda 2030, esta pesquisa espera contribuir para que as políticas públicas sejam mais precisas, mais baseadas em evidências e, acima de tudo, mais orientadas às necessidades reais dos cidadãos que deveriam servir.
+Os resultados obtidos em Mossoró-RN reforçam que as pontuações baixas nos ODS não são abstrações estatísticas: elas se traduzem em terminais rodoviários deteriorados que impedem a mobilidade de trabalhadores, em filas intermináveis em secretarias que barram o acesso a direitos e em espaços públicos degradados que alimentam a sensação de insegurança. Ao conectar esses relatos cotidianos às metas globais da Agenda 2030, esta pesquisa espera contribuir para que as políticas públicas sejam mais precisas, mais baseadas em evidências e, acima de tudo, mais orientadas às necessidades reais dos cidadãos.

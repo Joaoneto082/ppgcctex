@@ -32,7 +32,7 @@ investidores. Diversos estudos vêm explorando como dados textuais
 relacionados a ESG impactam decisões de mercado e percepções públicas
 \cite{schimanski2024,gupta2024,jaiswal2024,liu2023esg,bhattacherjee2023,yu2023,nyakurukwa2023};
 no entanto, esses trabalhos concentram-se majoritariamente na esfera
-corporativa ou em opiniões difusas em redes sociais globais, deixando uma
+corporativa ou em opiniões em redes sociais, deixando uma
 lacuna importante quanto ao uso de dados perceptivos georreferenciados para
 o monitoramento municipal dos ODS.
 
@@ -47,14 +47,14 @@ distinta dos indicadores oficiais tradicionais \cite{wankhade2022}. Avanços
 em \gls{NLP} e em \gls{LLM}s ampliaram a capacidade de extrair informações
 relevantes desses dados, viabilizando análises por aspecto
 (\textit{aspect-based sentiment analysis}) e a geração automática de
-diagnósticos estruturados em linguagem natural \cite{agua2025,larosa2025}.
+diagnósticos estruturados em linguagem natural \cite{agua2025}.
 
 \section{Motivação}
 \label{sec:motivacao}
 
 Apesar do potencial dessas abordagens, sua aplicação à gestão pública
 municipal ainda apresenta limitações relevantes. Indicadores oficiais
-tendem a apresentar baixa granularidade espacial e elevada defasagem
+tendem a apresentar baixa granularidade espacial e defasagem
 temporal \cite{abidoye2022}, enquanto análises baseadas em redes sociais
 frequentemente capturam opiniões difusas, pouco conectadas a experiências
 físicas verificáveis \cite{jaiswal2024,liu2023esg}. Em municípios de médio
@@ -78,15 +78,12 @@ indireta na governança urbana e reduzindo o custo do monitoramento
 contínuo \cite{fu2023}.
 
 A pesquisa adota Mossoró-RN como estudo de caso central, com foco em ODS de
-desempenho muito baixo (ODS 9 e 16), que constituem os únicos objetivos
-efetivamente analisados e validados, com coleta em escala. A partir desse núcleo,
+desempenho muito baixo (ODS 9 e 16). A partir desse núcleo,
 a abordagem é submetida a exercícios exploratórios de generalização em duas
 direções: temática, com a aplicação do motor genérico ao ODS 3 (Saúde e
 Bem-Estar) e ao ODS 4 (Educação de Qualidade), e geográfica, com a reaplicação
-dos modelos dos ODS 9 e 16 a outras cidades. Esses exercícios destinam-se
-unicamente a avaliar a capacidade de generalização da abordagem em diferentes
-domínios temáticos e geográficos, e não a produzir diagnósticos validados desses
-objetivos ou municípios.
+dos modelos dos ODS 9 e 16 a outras cidades. Esses exercícios destinam-se a avaliar a capacidade de generalização da abordagem em diferentes
+domínios temáticos e geográficos.
 
 \section{Metodologia da Pesquisa}
 \label{sec:metodologia-pesquisa}
@@ -98,8 +95,7 @@ apresentam-se as questões de pesquisa que orientam o estudo.
 \subsection{Questões de Pesquisa}
 \label{subsec:questoes-pesquisa}
 
-As questões de pesquisa deste estudo empregam a abordagem Design Science
-para apoiar a identificação dos problemas. Uma investigação guiada pela
+As questões de pesquisa deste estudo empregam a abordagem Design Science. Uma investigação guiada pela
 Design Science adota uma metodologia baseada na resolução de problemas
 \cite{wieringa2009}.
 
@@ -109,10 +105,8 @@ municípios, utilizar análise de sentimento por aspecto sobre dados
 perceptivos georreferenciados constitui uma abordagem válida para apoiar a
 gestão pública. Em primeiro lugar, a análise por aspecto permite
 caracterizar a percepção do público sobre serviços e infraestruturas
-específicos, viabilizando respostas direcionadas e demonstrando
-transparência. Em segundo lugar, a análise sistemática de grandes volumes
-de texto não estruturado permite identificar tendências e gargalos antes
-que se tornem crises, contribuindo para uma gestão proativa.
+específicos, viabilizando respostas direcionadas. Em segundo lugar, a análise sistemática de grandes volumes
+de dados não estruturado permite identificar tendências e gargalos, contribuindo para uma gestão proativa.
 Em terceiro lugar, a geração automática de diagnósticos pelos \gls{LLM}s
 torna os resultados acessíveis a gestores,
 ampliando o impacto prático do estudo. Diante disso, a questão geral de
@@ -172,24 +166,24 @@ Figura~\ref{fig:metodologia-pesquisa}.
 \end{figure}
 
 Para responder às questões de pesquisa relativas ao uso de \gls{LLM}s e à
-análise por aspecto aplicada a dados perceptivos sobre ODS municipais,
+análise por aspecto aplicada a dados perceptivos sobre os ODS,
 foram adotados os seguintes métodos:
 
 \begin{alineas}
-    \item \textbf{Revisão Sistemática da Literatura (\gls{RSL})}: a RSL foi utilizada para identificar e analisar estudos existentes sobre análise de sentimento aplicada a sustentabilidade e ODS, mapeando técnicas e lacunas e compreendendo os indicadores oficiais de desempenho municipal, como o IDSC-BR. Esse método responde à \textbf{QC} e produz, no espaço-solução, o mapeamento de técnicas e lacunas da literatura e a compreensão dos indicadores oficiais.
+    \item \textbf{Revisão Sistemática da Literatura (\gls{RSL})}: a RSL foi utilizada para identificar e analisar estudos existentes sobre análise de sentimento aplicada a sustentabilidade e ODS, mapeando técnicas e lacunas e compreendendo os indicadores oficiais de desempenho, como o IDSC-BR. Esse método responde à \textbf{QC} e produz, no espaço-solução, o mapeamento de técnicas e lacunas da literatura e a compreensão dos indicadores oficiais.
     \begin{alineas}
         \item \textit{Definição do Protocolo de RSL}: estabelecer critérios de inclusão e exclusão, bases de dados e estratégias de busca.
         \item \textit{Coleta de Dados}: realizar buscas em bases acadêmicas (IEEE Xplore, Capes, Science Direct).
         \item \textit{Análise e Sumarização}: revisar e sintetizar os resultados dos estudos relevantes.
     \end{alineas}
-    \item \textbf{Desenvolvimento do Pipeline de Análise com LLMs}: prototipação iterativa para conceber e validar o sistema de análise por aspecto aplicado a dados perceptivos sobre ODS municipais. Esse método responde à \textbf{QT} e produz, no espaço-solução, o \textit{pipeline} de coleta e filtragem, a análise por aspecto via \glspl{LLM} e o motor genérico parametrizável.
+    \item \textbf{Desenvolvimento do Pipeline de Análise com LLMs}: prototipação iterativa para conceber e validar o sistema de análise por aspecto aplicado a dados perceptivos sobre ODS. Esse método responde à \textbf{QT} e produz, no espaço-solução, o \textit{pipeline} de coleta e filtragem, a análise por aspecto via \glspl{LLM} e o motor genérico parametrizável.
     \begin{alineas}
-        \item \textit{Seleção de Modelos}: avaliar abordagens léxicas e baseadas em \textit{Transformers} e selecionar os \gls{LLM}s generativos (Gemini e Perplexity) como base da análise por aspecto.
-        \item \textit{Pipeline de Coleta e Filtragem}: estruturar a coleta de avaliações públicas (Google Places API) e a filtragem hierárquica do \textit{corpus}.
+        \item \textit{Seleção de Modelos}: avaliar abordagens léxicas e baseadas em \textit{Transformers} e os \gls{LLM}s generativos que podem ser usados como base da análise por aspecto.
+        \item \textit{Pipeline de Coleta e Filtragem}: estruturar a coleta de avaliações públicas e a filtragem hierárquica.
         \item \textit{Engenharia de \textit{Prompts} e Validação}: definir \textit{prompts} estruturados para análise por aspecto e validar a consistência dos resultados.
         \item \textit{Generalização}: parametrizar o \textit{pipeline} via arquivos JSON de configuração e disponibilizar um formulário interativo para extensão a novos ODS e municípios.
     \end{alineas}
-    \item \textbf{Estudo de Caso e Validação}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e validar sua utilidade junto a especialistas. Esse método responde à \textbf{QP} e produz, no espaço-solução, os diagnósticos validados de Mossoró (ODS 9 e 16), os \textit{dashboards} públicos e a avaliação de aceitação tecnológica (TAM).
+    \item \textbf{Estudo de Caso e Validação}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e validar sua utilidade junto a especialistas. Esse método responde à \textbf{QP} e produz, no espaço-solução, os diagnósticos, os \textit{dashboards} públicos e a avaliação de aceitação tecnológica (TAM).
     \begin{alineas}
         \item \textit{Seleção do Caso}: analisar e validar os ODS com desempenho muito baixo no IDSC-BR (ODS 9 e ODS 16) em Mossoró-RN e, em caráter exploratório, exercitar a generalização para os ODS 3 e 4 e para outras cidades.
         \item \textit{Coleta de Dados}: obter avaliações públicas de estabelecimentos por meio da Google Places API, em coordenadas estratégicas e termos de busca relacionados a cada ODS.
@@ -219,4 +213,4 @@ especialistas multidisciplinares com base no modelo TAM
 apenas respondem à questão de pesquisa sobre o monitoramento dos ODS
 municipais, mas também oferecem orientações práticas para o aprimoramento
 contínuo de políticas públicas, fomentando uma gestão urbana mais
-informada, transparente e alinhada às metas da Agenda 2030.
+informada e alinhada às metas da Agenda 2030.

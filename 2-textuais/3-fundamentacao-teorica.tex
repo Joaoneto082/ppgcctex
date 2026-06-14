@@ -24,7 +24,7 @@ instrumentos, pelo Índice de Desenvolvimento Sustentável das Cidades (\gls{IDS
 administrativos e pesquisas oficiais para mais de cinco mil municípios. O IDSC-BR classifica o
 desempenho dos municípios em faixas de 0 a 100 por ODS, permitindo identificar prioridades de
 política pública. Embora robusto para análises comparativas nacionais, o índice apresenta
-limitações de granularidade espacial e defasagem temporal, características que esta dissertação
+limitações de granularidade espacial e temporal, características que esta dissertação
 busca complementar.
 
 \subsection{ODS 9 -- Indústria, Inovação e Infraestrutura}
@@ -39,9 +39,7 @@ comunicação e ao suporte a micro e pequenas empresas nos países em desenvolvi
 Em municípios brasileiros de médio porte, o desempenho no ODS 9 é frequentemente
 comprometido pela degradação de infraestruturas de transporte público (terminais rodoviários,
 terminais urbanos), pela baixa conectividade digital em periferias e pela ausência de ecossistemas
-de inovação que apoiem o empreendedorismo local. Mossoró-RN apresenta pontuação muito baixa
-(faixa 0--39,99) nesse objetivo \cite{idsc2024}, sem que os indicadores agregados revelem os
-fatores específicos que explicam esse desempenho.
+de inovação que apoiem o empreendedorismo local. Mossoró-RN apresenta pontuação baixa nesse objetivo.
 
 \subsection{ODS 16 -- Paz, Justiça e Instituições Eficazes}
 \label{subsec:ods16}
@@ -85,21 +83,17 @@ Desenvolvimento da Educação Básica (IDEB).
 A mensuração do progresso nos ODS em escala subnacional apresenta desafios
 metodológicos e operacionais relevantes \cite{abidoye2022}. Indicadores nacionais ou estaduais
 tendem a obscurecer disparidades locais críticas: um município pode apresentar desempenho
-médio satisfatório enquanto bairros ou setores específicos enfrentam privações severas. A
-localização dos ODS --- entendida como a adaptação do monitoramento à escala municipal e
-intraurbana --- requer fontes de dados granulares e metodologias capazes de capturar variação
-espacial.
+médio satisfatório enquanto bairros ou setores específicos enfrentam privações.
 
 Nesse contexto, dados digitais produzidos por cidadãos em plataformas \textit{online} emergem
 como fontes complementares promissoras \cite{fu2023,larosa2025}. Avaliações públicas
 georreferenciadas, como as disponibilizadas pela Google Places API \cite{googleplaces2024},
-vinculam relatos textuais espontâneos a estabelecimentos físicos concretos --- terminais
+vinculam relatos textuais espontâneos a estabelecimentos físicos concretos como terminais
 rodoviários, unidades de saúde, escolas, órgãos públicos, espaços urbanos. Essa ancoragem
-geoespacial possibilita diagnósticos em nível de estabelecimento, muito mais específicos do que
-os indicadores agregados do IDSC-BR, e permite identificar \emph{onde} e \emph{por que} os
+geoespacial possibilita diagnósticos em nível de estabelecimento e permite identificar \emph{onde} e \emph{por que} os
 problemas se manifestam.
 
-A abordagem perceptiva complementa --- sem substituir --- os indicadores oficiais. Enquanto
+A abordagem perceptiva complementa os indicadores oficiais. Enquanto
 o IDSC-BR oferece comparabilidade temporal e cobertura nacional, os dados do Google Places
 fornecem especificidade local, atualidade (avaliações são inseridas continuamente) e riqueza
 qualitativa que os indicadores quantitativos não conseguem capturar \cite{wankhade2022}.
@@ -117,9 +111,9 @@ Os avanços dos últimos anos em NLP foram impulsionados por três fatores conve
 a disponibilidade de grandes volumes de texto digital, o aumento da capacidade computacional
 e o desenvolvimento de arquiteturas de redes neurais profundas capazes de aprender
 representações semânticas ricas a partir de dados não rotulados. O paradigma de
-pré-treinamento e ajuste fino (\textit{pre-training and fine-tuning}) -- em que um modelo é treinado em
+pré-treinamento e ajuste fino (\textit{pre-training and fine-tuning}), em que um modelo é treinado em
 corpus genérico de larga escala e, posteriormente, especializado para uma tarefa específica com
-conjunto menor de dados rotulados -- tornou-se dominante na área \cite{devlin2019}.
+conjunto menor de dados rotulados,  tornou-se dominante na área \cite{devlin2019}.
 
 Para o contexto desta dissertação, as técnicas de NLP mais relevantes são a representação
 vetorial de textos (\textit{word embeddings} e \textit{sentence embeddings}), a classificação de textos e,
@@ -144,13 +138,12 @@ infraestrutura física e ao atendimento dos funcionários, ao invés de atribuir
 a gestores públicos.
 
 As abordagens para análise de sentimentos evoluíram de métodos baseados em léxicos de
-polaridade --- como o \gls{VADER} \cite{hutto2014} e o TextBlob \cite{loria2018}, que classificam
-textos somando pontuações pré-definidas de palavras --- para métodos baseados em aprendizado
+polaridade, como o \gls{VADER} \cite{hutto2014} e o TextBlob \cite{loria2018}, que classificam
+textos somando pontuações pré-definidas de palavras, para métodos baseados em aprendizado
 de máquina e, mais recentemente, em modelos neurais profundos. Modelos baseados em
 Transformers representam o estado da arte em precisão para análise de sentimento contextual
 \cite{wankhade2022}, enquanto \gls{LLM}s generativos emergem como alternativa flexível para
-contextos onde dados rotulados são escassos, especialmente para ABSA sem necessidade de
-treinamento adicional \cite{agua2025,larosa2025}.
+contextos onde dados rotulados são escassos, especialmente quando não é possível um treinamento adicional \cite{agua2025,larosa2025}.
 
 \section{Transformers na NLP}
 \label{sec:transformers}

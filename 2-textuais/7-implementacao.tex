@@ -1,7 +1,7 @@
 \chapter{Implementação}
 \label{cap:implementacao}
 
-Este capítulo descreve em detalhe a implementação do sistema desenvolvido para análise automatizada de \glspl{ODS} a partir de avaliações públicas associadas a locais físicos. O sistema foi construído em Python 3 e evoluiu de um protótipo específico para uma arquitetura generalizável, capaz de ser parametrizada para diferentes ODS, municípios e modelos de linguagem de grande porte. A implementação passou por três versões principais: a primeira voltada à análise ESG, a segunda composta por modelos específicos para o ODS 9 e o ODS 16, e a terceira consolidada como um motor genérico orientado por arquivos JSON de configuração.
+Este capítulo descreve em detalhe a implementação do sistema desenvolvido para análise automatizada de \glspl{ODS} a partir de avaliações associadas a locais físicos. O sistema foi construído em Python 3 e evoluiu de um protótipo específico para uma arquitetura generalizável, capaz de ser parametrizada para diferentes ODS, municípios e modelos de linguagem de grande porte. A implementação passou por três versões principais: a primeira voltada à análise ESG, a segunda composta por modelos específicos para o ODS 9 e o ODS 16, e a terceira consolidada como um motor genérico orientado por arquivos JSON de configuração.
 
 \section{Arquitetura Geral do Sistema}
 \label{sec:arq-geral}
@@ -12,12 +12,12 @@ O sistema é composto por quatro módulos principais:
     \item \textbf{Módulo de Configuração}: lê arquivos JSON que especificam o ODS alvo, município, termos de busca, aspectos a analisar, modelos de IA e parâmetros de execução;
     \item \textbf{Módulo de Coleta}: realiza buscas na Google Places API utilizando termos e coordenadas estratégicas do município, coletando avaliações (\textit{reviews}) dos estabelecimentos encontrados;
     \item \textbf{Módulo de Filtragem e Pré-processamento}: aplica filtros hierárquicos de validação geográfica, relevância por tipo de local e qualidade de conteúdo;
-    \item \textbf{Módulo de Análise com IA}: envia cada comentário filtrado a um LLM para classificação de sentimento por aspecto do ODS, geração de justificativas e extração de palavras-chave.
+    \item \textbf{Módulo de Análise com IA}: envia cada comentário filtrado a uma LLM para classificação de sentimento por aspecto do ODS, geração de justificativas e extração de palavras-chave.
 \end{enumerate}
 
 \clearpage
 
-A Figura~\ref{fig:fluxo-pipeline} sintetiza o fluxo operacional da solução, desde a configuração inicial do experimento até a disponibilização dos resultados em \textit{dashboard}.
+A Figura~\ref{fig:fluxo-pipeline} sintetiza o fluxo operacional da solução, desde a configuração inicial do experimento até a disponibilização dos resultados em \textit{dashboards}.
 
 \begin{figure}[!t]
     \centering
@@ -29,7 +29,7 @@ A Figura~\ref{fig:fluxo-pipeline} sintetiza o fluxo operacional da solução, de
     \begin{tabular}{c}
         \fbox{\parbox{0.78\textwidth}{\centering \textbf{1. Configuração JSON}\\Definição do ODS, município, dimensões, termos de busca, bases de dados e modelos de IA}}\\[0.18cm]
         $\downarrow$\\[0.18cm]
-        \fbox{\parbox{0.78\textwidth}{\centering \textbf{2. Busca na Google Places API}\\Consulta de locais físicos associados aos termos configurados e às coordenadas do município}}\\[0.18cm]
+        \fbox{\parbox{0.78\textwidth}{\centering \textbf{2. Busca no Google Places API}\\Consulta de locais físicos associados aos termos configurados e às coordenadas do município}}\\[0.18cm]
         $\downarrow$\\[0.18cm]
         \fbox{\parbox{0.78\textwidth}{\centering \textbf{3. Detalhes do Local}\\Coleta de nome, endereço, coordenadas, avaliação média e comentários públicos disponíveis}}\\[0.18cm]
         $\downarrow$\\[0.18cm]
@@ -190,7 +190,7 @@ O módulo de filtragem aplica cinco camadas de validação para garantir que ape
 \subsection{Confiabilidade dos Reviews e Mitigação de Vieses}
 \label{subsec:confiabilidade-reviews}
 
-Embora as avaliações públicas disponibilizadas pela Google Places API constituam uma fonte rica de dados perceptivos, elas não devem ser tratadas como representação estatisticamente perfeita da opinião da população. Esse tipo de dado pode apresentar viés de seleção, uma vez que apenas uma parcela dos usuários registra avaliações públicas e essa parcela tende a ser composta por pessoas com maior motivação para relatar experiências marcantes, sejam elas positivas ou negativas. Em particular, usuários insatisfeitos podem ter maior propensão a comentar, o que pode aumentar a presença de avaliações críticas em determinados estabelecimentos.
+Embora as avaliações disponibilizadas pela Google Places API constituam uma fonte rica de dados perceptivos, elas não devem ser tratadas como representação estatisticamente perfeita da opinião da população. Esse tipo de dado pode apresentar viés de seleção, uma vez que apenas uma parcela dos usuários registra avaliações públicas e essa parcela tende a ser composta por pessoas com maior motivação para relatar experiências marcantes, sejam elas positivas ou negativas. Em particular, usuários insatisfeitos podem ter maior propensão a comentar, o que pode aumentar a presença de avaliações críticas em determinados estabelecimentos.
 
 Outra limitação relevante refere-se à possibilidade de avaliações falsas, duplicadas, desatualizadas ou motivadas por interesses particulares. Embora a plataforma Google adote mecanismos próprios de moderação, o sistema desenvolvido nesta pesquisa não possui acesso aos critérios internos de detecção de autenticidade nem consegue garantir, de forma independente, que todos os comentários coletados correspondem a experiências reais. Portanto, a autenticidade total dos \textit{reviews} não pode ser assegurada apenas pelo pipeline implementado.
 
@@ -246,7 +246,7 @@ def analisar_aspectos_ods9(texto: str, nome_lugar: str, modelo: Dict = None) -> 
 
 Após a análise individual de todos os comentários, o sistema executa uma segunda etapa de síntese: para cada ODS analisado, um novo prompt é enviado ao LLM contendo as estatísticas agregadas (distribuição de sentimentos, contagem de problemas por dimensão, aspectos mais frequentes e palavras-chave predominantes). O modelo retorna um diagnóstico estruturado em seis seções: identificação das causas do baixo desempenho, análise por dimensão, pontos críticos prioritários, impacto social e econômico, recomendações estratégicas e conclusão.
 
-Para o ODS 9, diagnósticos adicionais são gerados para cada dimensão individualmente, detalhando a situação atual, o impacto no ODS geral e recomendações específicas para aquela dimensão.
+Para cada ODS, diagnósticos adicionais são gerados para cada dimensão individualmente, detalhando a situação atual, o impacto no ODS geral e recomendações específicas para aquela dimensão.
 
 \section{Estrutura de Saída e Integração com Dashboard}
 \label{sec:saida}
@@ -266,11 +266,11 @@ Os arquivos JSON resultantes foram utilizados como fonte de dados para dashboard
 
 Cabe esclarecer, de início, que o estudo de caso validado desta dissertação restringe-se aos ODS 9 e 16 em Mossoró-RN, únicos objetivos para os quais foram realizadas coletas em escala e análises aprofundadas (Capítulo~\ref{cap:resultados}). Os ODS 3 e 4 foram incorporados exclusivamente como exercício de generalização, com o propósito de testar se a arquitetura baseada em configuração descrita na Seção~\ref{subsec:v3} de fato permite estender a análise a outros objetivos da Agenda 2030 sem alteração do código-fonte. Não se trata, portanto, de resultados sobre saúde ou educação, mas de evidência de que o motor genérico opera além do par de objetivos validado.
 
-Para esse teste, foram elaborados arquivos de configuração para o ODS 3 (Saúde e Bem-estar) e para o ODS 4 (Educação de Qualidade), denominados \texttt{ods3\_config.json} e \texttt{ods4\_config.json}, gerados com o auxílio do formulário interativo descrito na Seção~\ref{sec:formulario-config}, que dispensa a edição manual do JSON. Esses arquivos seguem exatamente a mesma estrutura dos arquivos \texttt{ods9\_config.json} e \texttt{ods16\_config.json} utilizados no estudo de caso principal, alterando apenas os parâmetros específicos de cada objetivo: identificação do ODS, termos de busca, palavras-chave de filtragem, dimensões de análise, chaves de saída do JSON e \textit{prompts} especializados.
+Para esse teste, foram elaborados arquivos de configuração para o ODS 3 (Saúde e Bem-estar) e para o ODS 4 (Educação de Qualidade), denominados \texttt{ods3\_config.json} e \texttt{ods4\_config.json}, gerados com o auxílio do formulário interativo descrito na Seção~\ref{sec:formulario-config}, que dispensa a edição manual do JSON. Esses arquivos seguem exatamente a mesma estrutura dos arquivos utilizados no estudo de caso principal, alterando apenas os parâmetros específicos de cada objetivo: identificação do ODS, termos de busca, palavras-chave de filtragem, dimensões de análise, chaves de saída do JSON e \textit{prompts} especializados.
 
 Para o ODS 3, foram parametrizadas sete dimensões alinhadas às metas do objetivo: Cobertura Vacinal; Mortalidade e Saúde Mental; Saúde Materno-Infantil; Doenças Transmissíveis; Doenças Crônicas e Mortalidade; Atenção Primária e UBS; e Promoção da Saúde e Bem-estar. Os termos de busca passaram a contemplar equipamentos públicos de saúde, como unidades básicas de saúde, hospitais, maternidades, clínicas e postos de vacinação. Para o ODS 4, as sete dimensões definidas foram: Educação Inclusiva e Igualitária; Educação Básica e Acesso; Capacitação e Empoderamento; Direitos Humanos e Desenvolvimento Sustentável na Educação; Qualidade do Ensino e Infraestrutura Educacional; Oportunidades para Pessoas Vulneráveis; e Formação Técnica e Superior, com termos de busca voltados a escolas, creches, universidades, bibliotecas e cursos técnicos.
 
-As execuções foram realizadas pelo motor genérico (\texttt{ods\_analise\_generica.py}), sem qualquer alteração no código-fonte, por meio do comando \texttt{python ods\_analise\_generica.py -{}-config <arquivo>}. A Tabela~\ref{tab:generalizacao-ods} resume os resultados quantitativos obtidos nessas execuções exploratórias.
+As execuções foram realizadas pelo motor genérico (\texttt{ods\_analise\_generica.py}), sem qualquer alteração no código-fonte. A Tabela~\ref{tab:generalizacao-ods} resume os resultados quantitativos obtidos nessas execuções exploratórias.
 
 \begin{table}[h!]
     \centering
@@ -288,14 +288,14 @@ As execuções foram realizadas pelo motor genérico (\texttt{ods\_analise\_gene
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{table}
 
-É importante delimitar o escopo dessas execuções. A validação metodológica completa da abordagem -- com coleta em larga escala, análise das dimensões, verificação manual de amostras e confronto com os indicadores do IDSC-BR -- foi realizada apenas para os ODS 9 e 16, no estudo de caso de Mossoró-RN; somente esses dois objetivos dispõem de dados em volume suficiente para sustentar análise e diagnóstico. As execuções com os ODS 3 e 4 tiveram caráter exclusivo de verificação de viabilidade técnica: seu propósito foi demonstrar que o pipeline completo (coleta, filtragem, análise por aspecto, geração de JSON e diagnóstico automatizado) executa corretamente para outros objetivos mediante simples troca do arquivo de configuração, com volumes de coleta deliberadamente reduzidos para controlar custos de API. Os percentuais apresentados na Tabela~\ref{tab:generalizacao-ods}, portanto, não constituem diagnósticos validados desses municípios nem conclusões sobre saúde ou educação, mas tão somente evidências de que a generalização para novos objetivos é operacionalmente possível.
+É importante delimitar o escopo dessas execuções. A validação metodológica completa da abordagem, com coleta em larga escala, análise das dimensões e verificação manual de amostras, foi realizada apenas para os ODS 9 e 16, no estudo de caso de Mossoró-RN; somente esses dois objetivos dispõem de dados em volume suficiente para sustentar análise e diagnóstico. As execuções com os ODS 3 e 4 tiveram caráter exclusivo de verificação de viabilidade técnica: seu propósito foi demonstrar que o pipeline completo (coleta, filtragem, análise por aspecto, geração de JSON e diagnóstico automatizado) executa corretamente para outros objetivos mediante simples troca do arquivo de configuração, com volumes de coleta deliberadamente reduzidos para controlar custos de API. Os percentuais apresentados na Tabela~\ref{tab:generalizacao-ods}, portanto, não constituem diagnósticos validados desses municípios nem conclusões sobre saúde ou educação, mas tão somente evidências de que a generalização para novos objetivos é operacionalmente possível.
 
 \section{Generalização Geográfica}
 \label{sec:generalizacao-geografica}
 
-De forma análoga, e também em caráter estritamente exploratório, a capacidade de replicação da análise em outros municípios foi verificada executando os modelos dos ODS 9 e 16 -- estes sim validados em Mossoró-RN -- em quatro capitais do Nordeste: Natal-RN, Fortaleza-CE, João Pessoa-PB e Salvador-BA. Nessas execuções, alterou-se apenas o parâmetro de localidade (cidade e estado), mantendo inalterados as dimensões de análise, os filtros semânticos e os \textit{prompts} de cada objetivo. Vale esclarecer que a aplicação dos modelos dos ODS 9 e 16 a essas outras cidades não configura análise validada desses municípios: as únicas combinações de objetivo e localidade efetivamente analisadas e validadas, com coleta em escala, são os ODS 9 e 16 em Mossoró-RN.
+De forma análoga, e também em caráter estritamente exploratório, a capacidade de replicação da análise em outros municípios foi verificada executando os modelos dos ODS 9 e 16 -- estes sim validados em Mossoró-RN -- em quatro capitais do Nordeste: Natal-RN, Fortaleza-CE, João Pessoa-PB e Salvador-BA. Nessas execuções, alterou-se apenas o parâmetro de localidade (cidade e estado), mantendo inalterados as dimensões de análise, os filtros semânticos e os \textit{prompts} de cada objetivo. Vale esclarecer que a aplicação dos modelos dos ODS 9 e 16 a essas outras cidades não configura análise validada desses municípios.
 
-Cada execução gerou um arquivo de análise no mesmo formato padronizado descrito na Seção~\ref{sec:saida}, seguindo a convenção de nomenclatura \texttt{<cidade>\_<uf>\_<ods>\_analise\_<timestamp>.json} -- por exemplo, \texttt{fortaleza\_ce\_ods9\_analise\_20260228\_184102.json} e \texttt{salvador\_ba\_ods16\_analise\_20260228\_214647.json}. Essa padronização permite que os arquivos de diferentes municípios sejam carregados diretamente no dashboard unificado, descrito na Seção~\ref{sec:dashboards-publicos}, sem qualquer conversão. A Tabela~\ref{tab:generalizacao-geografica} resume as execuções realizadas.
+Cada execução gerou um arquivo de análise no mesmo formato padronizado descrito na Seção~\ref{sec:saida}, seguindo a convenção de nomenclatura utilizada nos outros arquivos gerados. Essa padronização permite que os arquivos de diferentes municípios sejam carregados diretamente no dashboard unificado, descrito na Seção~\ref{sec:dashboards-publicos}, sem qualquer conversão. A Tabela~\ref{tab:generalizacao-geografica} resume as execuções realizadas.
 
 \begin{table}[h!]
     \centering
@@ -305,7 +305,6 @@ Cada execução gerou um arquivo de análise no mesmo formato padronizado descri
         \hline
         \textbf{ODS} & \textbf{Cidade} & \textbf{Análises} & \textbf{Problemas} & \textbf{\% problemas} \\
         \hline
-        ODS 9 & Natal-RN & 2 & 2 & 100,0\% \\
         ODS 9 & Fortaleza-CE & 10 & 9 & 90,0\% \\
         ODS 16 & João Pessoa-PB & 10 & 9 & 90,0\% \\
         ODS 16 & Salvador-BA & 5 & 5 & 100,0\% \\
@@ -314,7 +313,7 @@ Cada execução gerou um arquivo de análise no mesmo formato padronizado descri
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{table}
 
-Assim como na generalização para múltiplos ODS, essas execuções utilizaram amostras intencionalmente pequenas, suficientes para confirmar que a coleta na Google Places API, a filtragem hierárquica e a análise com IA funcionam em diferentes contextos urbanos, mas insuficientes para sustentar conclusões substantivas sobre esses municípios. A análise aprofundada e validada permanece restrita a Mossoró-RN, e a replicação em escala para outras cidades é apontada como trabalho futuro.
+Assim como na generalização para múltiplos ODS, essas execuções utilizaram amostras intencionalmente pequenas, suficientes para confirmar que a coleta na Google Places API, a filtragem hierárquica e a análise com IA funcionam em diferentes contextos urbanos, mas insuficientes para sustentar conclusões substantivas sobre esses municípios. Com dito anteriormente, a análise aprofundada e validada ficou restrita a Mossoró-RN.
 
 \section{Formulário Interativo de Configuração}
 \label{sec:formulario-config}
@@ -336,7 +335,11 @@ O fluxo de uso completo compreende quatro etapas:
 \begin{enumerate}
     \item \textbf{Preenchimento}: o usuário seleciona o ODS, informa o município e ajusta dimensões, termos de busca e parâmetros de execução no formulário;
     \item \textbf{Geração}: ao confirmar, o formulário monta e disponibiliza para download o arquivo JSON de configuração, no mesmo formato dos arquivos descritos na Seção~\ref{subsec:v3};
-    \item \textbf{Execução}: o arquivo gerado é passado ao motor genérico via \texttt{python ods\_analise\_generica.py -{}-config <arquivo>}, que realiza coleta, filtragem, análise e geração de diagnósticos;
+    \item \textbf{Execução}: o arquivo gerado é passado ao motor genérico via     \item \textbf{Execução}: o arquivo gerado é passado ao motor genérico, que realiza coleta, filtragem, análise e geração de diagnósticos, por meio do comando:
+\begin{verbatim}
+python ods_analise_generica.py --config <arquivo>
+\end{verbatim}
+ que realiza coleta, filtragem, análise e geração de diagnósticos;
     \item \textbf{Visualização}: o JSON de análise resultante é carregado no dashboard unificado para exploração interativa dos resultados.
 \end{enumerate}
 
@@ -347,6 +350,6 @@ Dessa forma, o ciclo completo de análise de um novo ODS ou município pode ser 
 
 Inicialmente, os resultados foram estruturados em formato compatível com o Microsoft Power BI. No entanto, essa abordagem foi substituída por dashboards web desenvolvidos com HTML, CSS e JavaScript, visando reduzir a dependência de ferramentas proprietárias e facilitar o acesso público aos resultados. A versão final da interface utiliza Chart.js para geração de gráficos de distribuição de sentimentos e problemas por dimensão; Leaflet.js para recursos de visualização geográfica; WordCloud2.js para nuvens de palavras extraídas das análises; e Font Awesome para a composição visual dos ícones da interface.
 
-Foram implementadas páginas específicas para o dashboard do ODS 9, dashboard do ODS 16 e páginas de diagnóstico textual para cada objetivo. A versão pública também inclui um dashboard unificado capaz de carregar arquivos JSON de análise por localidade, permitindo reutilizar a mesma interface para diferentes municípios e ODS -- inclusive os arquivos gerados nas execuções de generalização descritos nas Seções~\ref{sec:generalizacao-multiplos-ods} e~\ref{sec:generalizacao-geografica}. Além disso, os dados de diagnóstico podem ser embutidos em arquivos JSON auxiliares, permitindo que as páginas sejam publicadas como arquivos estáticos, sem necessidade de servidor ou banco de dados.
+Foram implementadas páginas específicas para o dashboard do ODS 9, dashboard do ODS 16 e páginas de diagnóstico textual para cada objetivo. A versão pública também inclui um dashboard unificado capaz de carregar arquivos JSON de análise por localidade, permitindo reutilizar a mesma interface para diferentes municípios e ODS, inclusive os arquivos gerados nas execuções de generalização descritos nas Seções~\ref{sec:generalizacao-multiplos-ods} e~\ref{sec:generalizacao-geografica}. Além disso, os dados de diagnóstico podem ser embutidos em arquivos JSON auxiliares, permitindo que as páginas sejam publicadas como arquivos estáticos, sem necessidade de servidor ou banco de dados.
 
 Como os dashboards são compostos exclusivamente por arquivos estáticos, o conjunto foi publicado gratuitamente na plataforma Netlify e está disponível publicamente em \url{https://dashboard-ods-mossoro.netlify.app}. A versão hospedada inclui o dashboard unificado com os dados de Mossoró-RN, as páginas de diagnóstico dos ODS 9 e 16 e o formulário de geração de configurações descrito na Seção~\ref{sec:formulario-config}. Essa estratégia transformou a etapa de visualização em uma camada de apresentação leve, portátil e de fácil publicação, que também pode ser executada localmente em navegador, ampliando a acessibilidade da ferramenta para gestores públicos, pesquisadores e demais interessados.

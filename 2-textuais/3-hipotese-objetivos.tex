@@ -3,20 +3,17 @@
 
 A aplicação de análise de sentimento por aspecto, apoiada por Modelos de
 Linguagem de Grande Porte (\gls{LLM}s) e por dados perceptivos
-georreferenciados oriundos da Google Places API, viabiliza a identificação
+georreferenciados, viabiliza a identificação
 de gargalos específicos no desempenho municipal dos Objetivos de
-Desenvolvimento Sustentável (\gls{ODS}) que não são capturados,
-isoladamente, por indicadores oficiais agregados. Postula-se, ainda, que
+Desenvolvimento Sustentável (\gls{ODS}). Postula-se, ainda, que
 essa abordagem permite gerar diagnósticos estruturados em linguagem
 natural, ancorados em estabelecimentos físicos concretos, e que tais
-diagnósticos --- quando consolidados em \textit{dashboards} interativos
-públicos --- são percebidos como úteis e fáceis de usar por especialistas
-multidisciplinares, conforme aferido pelo modelo de aceitação tecnológica
-TAM \cite{davis1989}. A investigação dessas capacidades permite o
+diagnósticos, quando consolidados em \textit{dashboards} interativos
+públicos, podem ser percebidos como úteis por especialistas
+multidisciplinares. A investigação dessas capacidades permite o
 desenvolvimento e a validação de um método robusto para o monitoramento
 contínuo dos ODS municipais, com implicações diretas para o avanço do
-conhecimento sobre as intersecções entre inteligência artificial, dados
-abertos e gestão pública urbana.
+conhecimento sobre as intersecções entre inteligência artificial, dados e gestão pública urbana.
 
 Desta forma, a questão central que esta pesquisa busca responder por meio
 da validação desta hipótese é:
@@ -33,11 +30,10 @@ por especialistas como ferramenta de apoio à decisão?
 \label{cap:objetivo-geral}
 
 O objetivo geral desta pesquisa é \textbf{investigar, propor, implementar e
-validar uma metodologia automatizada e escalável} --- fundamentada na
-Design Science e na análise de sentimento por aspecto com \gls{LLM}s ---
-para identificar e diagnosticar gargalos no desempenho municipal dos
+validar uma metodologia automatizada e escalável}, fundamentada na
+Design Science e na análise de sentimento com \gls{LLM}s, para identificar e diagnosticar gargalos no desempenho municipal dos
 Objetivos de Desenvolvimento Sustentável (\gls{ODS}), tendo os ODS 9 e 16
-em Mossoró-RN como estudo de caso central e validado, e exercitando, em
+em Mossoró-RN como estudo de caso central, e exercitando, em
 caráter exploratório, a generalização da abordagem para outros objetivos
 (ODS 3 e 4) e para outros municípios brasileiros.
 
@@ -76,12 +72,12 @@ e \emph{(iii)} generalização e validação.
     \setcounter{enumi}{3}
     \item \textbf{Coletar e filtrar dados perceptivos georreferenciados sobre estabelecimentos relacionados aos ODS.}
     \begin{alineas}
-        \item \textit{Descrição}: utilizar a Google Places API para coletar avaliações públicas de estabelecimentos vinculados a aspectos dos ODS analisados (rodoviárias, órgãos públicos, escolas, unidades de saúde, espaços urbanos, entre outros), aplicando filtragem hierárquica de validação geográfica, comprimento mínimo, relevância semântica e adequação ao ODS.
+        \item \textit{Descrição}: utilizar o Google Places API para coletar avaliações públicas de estabelecimentos vinculados a aspectos dos ODS analisados (rodoviárias, órgãos públicos, escolas, unidades de saúde, espaços urbanos, entre outros), aplicando filtragem hierárquica de validação geográfica, comprimento mínimo, relevância semântica e adequação ao ODS.
     \end{alineas}
 
     \item \textbf{Detectar problemas por aspecto em cada ODS analisado.}
     \begin{alineas}
-        \item \textit{Descrição}: aplicar análise por aspecto (\textit{aspect-based sentiment analysis}) com prompts estruturados para classificar sentimento, escore de confiança, justificativa, palavras-chave e indicador de problema em cada uma das dimensões dos ODS investigados.
+        \item \textit{Descrição}: aplicar análise por aspecto (\textit{aspect-based sentiment analysis}) com prompts estruturados para classificar sentimento, score de confiança, justificativa, palavras-chave e indicador de problema em cada uma das dimensões dos ODS investigados.
     \end{alineas}
 
     \item \textbf{Gerar diagnósticos automáticos estruturados em linguagem natural.}
@@ -97,7 +93,7 @@ e \emph{(iii)} generalização e validação.
     \setcounter{enumi}{6}
     \item \textbf{Generalizar a metodologia para múltiplos ODS e múltiplos municípios.}
     \begin{alineas}
-        \item \textit{Descrição}: a partir do estudo de caso validado dos ODS 9 (Indústria, Inovação e Infraestrutura) e 16 (Paz, Justiça e Instituições Eficazes) em Mossoró-RN -- únicos objetivos com coleta em escala e dados suficientes para análise --, demonstrar a capacidade de generalização da abordagem por meio de execuções exploratórias: a aplicação do motor genérico aos ODS 3 (Saúde e Bem-Estar) e 4 (Educação de Qualidade) e a reaplicação dos modelos dos ODS 9 e 16 a outras cidades brasileiras, verificando a estabilidade qualitativa dos padrões identificados sem produzir, contudo, diagnósticos validados desses novos contextos.
+        \item \textit{Descrição}: a partir do estudo de caso dos ODS 9 (Indústria, Inovação e Infraestrutura) e 16 (Paz, Justiça e Instituições Eficazes) em Mossoró-RN, demonstrar a capacidade de generalização da abordagem por meio de execuções exploratórias: a aplicação do motor genérico aos ODS 3 (Saúde e Bem-Estar) e 4 (Educação de Qualidade) e a reaplicação dos modelos dos ODS 9 e 16 a outras cidades brasileiras, verificando a estabilidade qualitativa dos padrões identificados.
     \end{alineas}
 
     \item \textbf{Disponibilizar um formulário interativo de configuração e \textit{dashboards} públicos.}
@@ -107,6 +103,6 @@ e \emph{(iii)} generalização e validação.
 
     \item \textbf{Validar a aceitação tecnológica dos \textit{dashboards} junto a especialistas multidisciplinares.}
     \begin{alineas}
-        \item \textit{Descrição}: avaliar a Percepção de Utilidade (PU), a Percepção de Facilidade de Uso (PFU) e a Intenção Comportamental de Uso (ICU) dos \textit{dashboards} de ODS Mossoró por meio do modelo TAM \cite{davis1989}, complementado por questões qualitativas abertas, com vistas a apoiar a tomada de decisão pública.
+        \item \textit{Descrição}: avaliar a Percepção de Utilidade (PU), a Percepção de Facilidade de Uso (PFU) e a Intenção Comportamental de Uso (ICU) dos \textit{dashboards} dos ODS por meio do modelo TAM \cite{davis1989}, complementado por questões qualitativas abertas, com vistas a apoiar a tomada de decisão pública.
     \end{alineas}
 \end{enumerate}
