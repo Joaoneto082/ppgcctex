@@ -168,7 +168,7 @@ Figura~\ref{fig:metodologia-pesquisa}.
     \caption{Metodologia de Pesquisa}
     \label{fig:metodologia-pesquisa}
     \includegraphics[width=0.85\textwidth]{figuras/metodologia-pesquisa}
-    \legend{Fonte: Autoria Própria (2025).}
+    \legend{Fonte: Autoria Própria (2026).}
 \end{figure}
 
 Para responder às questões de pesquisa relativas ao uso de \gls{LLM}s e à
@@ -176,19 +176,20 @@ análise por aspecto aplicada a dados perceptivos sobre ODS municipais,
 foram adotados os seguintes métodos:
 
 \begin{alineas}
-    \item \textbf{Revisão Sistemática da Literatura (\gls{RSL})}: a RSL foi utilizada para identificar e analisar estudos existentes sobre análise de sentimento em ESG/ODS, mapeando técnicas, indicadores e lacunas que orientam o trabalho.
+    \item \textbf{Revisão Sistemática da Literatura (\gls{RSL})}: a RSL foi utilizada para identificar e analisar estudos existentes sobre análise de sentimento aplicada a sustentabilidade e ODS, mapeando técnicas e lacunas e compreendendo os indicadores oficiais de desempenho municipal, como o IDSC-BR. Esse método responde à \textbf{QC} e produz, no espaço-solução, o mapeamento de técnicas e lacunas da literatura e a compreensão dos indicadores oficiais.
     \begin{alineas}
         \item \textit{Definição do Protocolo de RSL}: estabelecer critérios de inclusão e exclusão, bases de dados e estratégias de busca.
         \item \textit{Coleta de Dados}: realizar buscas em bases acadêmicas (IEEE Xplore, Capes, Science Direct).
         \item \textit{Análise e Sumarização}: revisar e sintetizar os resultados dos estudos relevantes.
     \end{alineas}
-    \item \textbf{Prototipação e Desenvolvimento}: prototipação iterativa para selecionar e adaptar técnicas de NLP e \gls{LLM}s ao contexto de ODS municipais.
+    \item \textbf{Desenvolvimento do Pipeline de Análise com LLMs}: prototipação iterativa para conceber e validar o sistema de análise por aspecto aplicado a dados perceptivos sobre ODS municipais. Esse método responde à \textbf{QT} e produz, no espaço-solução, o \textit{pipeline} de coleta e filtragem, a análise por aspecto via \glspl{LLM} e o motor genérico parametrizável.
     \begin{alineas}
-        \item \textit{Seleção de Modelos}: avaliar abordagens léxicas (TextBlob, VADER), modelos baseados em \textit{Transformers} (BERT, RoBERTa) e \gls{LLM}s generativos (Gemini, Perplexity, GPT, Cohere).
-        \item \textit{Engenharia de \textit{Prompts} e Validação}: definir prompts estruturados para análise por aspecto e validar a consistência dos resultados.
-        \item \textit{Generalização}: parametrizar o pipeline via arquivos JSON de configuração para permitir extensão a novos ODS e municípios.
+        \item \textit{Seleção de Modelos}: avaliar abordagens léxicas e baseadas em \textit{Transformers} e selecionar os \gls{LLM}s generativos (Gemini e Perplexity) como base da análise por aspecto.
+        \item \textit{Pipeline de Coleta e Filtragem}: estruturar a coleta de avaliações públicas (Google Places API) e a filtragem hierárquica do \textit{corpus}.
+        \item \textit{Engenharia de \textit{Prompts} e Validação}: definir \textit{prompts} estruturados para análise por aspecto e validar a consistência dos resultados.
+        \item \textit{Generalização}: parametrizar o \textit{pipeline} via arquivos JSON de configuração e disponibilizar um formulário interativo para extensão a novos ODS e municípios.
     \end{alineas}
-    \item \textbf{Estudo de Caso}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e possível replicação em outras cidades.
+    \item \textbf{Estudo de Caso e Validação}: aplicar o sistema desenvolvido em estudo de caso real, com foco principal em Mossoró-RN, e validar sua utilidade junto a especialistas. Esse método responde à \textbf{QP} e produz, no espaço-solução, os diagnósticos validados de Mossoró (ODS 9 e 16), os \textit{dashboards} públicos e a avaliação de aceitação tecnológica (TAM).
     \begin{alineas}
         \item \textit{Seleção do Caso}: analisar e validar os ODS com desempenho muito baixo no IDSC-BR (ODS 9 e ODS 16) em Mossoró-RN e, em caráter exploratório, exercitar a generalização para os ODS 3 e 4 e para outras cidades.
         \item \textit{Coleta de Dados}: obter avaliações públicas de estabelecimentos por meio da Google Places API, em coordenadas estratégicas e termos de busca relacionados a cada ODS.
